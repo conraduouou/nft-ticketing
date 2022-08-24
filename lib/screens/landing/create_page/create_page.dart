@@ -4,6 +4,8 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_checkbox.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/providers/create_page_provider.dart';
+import 'package:provider/provider.dart';
 
 class CreatePage extends StatelessWidget {
   const CreatePage({Key? key}) : super(key: key);
@@ -12,29 +14,53 @@ class CreatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kDarkBlue,
-      appBar: const NFTAppBar(title: 'Create an account'),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            SizedBox(height: 20),
-            NFTField(hintText: 'Full name'),
-            SizedBox(height: 20),
-            NFTField(hintText: 'Email Address'),
-            SizedBox(height: 20),
-            NFTField(hintText: 'Mobile Number'),
-            SizedBox(height: 30),
-            _TermsAndConditions(),
-            SizedBox(height: 50),
-            NFTButton(text: 'Create account'),
-            SizedBox(height: 30),
-            _AlreadyHaveAccount(),
-          ],
-        ),
-      ),
+    return ChangeNotifierProvider(
+      create: (ctx) => CreatePageProvider(),
+      builder: (ctx, child) {
+        final provider = ctx.read<CreatePageProvider>();
+
+        return Scaffold(
+          backgroundColor: kDarkBlue,
+          appBar: const NFTAppBar(title: 'Create an account'),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 20),
+                NFTField(
+                  hintText: 'Full name',
+                  onChanged: provider.onNameChange,
+                ),
+                const SizedBox(height: 20),
+                NFTField(
+                  hintText: 'Email Address',
+                  onChanged: provider.onEmailChange,
+                ),
+                const SizedBox(height: 20),
+                NFTField(
+                  hintText: 'Mobile Number',
+                  onChanged: provider.onMobileChange,
+                ),
+                const SizedBox(height: 30),
+                const _TermsAndConditions(),
+                const SizedBox(height: 50),
+                Selector<CreatePageProvider, bool>(
+                  selector: (ctx, p) => p.isAllFilled,
+                  builder: (_, isAllFilled, __) {
+                    return NFTButton(
+                      text: 'Create account',
+                      color: isAllFilled ? kPrimaryColor : kSecondaryColor,
+                    );
+                  },
+                ),
+                const SizedBox(height: 30),
+                const _AlreadyHaveAccount(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
