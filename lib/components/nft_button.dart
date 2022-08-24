@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/constants.dart';
 
-class MyButton extends StatelessWidget {
-  const MyButton({
+class NFTButton extends StatelessWidget {
+  const NFTButton({
     Key? key,
     this.color,
     this.textColor,
@@ -28,11 +28,11 @@ class MyButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         primary: color ?? kPrimaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 25),
+          borderRadius: BorderRadius.circular(borderRadius ?? 40),
         ),
         padding: padding ??
             const EdgeInsets.symmetric(
-              vertical: 25,
+              vertical: 20,
               horizontal: 80,
             ),
       ).copyWith(elevation: ButtonStyleButton.allOrNull(0)),

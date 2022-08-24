@@ -7,7 +7,7 @@ const kDarkBlue = Color(0xFF080C1A);
 
 // TEXT SIZES
 const kRegularSize = 17.0;
-const kLargeSize = 24.0;
+const kLargeSize = 28.0;
 
 // TEXT STYLES
 const kRegularStyle = TextStyle(
@@ -18,4 +18,9 @@ const kRegularStyle = TextStyle(
 const kBoldStyle = TextStyle(
   fontFamily: 'Open Sans',
   fontWeight: FontWeight.bold,
+);
+
+const kSemiBoldStyle = TextStyle(
+  fontFamily: 'Open Sans',
+  fontWeight: FontWeight.w600,
 );

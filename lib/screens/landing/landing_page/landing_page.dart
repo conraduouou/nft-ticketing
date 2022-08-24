@@ -1,78 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/components/nft_button.dart';
+import 'package:nft_ticketing/constants.dart';
 
-class LandingPage extends StatefulWidget {
+// Body
+class LandingPage extends StatelessWidget {
   const LandingPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
   static const String id = '/';
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kDarkBlue,
+      body: Stack(
+        children: const [
+          _Logo(),
+          _LandingButtons(),
+        ],
+      ),
+    );
+  }
 }
 
-class _LandingPageState extends State<LandingPage> {
-  int _counter = 0;
+class _Logo extends StatefulWidget {
+  const _Logo({
+    Key? key,
+  }) : super(key: key);
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  @override
+  State<_Logo> createState() => _LogoState();
+}
+
+class _LogoState extends State<_Logo> {
+  static const duration = Duration(milliseconds: 1000);
+  double scale = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        scale = 1;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    final size = MediaQuery.of(context).size;
+
+    return AnimatedScale(
+      curve: Curves.easeOutBack,
+      duration: duration,
+      scale: scale,
+      child: Positioned(
+        bottom: size.height / 2.25,
+        child: SizedBox(
+          width: size.width,
+          child: Center(
+            child: Text(
+              'NFT Tiktyn',
+              style: kSemiBoldStyle.copyWith(
+                fontSize: kLargeSize,
+                color: Colors.white,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class _LandingButtons extends StatefulWidget {
+  const _LandingButtons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_LandingButtons> createState() => _LandingButtonsState();
+}
+
+class _LandingButtonsState extends State<_LandingButtons> {
+  static const duration = Duration(milliseconds: 1000);
+  double bottom = -100;
+  double opacity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        bottom = 50;
+        opacity = 1;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedPositioned(
+      bottom: bottom,
+      curve: Curves.easeOutBack,
+      duration: duration,
+      width: MediaQuery.of(context).size.width,
+      child: AnimatedOpacity(
+        duration: duration,
+        opacity: opacity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              NFTButton(text: 'Sign in'),
+              SizedBox(height: 20),
+              NFTButton(text: 'Create account', color: kSecondaryColor),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
