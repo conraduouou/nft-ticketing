@@ -17,8 +17,17 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: kDarkBlue,
       toolbarHeight: preferredSize.height,
       leadingWidth: 60,
+      elevation: 0,
+      title: Text(
+        title,
+        style: kRegularStyle.copyWith(
+          color: Colors.white,
+          fontSize: kRegularSize,
+        ),
+      ),
       leading: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: GestureDetector(
@@ -36,12 +45,6 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
-      ),
-      backgroundColor: kDarkBlue,
-      title: Text(
-        title,
-        style: kRegularStyle.copyWith(
-            color: Colors.white, fontSize: kRegularSize - 1),
       ),
     );
   }

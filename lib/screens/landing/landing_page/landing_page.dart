@@ -51,12 +51,12 @@ class _LogoState extends State<_Logo> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return AnimatedScale(
-      curve: Curves.easeOutBack,
-      duration: duration,
-      scale: scale,
-      child: Positioned(
-        bottom: size.height / 2.25,
+    return Positioned(
+      bottom: size.height / 2.25,
+      child: AnimatedScale(
+        curve: Curves.easeOutBack,
+        duration: duration,
+        scale: scale,
         child: SizedBox(
           width: size.width,
           child: Center(
@@ -114,11 +114,12 @@ class _LandingButtonsState extends State<_LandingButtons> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const NFTButton(text: 'Sign in'),
+              const NFTButton(text: 'Sign in', fontSize: kRegularSize + 1),
               const SizedBox(height: 20),
               NFTButton(
                 text: 'Create account',
                 color: kSecondaryColor,
+                fontSize: kRegularSize + 1,
                 onPressed: () => Navigator.of(context).pushNamed(CreatePage.id),
               ),
             ],

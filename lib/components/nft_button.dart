@@ -32,7 +32,7 @@ class NFTButton extends StatelessWidget {
         ),
         padding: padding ??
             const EdgeInsets.symmetric(
-              vertical: 20,
+              vertical: 18,
               horizontal: 80,
             ),
       ).copyWith(elevation: ButtonStyleButton.allOrNull(0)),
