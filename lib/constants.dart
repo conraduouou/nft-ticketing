@@ -11,6 +11,7 @@ const kLargeSize = 28.0;
 
 // TEXT STYLES
 const kRegularStyle = TextStyle(
+  fontSize: kRegularSize,
   fontFamily: 'Open Sans',
   fontWeight: FontWeight.normal,
 );
