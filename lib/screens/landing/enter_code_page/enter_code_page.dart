@@ -5,6 +5,7 @@ import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/enter_code_provider.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
+import 'package:nft_ticketing/screens/landing/new_password_page/new_password_page.dart';
 import 'package:provider/provider.dart';
 
 class EnterCodePage extends StatelessWidget {
@@ -13,7 +14,7 @@ class EnterCodePage extends StatelessWidget {
     required this.email,
   }) : super(key: key);
 
-  static const id = '/${ForgotPasswordPage.id}/enter-code';
+  static const id = '${ForgotPasswordPage.id}/enter-code';
   final String email;
 
   @override
@@ -36,7 +37,12 @@ class EnterCodePage extends StatelessWidget {
                 const SizedBox(height: 40),
                 _CodeFields(provider: provider),
                 const SizedBox(height: 50),
-                const NFTButton(text: 'Confirm'),
+                NFTButton(
+                  text: 'Confirm',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(NewPasswordPage.id);
+                  },
+                ),
                 const SizedBox(height: 30),
                 const _ResendText(),
               ],

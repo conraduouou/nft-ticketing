@@ -5,9 +5,11 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const NFTAppBar({
     Key? key,
     this.title = '',
+    this.showLeading = true,
   }) : super(key: key);
 
   final String title;
+  final bool showLeading;
 
   @override
   // change height of app bar by adjusting the value
@@ -20,6 +22,7 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: kDarkBlue,
       toolbarHeight: preferredSize.height,
       leadingWidth: 60,
+      automaticallyImplyLeading: showLeading,
       elevation: 0,
       title: Text(
         title,
@@ -28,24 +31,26 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontSize: kRegularSize,
         ),
       ),
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            width: 20,
-            height: 20,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              color: kDarkBlue,
-            ),
-          ),
-        ),
-      ),
+      leading: showLeading
+          ? Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: kDarkBlue,
+                  ),
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
