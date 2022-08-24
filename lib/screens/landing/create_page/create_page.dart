@@ -5,6 +5,7 @@ import 'package:nft_ticketing/components/nft_checkbox.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/create_page_provider.dart';
+import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 
 class CreatePage extends StatelessWidget {
@@ -126,7 +127,7 @@ class _AlreadyHaveAccount extends StatelessWidget {
             const TextSpan(text: 'Already have an account? '),
             WidgetSpan(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () => Navigator.popAndPushNamed(context, LoginPage.id),
                 child: SizedBox(
                   width: 55,
                   child: Text(

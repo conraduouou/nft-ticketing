@@ -4,7 +4,7 @@ import 'package:nft_ticketing/constants.dart';
 class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
   const NFTAppBar({
     Key? key,
-    required this.title,
+    this.title = '',
   }) : super(key: key);
 
   final String title;
