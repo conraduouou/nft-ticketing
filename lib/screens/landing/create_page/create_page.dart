@@ -32,16 +32,25 @@ class CreatePage extends StatelessWidget {
                 NFTField(
                   hintText: 'Full name',
                   onChanged: provider.onNameChange,
+                  onClear: () {
+                    provider.onNameChange('');
+                  },
                 ),
                 const SizedBox(height: 20),
                 NFTField(
                   hintText: 'Email Address',
                   onChanged: provider.onEmailChange,
+                  onClear: () {
+                    provider.onEmailChange('');
+                  },
                 ),
                 const SizedBox(height: 20),
                 NFTField(
                   hintText: 'Mobile Number',
                   onChanged: provider.onMobileChange,
+                  onClear: () {
+                    provider.onMobileChange('');
+                  },
                 ),
                 const SizedBox(height: 30),
                 const _TermsAndConditions(),

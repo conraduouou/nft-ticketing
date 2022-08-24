@@ -19,6 +19,7 @@ class NFTField extends StatefulWidget {
     this.padding,
     this.textAlign,
     this.onChanged,
+    this.onClear,
   }) : super(key: key);
 
   final int? maxLength;
@@ -35,6 +36,7 @@ class NFTField extends StatefulWidget {
   final EdgeInsets? padding;
   final TextAlign? textAlign;
   final void Function(String)? onChanged;
+  final VoidCallback? onClear;
 
   @override
   State<NFTField> createState() => _NFTFieldState();
@@ -136,6 +138,8 @@ class _NFTFieldState extends State<NFTField> {
                         setState(() {
                           _controller.clear();
                         });
+
+                        if (widget.onClear != null) widget.onClear!();
                       },
                       child: const Icon(
                         Icons.cancel_outlined,
