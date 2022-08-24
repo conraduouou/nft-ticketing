@@ -12,7 +12,7 @@ class NFTField extends StatefulWidget {
     this.hintText,
     this.enabled = true,
     this.isDigitsOnly = false,
-    this.isObscured = false,
+    this.isObscurable = false,
     this.onChanged,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class NFTField extends StatefulWidget {
   final String? hintText;
   final bool enabled;
   final bool isDigitsOnly;
-  final bool isObscured;
+  final bool isObscurable;
   final void Function(String)? onChanged;
 
   @override
@@ -38,8 +38,8 @@ class _NFTFieldState extends State<NFTField> {
   @override
   void initState() {
     _controller = TextEditingController(text: widget.initialText);
-    isObscured = widget.isObscured ? true : false;
-    isEmpty = !widget.isObscured &&
+    isObscured = widget.isObscurable ? true : false;
+    isEmpty = !widget.isObscurable &&
         (widget.initialText == null || widget.initialText!.isEmpty);
 
     _controller.addListener(() {
@@ -94,7 +94,7 @@ class _NFTFieldState extends State<NFTField> {
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(widget.radius ?? 10),
             ),
-            suffixIcon: widget.isObscured
+            suffixIcon: widget.isObscurable
                 ? GestureDetector(
                     onTap: () {
                       setState(() {

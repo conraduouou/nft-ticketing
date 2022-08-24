@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
+import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 
 // Body
 class LandingPage extends StatelessWidget {
@@ -114,7 +115,11 @@ class _LandingButtonsState extends State<_LandingButtons> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const NFTButton(text: 'Sign in', fontSize: kRegularSize + 1),
+              NFTButton(
+                text: 'Sign in',
+                fontSize: kRegularSize + 1,
+                onPressed: () => Navigator.of(context).pushNamed(LoginPage.id),
+              ),
               const SizedBox(height: 20),
               NFTButton(
                 text: 'Create account',
