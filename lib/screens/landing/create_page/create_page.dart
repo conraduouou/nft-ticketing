@@ -74,9 +74,14 @@ class _TermsAndConditions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        NFTCheckbox(
-          value: false,
-          onChanged: () {},
+        Selector<CreatePageProvider, bool>(
+          selector: (ctx, p) => p.isAgreed,
+          builder: (_, isAgreed, __) {
+            return NFTCheckbox(
+              value: isAgreed,
+              onChanged: context.read<CreatePageProvider>().toggleAgreed,
+            );
+          },
         ),
         const SizedBox(width: 10),
         RichText(
