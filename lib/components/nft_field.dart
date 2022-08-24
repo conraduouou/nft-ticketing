@@ -32,10 +32,25 @@ class NFTField extends StatefulWidget {
 
 class _NFTFieldState extends State<NFTField> {
   late TextEditingController _controller;
+  late bool isObscured;
+  late bool isEmpty;
 
   @override
   void initState() {
     _controller = TextEditingController(text: widget.initialText);
+    isObscured = widget.isObscured ? true : false;
+    isEmpty = !widget.isObscured &&
+        (widget.initialText == null || widget.initialText!.isEmpty);
+
+    _controller.addListener(() {
+      setState(() {
+        if (_controller.text.isNotEmpty) {
+          isEmpty = false;
+        } else {
+          isEmpty = true;
+        }
+      });
+    });
     super.initState();
   }
 
@@ -60,7 +75,7 @@ class _NFTFieldState extends State<NFTField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
-        obscureText: widget.isObscured,
+        obscureText: isObscured,
         inputFormatters: widget.isDigitsOnly
             ? [FilteringTextInputFormatter.digitsOnly]
             : null,
@@ -69,17 +84,43 @@ class _NFTFieldState extends State<NFTField> {
         cursorColor: Colors.white,
         onChanged: widget.onChanged,
         decoration: InputDecoration(
-          enabled: widget.enabled,
-          filled: true,
-          fillColor: widget.color ?? kSlightlyDarkBlue,
-          contentPadding: const EdgeInsets.all(15),
-          hintStyle: kRegularStyle.copyWith(color: Colors.white),
-          hintText: widget.hintText,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(widget.radius ?? 10),
-          ),
-        ),
+            enabled: widget.enabled,
+            filled: true,
+            fillColor: widget.color ?? kSlightlyDarkBlue,
+            contentPadding: const EdgeInsets.all(15),
+            hintStyle: kRegularStyle.copyWith(color: Colors.white),
+            hintText: widget.hintText,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(widget.radius ?? 10),
+            ),
+            suffixIcon: widget.isObscured
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isObscured = !isObscured;
+                      });
+                    },
+                    child: Icon(
+                      isObscured
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: Colors.white,
+                    ),
+                  )
+                : !isEmpty
+                    ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _controller.clear();
+                          });
+                        },
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const SizedBox()),
       ),
     );
   }
