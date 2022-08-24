@@ -5,6 +5,8 @@ import 'package:nft_ticketing/constants.dart';
 class NFTField extends StatefulWidget {
   const NFTField({
     Key? key,
+    this.maxLength,
+    this.fontSize,
     this.width,
     this.radius,
     this.color,
@@ -13,9 +15,14 @@ class NFTField extends StatefulWidget {
     this.enabled = true,
     this.isDigitsOnly = false,
     this.isObscurable = false,
+    this.isClearable = true,
+    this.padding,
+    this.textAlign,
     this.onChanged,
   }) : super(key: key);
 
+  final int? maxLength;
+  final double? fontSize;
   final double? width;
   final double? radius;
   final Color? color;
@@ -24,6 +31,9 @@ class NFTField extends StatefulWidget {
   final bool enabled;
   final bool isDigitsOnly;
   final bool isObscurable;
+  final bool isClearable;
+  final EdgeInsets? padding;
+  final TextAlign? textAlign;
   final void Function(String)? onChanged;
 
   @override
@@ -34,12 +44,13 @@ class _NFTFieldState extends State<NFTField> {
   late TextEditingController _controller;
   late bool isObscured;
   late bool isEmpty;
+  late final formatters = <TextInputFormatter>[];
 
   @override
   void initState() {
     _controller = TextEditingController(text: widget.initialText);
     isObscured = widget.isObscurable ? true : false;
-    isEmpty = !widget.isObscurable &&
+    isEmpty = (!widget.isObscurable && widget.isClearable) &&
         (widget.initialText == null || widget.initialText!.isEmpty);
 
     _controller.addListener(() {
@@ -51,6 +62,15 @@ class _NFTFieldState extends State<NFTField> {
         }
       });
     });
+
+    if (widget.isDigitsOnly) {
+      formatters.add(FilteringTextInputFormatter.digitsOnly);
+    }
+
+    if (widget.maxLength != null) {
+      formatters.add(LengthLimitingTextInputFormatter(widget.maxLength));
+    }
+
     super.initState();
   }
 
@@ -75,52 +95,55 @@ class _NFTFieldState extends State<NFTField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
-        obscureText: isObscured,
-        inputFormatters: widget.isDigitsOnly
-            ? [FilteringTextInputFormatter.digitsOnly]
-            : null,
         controller: _controller,
-        style: kRegularStyle.copyWith(color: Colors.white),
         cursorColor: Colors.white,
+        inputFormatters: formatters,
+        obscureText: isObscured,
         onChanged: widget.onChanged,
+        textAlign: widget.textAlign ?? TextAlign.start,
+        style: kRegularStyle.copyWith(
+          color: Colors.white,
+          fontSize: widget.fontSize,
+        ),
         decoration: InputDecoration(
-            enabled: widget.enabled,
-            filled: true,
-            fillColor: widget.color ?? kSlightlyDarkBlue,
-            contentPadding: const EdgeInsets.all(15),
-            hintStyle: kRegularStyle.copyWith(color: Colors.white),
-            hintText: widget.hintText,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(widget.radius ?? 10),
-            ),
-            suffixIcon: widget.isObscurable
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscured = !isObscured;
-                      });
-                    },
-                    child: Icon(
-                      isObscured
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: Colors.white,
-                    ),
-                  )
-                : !isEmpty
-                    ? GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _controller.clear();
-                          });
-                        },
-                        child: const Icon(
-                          Icons.cancel_outlined,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const SizedBox()),
+          enabled: widget.enabled,
+          filled: true,
+          fillColor: widget.color ?? kSlightlyDarkBlue,
+          contentPadding: widget.padding ?? const EdgeInsets.all(15),
+          hintStyle: kRegularStyle.copyWith(color: Colors.white),
+          hintText: widget.hintText,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(widget.radius ?? 10),
+          ),
+          suffixIcon: widget.isObscurable
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isObscured = !isObscured;
+                    });
+                  },
+                  child: Icon(
+                    isObscured
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: Colors.white,
+                  ),
+                )
+              : !isEmpty && widget.isClearable
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _controller.clear();
+                        });
+                      },
+                      child: const Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.white,
+                      ),
+                    )
+                  : null,
+        ),
       ),
     );
   }
