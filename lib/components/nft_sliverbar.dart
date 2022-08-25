@@ -74,43 +74,7 @@ class NFTSliverBar extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 isHome
-                    ? Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            child: SvgPicture.asset(
-                              'assets/icons/ic-notification.svg',
-                            ),
-                          ),
-                          Positioned(
-                            right: -4,
-                            top: -4,
-                            child: Stack(
-                              alignment: Alignment.topCenter,
-                              children: [
-                                Container(
-                                  height: 13,
-                                  width: 13,
-                                  decoration: const BoxDecoration(
-                                    color: kPrimaryColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: -1,
-                                  child: Text(
-                                    '9', // use some kind of provider for this
-                                    textAlign: TextAlign.center,
-                                    style: kRegularStyle.copyWith(
-                                      fontSize: 10, // make this resizable
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
+                    ? const _NFTSliverBarNotification()
                     : GestureDetector(
                         onTap: () => Navigator.of(context).pop(),
                         child: Text(
@@ -142,7 +106,7 @@ class NFTSliverBar extends StatelessWidget {
                           SizedBox(
                             width: 105,
                             child: NFTButton(
-                              padding: EdgeInsets.zero,
+                              padding: const EdgeInsets.symmetric(vertical: 7),
                               text: list[i],
                               color: i == 0 ? kPrimaryColor : kSlightlyDarkBlue,
                               textColor: i == 0 ? null : kSecondaryColor,
@@ -157,6 +121,53 @@ class NFTSliverBar extends StatelessWidget {
               : Container(),
         ],
       ),
+    );
+  }
+}
+
+class _NFTSliverBarNotification extends StatelessWidget {
+  const _NFTSliverBarNotification({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          child: SvgPicture.asset(
+            'assets/icons/ic-notification.svg',
+          ),
+        ),
+        Positioned(
+          right: -4,
+          top: -4,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                height: 13,
+                width: 13,
+                decoration: const BoxDecoration(
+                  color: kPrimaryColor,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Positioned(
+                top: -1,
+                child: Text(
+                  '9', // use some kind of provider for this
+                  textAlign: TextAlign.center,
+                  style: kRegularStyle.copyWith(
+                    fontSize: 10, // make this resizable
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_back_button.dart';
+import 'package:nft_ticketing/components/nft_bottom_sheet.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
 import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/constants.dart';
@@ -31,33 +30,6 @@ class EventDetailsPage extends StatelessWidget {
     );
   }
 
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      isDismissible: true,
-      barrierColor: kDialogBarrierColor,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        final size = MediaQuery.of(context).size;
-
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-          child: Container(
-            height: size.height / 1.5,
-            decoration: const BoxDecoration(
-              color: kDarkBlue,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +46,7 @@ class EventDetailsPage extends StatelessWidget {
                 builder: (ctx) {
                   return _NFTEventDetailsActual(
                     infoOnTap: () => _showDialog(context),
-                    selectOnTap: () => _showBottomSheet(ctx),
+                    selectOnTap: () => NFTBottomSheet.showBottomSheet(context),
                   );
                 },
               ),

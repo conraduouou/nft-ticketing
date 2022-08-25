@@ -23,24 +23,27 @@ class NFTButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed ?? () {},
-      style: ElevatedButton.styleFrom(
-        primary: color ?? kPrimaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 40),
-        ),
+    return InkWell(
+      onTap: onPressed ?? () {},
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      child: Container(
         padding: padding ??
             const EdgeInsets.symmetric(
               vertical: 18,
               horizontal: 80,
             ),
-      ).copyWith(elevation: ButtonStyleButton.allOrNull(0)),
-      child: Text(
-        text ?? '',
-        style: kRegularStyle.copyWith(
-          color: textColor ?? Colors.white,
-          fontSize: fontSize ?? kRegularSize,
+        decoration: BoxDecoration(
+          color: color ?? kPrimaryColor,
+          borderRadius: BorderRadius.circular(borderRadius ?? 40),
+        ),
+        child: Text(
+          text ?? '',
+          textAlign: TextAlign.center,
+          style: kRegularStyle.copyWith(
+            color: textColor ?? Colors.white,
+            fontSize: fontSize ?? kRegularSize,
+          ),
         ),
       ),
     );
