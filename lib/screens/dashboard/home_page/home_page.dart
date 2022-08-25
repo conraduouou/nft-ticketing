@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       slivers: [
         const NFTSliverBar(),
         SliverList(
-          delegate: SliverChildListDelegate(
+          delegate: SliverChildListDelegate.fixed(
             [
               const SizedBox(height: 30),
               Padding(

@@ -22,6 +22,7 @@ class NFTField extends StatefulWidget {
     this.textAlign,
     this.onChanged,
     this.onClear,
+    this.onTap,
     this.prefixIcon,
   }) : super(key: key);
 
@@ -42,6 +43,7 @@ class NFTField extends StatefulWidget {
   final TextAlign? textAlign;
   final void Function(String)? onChanged;
   final VoidCallback? onClear;
+  final VoidCallback? onTap;
 
   final Widget? prefixIcon;
 
@@ -55,12 +57,16 @@ class _NFTFieldState extends State<NFTField> {
   late bool isEmpty;
   late final formatters = <TextInputFormatter>[];
 
+  late FocusNode node;
+
   @override
   void initState() {
     _controller = TextEditingController(text: widget.initialText);
     isObscured = widget.isObscurable ? true : false;
     isEmpty = (!widget.isObscurable && widget.isClearable) &&
         (widget.initialText == null || widget.initialText!.isEmpty);
+
+    node = FocusNode();
 
     _controller.addListener(() {
       setState(() {
@@ -104,65 +110,74 @@ class _NFTFieldState extends State<NFTField> {
     return SizedBox(
       height: widget.height,
       width: widget.width,
-      child: TextField(
-        controller: _controller,
-        cursorColor: Colors.white,
-        inputFormatters: formatters,
-        obscureText: isObscured,
-        onChanged: widget.onChanged,
-        textAlign: widget.textAlign ?? TextAlign.start,
-        style: kRegularStyle.copyWith(
-          color: Colors.white,
-          fontSize: widget.fontSize,
-        ),
-        decoration: InputDecoration(
-          contentPadding: widget.padding ?? const EdgeInsets.all(15),
-          enabled: widget.enabled,
-          filled: true,
-          fillColor: widget.color ?? kSlightlyDarkBlue,
-          hintText: widget.hintText,
-          prefixIcon: widget.prefixIcon,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(widget.radius ?? 10),
-          ),
-          hintStyle: kRegularStyle.copyWith(
+      child: Focus(
+        focusNode: node,
+        child: TextField(
+          controller: _controller,
+          cursorColor: Colors.white,
+          inputFormatters: formatters,
+          obscureText: isObscured,
+          onChanged: widget.onChanged,
+          textAlign: widget.textAlign ?? TextAlign.start,
+          style: kRegularStyle.copyWith(
+            color: Colors.white,
             fontSize: widget.fontSize,
-            color: widget.hintColor ?? Colors.white,
           ),
-          prefixIconConstraints: const BoxConstraints(
-            maxHeight: 32,
-            maxWidth: 60,
-          ),
-          suffixIcon: widget.isObscurable
-              ? GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isObscured = !isObscured;
-                    });
-                  },
-                  child: Icon(
-                    isObscured
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: Colors.white,
-                  ),
-                )
-              : !isEmpty && widget.isClearable
-                  ? GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _controller.clear();
-                        });
+          onTap: () {
+            if (widget.onTap != null) {
+              node.unfocus();
+              widget.onTap!();
+            }
+          },
+          decoration: InputDecoration(
+            contentPadding: widget.padding ?? const EdgeInsets.all(15),
+            enabled: widget.enabled,
+            filled: true,
+            fillColor: widget.color ?? kSlightlyDarkBlue,
+            hintText: widget.hintText,
+            prefixIcon: widget.prefixIcon,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(widget.radius ?? 10),
+            ),
+            hintStyle: kRegularStyle.copyWith(
+              fontSize: widget.fontSize,
+              color: widget.hintColor ?? Colors.white,
+            ),
+            prefixIconConstraints: const BoxConstraints(
+              maxHeight: 32,
+              maxWidth: 60,
+            ),
+            suffixIcon: widget.isObscurable
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isObscured = !isObscured;
+                      });
+                    },
+                    child: Icon(
+                      isObscured
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: Colors.white,
+                    ),
+                  )
+                : !isEmpty && widget.isClearable
+                    ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _controller.clear();
+                          });
 
-                        if (widget.onClear != null) widget.onClear!();
-                      },
-                      child: const Icon(
-                        Icons.cancel_outlined,
-                        color: Colors.white,
-                      ),
-                    )
-                  : null,
+                          if (widget.onClear != null) widget.onClear!();
+                        },
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                          color: Colors.white,
+                        ),
+                      )
+                    : null,
+          ),
         ),
       ),
     );
