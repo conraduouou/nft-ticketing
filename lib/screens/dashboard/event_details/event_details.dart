@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_back_button.dart';
@@ -29,6 +31,33 @@ class EventDetailsPage extends StatelessWidget {
     );
   }
 
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      isDismissible: true,
+      barrierColor: kDialogBarrierColor,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        final size = MediaQuery.of(context).size;
+
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: Container(
+            height: size.height / 1.5,
+            decoration: const BoxDecoration(
+              color: kDarkBlue,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +69,14 @@ class EventDetailsPage extends StatelessWidget {
               const _NFTEventDetailsHeading(),
               const _NFTEventDetailsDescriptionBlock(),
               const _NFTEventDetailsDiv(),
-              _NFTEventDetailsActual(
-                infoOnTap: () => _showDialog(context),
-                selectOnTap: () {},
+              // the Builder is needed here to retrieve the Scaffold context
+              Builder(
+                builder: (ctx) {
+                  return _NFTEventDetailsActual(
+                    infoOnTap: () => _showDialog(context),
+                    selectOnTap: () => _showBottomSheet(ctx),
+                  );
+                },
               ),
               const _NFTEventDetailsDiv(height: 70, hasIndent: false),
               NFTMiniEventsSlideSection(
@@ -152,7 +186,6 @@ class _NFTEventDetailsDescriptionLine extends StatelessWidget {
             ? GestureDetector(
                 onTap: selectOnTap,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Select Ticket',
@@ -204,7 +237,6 @@ class _NFTEventDetailsDescriptionLineText extends StatelessWidget {
         ),
         const SizedBox(height: 3),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               subText,
