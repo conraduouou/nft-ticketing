@@ -46,7 +46,37 @@ class NFTSliverBar extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                SvgPicture.asset('assets/icons/ic-notification.svg')
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned(
+                      child: SvgPicture.asset(
+                        'assets/icons/ic-notification.svg',
+                      ),
+                    ),
+                    Positioned(
+                      right: -4,
+                      top: -4,
+                      child: Container(
+                        height: 13,
+                        width: 13,
+                        decoration: const BoxDecoration(
+                          color: kPrimaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '9',
+                            textAlign: TextAlign.center,
+                            style: kRegularStyle.copyWith(
+                              fontSize: 9,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
