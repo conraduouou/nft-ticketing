@@ -9,7 +9,7 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showLeading = true,
     this.showDivider = false,
     this.fontSize,
-    this.height,
+    this.height = kToolbarHeight + 15,
   }) : super(key: key);
 
   final String title;
@@ -17,12 +17,12 @@ class NFTAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showDivider;
   final double? fontSize;
 
-  final double? height;
+  final double height;
 
   @override
   // change height of app bar by adjusting the value
   // in the Size.fromHeight constructor
-  Size get preferredSize => Size.fromHeight(height ?? kToolbarHeight + 15);
+  Size get preferredSize => Size.fromHeight(height);
 
   @override
   Widget build(BuildContext context) {

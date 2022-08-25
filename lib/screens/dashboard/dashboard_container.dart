@@ -62,50 +62,52 @@ class _DashboardContainerState extends State<DashboardContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kDarkBlue,
-      body: WillPopScope(
-        onWillPop: () async {
-          if (_selectedPage != 0) {
-            setState(() {
-              _selectedPage = 0;
-              if (_pages[_selectedPage] is SizedBox) {
-                _pages[_selectedPage] = const HomePage();
-              }
-            });
-          }
-
-          return false;
-        },
-        child: IndexedStack(
-          index: _selectedPage,
-          children: _pages,
-        ),
-      ),
-      bottomNavigationBar: NFTBottomNavBar(
-        items: items,
-        activeItem: activeItem,
-        onTap: (index) {
-          setState(() {
-            if (_pages[index] is SizedBox) {
-              if (index == 0) {
-                _pages[index] = const HomePage();
-              }
-              // else if (index == 1) {
-              //   _pages[index] = ChatScreen();
-              // } else if (index == 2) {
-              //   _pages[index] = ShopScreen();
-              // } else if (index == 3) {
-              //   _pages[index] = SalesScreen();
-              // } else if (index == 4) {
-              //   _pages[index] = BagScreen();
-              // }
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kDarkBlue,
+        body: WillPopScope(
+          onWillPop: () async {
+            if (_selectedPage != 0) {
+              setState(() {
+                _selectedPage = 0;
+                if (_pages[_selectedPage] is SizedBox) {
+                  _pages[_selectedPage] = const HomePage();
+                }
+              });
             }
 
-            activeItem = index;
-            _selectedPage = index;
-          });
-        },
+            return false;
+          },
+          child: IndexedStack(
+            index: _selectedPage,
+            children: _pages,
+          ),
+        ),
+        bottomNavigationBar: NFTBottomNavBar(
+          items: items,
+          activeItem: activeItem,
+          onTap: (index) {
+            setState(() {
+              if (_pages[index] is SizedBox) {
+                if (index == 0) {
+                  _pages[index] = const HomePage();
+                }
+                // else if (index == 1) {
+                //   _pages[index] = ChatScreen();
+                // } else if (index == 2) {
+                //   _pages[index] = ShopScreen();
+                // } else if (index == 3) {
+                //   _pages[index] = SalesScreen();
+                // } else if (index == 4) {
+                //   _pages[index] = BagScreen();
+                // }
+              }
+
+              activeItem = index;
+              _selectedPage = index;
+            });
+          },
+        ),
       ),
     );
   }
