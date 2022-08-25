@@ -54,6 +54,15 @@ class NFTEventBlock extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        date != null ? const SizedBox(height: 5) : Container(),
+        date != null
+            ? Text(
+                date!,
+                style: kRegularStyle.copyWith(
+                  color: Colors.white.withAlpha(100),
+                ),
+              )
+            : Container(),
         isLast ? const SizedBox(height: 40) : Container(),
       ],
     );

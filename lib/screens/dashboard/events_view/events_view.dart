@@ -33,6 +33,7 @@ class EventsViewPage extends StatelessWidget {
           itemBuilder: (ctx, i) {
             return NFTEventBlock(
               eventTitle: 'Innings Festival',
+              date: happeningNow ? null : 'April 23, 2022',
               topPadding: i == 0 ? 30 : null,
               isLast: i == 2,
             );
