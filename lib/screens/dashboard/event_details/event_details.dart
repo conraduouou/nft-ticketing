@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_back_button.dart';
 import 'package:nft_ticketing/components/nft_bottom_sheet.dart';
+import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
 import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/constants.dart';
@@ -34,39 +35,93 @@ class EventDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kDarkBlue,
-      body: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate.fixed([
-              const _NFTEventDetailsHeading(),
-              const _NFTEventDetailsDescriptionBlock(),
-              const _NFTEventDetailsDiv(),
-              // the Builder is needed here to retrieve the Scaffold context
-              Builder(
-                builder: (ctx) {
-                  return _NFTEventDetailsActual(
-                    infoOnTap: () => _showDialog(context),
-                    selectOnTap: () => NFTBottomSheet.showBottomSheet(context),
-                  );
-                },
-              ),
-              const _NFTEventDetailsDiv(height: 70, hasIndent: false),
-              NFTMiniEventsSlideSection(
-                hasBottomPadding: true,
-                showViewAll: false,
-                listHeight: 260,
-                sectionTitle: 'Suggestions for you',
-                listOfEvents: [
-                  for (int i = 0; i < 3; i++)
-                    NFTEventDetails(
-                      assetPath: '',
-                      eventTitle: i == 0 ? 'Lost Lands' : 'Something',
-                    )
-                ],
-              ),
-            ]),
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate.fixed([
+                    const _NFTEventDetailsHeading(),
+                    const _NFTEventDetailsDescriptionBlock(),
+                    const _NFTEventDetailsDiv(),
+                    // the Builder is needed here to retrieve the Scaffold context
+                    Builder(
+                      builder: (ctx) {
+                        return _NFTEventDetailsActual(
+                          infoOnTap: () => _showDialog(context),
+                          selectOnTap: () =>
+                              NFTBottomSheet.showBottomSheet(context),
+                        );
+                      },
+                    ),
+                    const _NFTEventDetailsDiv(height: 70, hasIndent: false),
+                    NFTMiniEventsSlideSection(
+                      hasBottomPadding: true,
+                      showViewAll: false,
+                      listHeight: 260,
+                      sectionTitle: 'Suggestions for you',
+                      listOfEvents: [
+                        for (int i = 0; i < 3; i++)
+                          NFTEventDetails(
+                            assetPath: '',
+                            eventTitle: i == 0 ? 'Lost Lands' : 'Something',
+                          )
+                      ],
+                    ),
+                  ]),
+                ),
+              ],
+            ),
           ),
+          const _NFTEventDetailsFooter(),
         ],
+      ),
+    );
+  }
+}
+
+class _NFTEventDetailsFooter extends StatelessWidget {
+  const _NFTEventDetailsFooter({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(color: kSlightlyDarkBlue, width: 1),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total',
+                  style: kRegularStyle.copyWith(
+                    fontSize: kRegularSize + 1,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'US \$50.00',
+                  style: kRegularStyle.copyWith(
+                    fontSize: kRegularSize + 1,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            const NFTButton(text: 'Buy Ticket'),
+          ],
+        ),
       ),
     );
   }
