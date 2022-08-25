@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nft_ticketing/components/nft_event_mini_block.dart';
+import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/models/core/nft_event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
-import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,157 +28,64 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const _NFTHomeDiv(),
-            _NFTHomeSectionWrapper(
+            NFTMiniEventsSlideSection(
               sectionTitle: 'Happening Now',
-              child: const _NFTHomeHappeningNow(),
-              onViewTap: () {
-                Navigator.pushNamed(context, EventsViewPage.happeningNowId);
-              },
+              onViewTap: () =>
+                  Navigator.pushNamed(context, EventsViewPage.happeningNowId),
+              listOfEvents: () {
+                final toReturn = <NFTEventDetails>[];
+                final list = <String>[
+                  'Innings Festival',
+                  'Lost Lands',
+                  'Something',
+                ];
+
+                for (int i = 0; i < 3; i++) {
+                  toReturn.add(NFTEventDetails(
+                    assetPath:
+                        'assets/homepage/img-happeningnow-${i + 1}@2x.png',
+                    eventTitle: list[i],
+                  ));
+                }
+
+                return toReturn;
+              }(),
             ),
             const _NFTHomeDiv(),
-            _NFTHomeSectionWrapper(
+            NFTMiniEventsSlideSection(
               sectionTitle: 'Coming Soon',
-              child: const _NFTHomeComingSoon(),
+              listHeight: 260,
               onViewTap: () {
                 Navigator.pushNamed(context, EventsViewPage.comingSoonId);
               },
+              listOfEvents: () {
+                final toReturn = <NFTEventDetails>[];
+                final list = <String>[
+                  'High Water',
+                  'Sunset',
+                  'Something',
+                ];
+
+                final dates = <String>[
+                  'April 23, 2022',
+                  'May 27, 2022',
+                  'August 4, 2022',
+                ];
+
+                for (int i = 0; i < 3; i++) {
+                  toReturn.add(NFTEventDetails(
+                    assetPath: 'assets/homepage/img-comingsoon-${i + 1}@2x.png',
+                    eventTitle: list[i],
+                    eventDate: dates[i],
+                  ));
+                }
+
+                return toReturn;
+              }(),
             ),
           ]),
         ),
       ],
-    );
-  }
-}
-
-class _NFTHomeSectionWrapper extends StatelessWidget {
-  const _NFTHomeSectionWrapper({
-    Key? key,
-    required this.sectionTitle,
-    required this.child,
-    this.onViewTap,
-  }) : super(key: key);
-
-  final String sectionTitle;
-  final Widget child;
-  final VoidCallback? onViewTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                sectionTitle,
-                style: kSemiBoldStyle.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-              GestureDetector(
-                onTap: onViewTap,
-                child: Text(
-                  'View all (20)',
-                  style: kRegularStyle.copyWith(color: kPrimaryColor),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 25),
-        child,
-      ],
-    );
-  }
-}
-
-class _NFTHomeHappeningNow extends StatelessWidget {
-  const _NFTHomeHappeningNow({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final list = <String>[
-      'Innings Festival',
-      'Lost Lands',
-      'Something',
-    ];
-
-    return SizedBox(
-      height: 195,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        separatorBuilder: (_, i) => const SizedBox(width: 10),
-        itemBuilder: (ctx, i) {
-          return Padding(
-            padding: EdgeInsets.only(
-              left: i == 0 ? 20 : 0,
-              right: i == 2 ? 20 : 0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                NFTEventMiniBlock(
-                  eventTitle: list[i],
-                  assetPath: 'assets/homepage/img-happeningnow-${i + 1}@2x.png',
-                  hasBottomPadding: false,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(EventDetailsPage.id);
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _NFTHomeComingSoon extends StatelessWidget {
-  const _NFTHomeComingSoon({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final list = <String>[
-      'High Water',
-      'Sunset',
-      'Something',
-    ];
-
-    final dates = <String>[
-      'April 23, 2022',
-      'May 27, 2022',
-      'August 4, 2022',
-    ];
-
-    return SizedBox(
-      height: 260,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        separatorBuilder: (_, i) => const SizedBox(width: 10),
-        itemBuilder: (ctx, i) {
-          return Padding(
-            padding: EdgeInsets.only(
-              left: i == 0 ? 20 : 0,
-              right: i == 2 ? 20 : 0,
-            ),
-            child: NFTEventMiniBlock(
-              eventTitle: list[i],
-              date: dates[i],
-              assetPath: 'assets/homepage/img-comingsoon-${i + 1}@2x.png',
-            ),
-          );
-        },
-      ),
     );
   }
 }

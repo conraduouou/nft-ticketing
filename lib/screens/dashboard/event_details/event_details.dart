@@ -42,7 +42,22 @@ class EventDetailsPage extends StatelessWidget {
                 infoOnTap: () => _showDialog(context),
                 selectOnTap: () {},
               ),
-              const _NFTEventDetailsDiv(height: 80, hasIndent: false),
+              const _NFTEventDetailsDiv(height: 70, hasIndent: false),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Suggestions for you',
+                      style: kSemiBoldStyle.copyWith(
+                        fontSize: kRegularSize,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ]),
           ),
         ],
