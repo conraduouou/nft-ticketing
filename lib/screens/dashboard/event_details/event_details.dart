@@ -8,6 +8,7 @@ import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/nft_event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EventDetailsPage extends StatelessWidget {
   const EventDetailsPage({Key? key}) : super(key: key);
@@ -345,19 +346,20 @@ class _NFTEventDetailsDescriptionBlock extends StatelessWidget {
         const SizedBox(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            _NFTEventDetailsActionButton(
+          children: [
+            const _NFTEventDetailsActionButton(
               assetPath: 'assets/icons/ic-like.svg',
             ),
-            SizedBox(width: 15),
-            _NFTEventDetailsActionButton(
+            const SizedBox(width: 15),
+            const _NFTEventDetailsActionButton(
               assetPath: 'assets/icons/ic-message.svg',
               padding: 11,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             _NFTEventDetailsActionButton(
               assetPath: 'assets/icons/ic-share.svg',
               padding: 11,
+              onTap: () => Share.share('NFT Ticketing'),
             ),
           ],
         ),
@@ -412,23 +414,30 @@ class _NFTEventDetailsActionButton extends StatelessWidget {
     Key? key,
     this.assetPath,
     this.padding,
+    this.onTap,
   }) : super(key: key);
 
   final String? assetPath;
   final double? padding;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      padding: EdgeInsets.all(padding ?? 10),
-      decoration: const BoxDecoration(
-        color: kSlightlyDarkBlue,
-        shape: BoxShape.circle,
-      ),
-      child: SvgPicture.asset(
-        assetPath ?? 'assets/icons/ic-like.svg', // remove in prod
+    return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onTap: onTap,
+      child: Container(
+        height: 40,
+        width: 40,
+        padding: EdgeInsets.all(padding ?? 10),
+        decoration: const BoxDecoration(
+          color: kSlightlyDarkBlue,
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          assetPath ?? 'assets/icons/ic-like.svg', // remove in prod
+        ),
       ),
     );
   }
