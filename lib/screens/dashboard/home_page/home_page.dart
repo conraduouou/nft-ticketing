@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,14 +27,20 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const _NFTHomeDiv(),
-              const _NFTHomeSectionWrapper(
+              _NFTHomeSectionWrapper(
                 sectionTitle: 'Happening Now',
-                child: _NFTHomeHappeningNow(),
+                child: const _NFTHomeHappeningNow(),
+                onViewTap: () {
+                  Navigator.pushNamed(context, EventsViewPage.happeningNowId);
+                },
               ),
               const _NFTHomeDiv(),
-              const _NFTHomeSectionWrapper(
+              _NFTHomeSectionWrapper(
                 sectionTitle: 'Coming Soon',
-                child: _NFTHomeComingSoon(),
+                child: const _NFTHomeComingSoon(),
+                onViewTap: () {
+                  Navigator.pushNamed(context, EventsViewPage.comingSoonId);
+                },
               ),
             ],
           ),
@@ -44,12 +51,16 @@ class HomePage extends StatelessWidget {
 }
 
 class _NFTHomeSectionWrapper extends StatelessWidget {
-  const _NFTHomeSectionWrapper(
-      {Key? key, required this.sectionTitle, required this.child})
-      : super(key: key);
+  const _NFTHomeSectionWrapper({
+    Key? key,
+    required this.sectionTitle,
+    required this.child,
+    this.onViewTap,
+  }) : super(key: key);
 
   final String sectionTitle;
   final Widget child;
+  final VoidCallback? onViewTap;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +77,12 @@ class _NFTHomeSectionWrapper extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              Text(
-                'View all (20)',
-                style: kRegularStyle.copyWith(color: kPrimaryColor),
+              GestureDetector(
+                onTap: onViewTap,
+                child: Text(
+                  'View all (20)',
+                  style: kRegularStyle.copyWith(color: kPrimaryColor),
+                ),
               ),
             ],
           ),
