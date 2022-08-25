@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/components/nft_event_mini_block.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
@@ -123,28 +124,10 @@ class _NFTHomeHappeningNow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  'assets/homepage/img-happeningnow-${i + 1}@2x.png',
-                  height: 150,
-                  width: 170,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Container(
-                        height: 150,
-                        width: 170,
-                        decoration: BoxDecoration(
-                            color: kSlightlyDarkBlue,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  list[i],
-                  style: kRegularStyle.copyWith(
-                    color: Colors.white,
-                  ),
+                NFTEventMiniBlock(
+                  eventTitle: list[i],
+                  assetPath: 'assets/homepage/img-happeningnow-${i + 1}@2x.png',
+                  hasBottomPadding: false,
                 ),
               ],
             ),
@@ -186,42 +169,10 @@ class _NFTHomeComingSoon extends StatelessWidget {
               left: i == 0 ? 20 : 0,
               right: i == 2 ? 20 : 0,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'assets/homepage/img-comingsoon-${i + 1}@2x.png',
-                  height: 150,
-                  width: 170,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Container(
-                        height: 150,
-                        width: 170,
-                        decoration: BoxDecoration(
-                            color: kSlightlyDarkBlue,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  list[i],
-                  style: kRegularStyle.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  dates[i],
-                  style: kRegularStyle.copyWith(
-                    color: kSecondaryColor,
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
+            child: NFTEventMiniBlock(
+              eventTitle: list[i],
+              date: dates[i],
+              assetPath: 'assets/homepage/img-comingsoon-${i + 1}@2x.png',
             ),
           );
         },

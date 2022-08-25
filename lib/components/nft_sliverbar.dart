@@ -99,10 +99,10 @@ class NFTSliverBar extends StatelessWidget {
                                 Positioned(
                                   top: -1,
                                   child: Text(
-                                    '9',
+                                    '9', // use some kind of provider for this
                                     textAlign: TextAlign.center,
                                     style: kRegularStyle.copyWith(
-                                      fontSize: 10,
+                                      fontSize: 10, // make this resizable
                                     ),
                                   ),
                                 )
