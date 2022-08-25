@@ -47,8 +47,10 @@ class LoginPage extends StatelessWidget {
                       text: 'Sign in',
                       color: isAllFilled ? kPrimaryColor : kSecondaryColor,
                       onPressed: isAllFilled
-                          ? () => Navigator.of(context)
-                              .pushNamed(DashboardContainer.id)
+                          ? () => Navigator.of(context).pushNamedAndRemoveUntil(
+                                DashboardContainer.id,
+                                (_) => false,
+                              )
                           : null,
                     );
                   },
