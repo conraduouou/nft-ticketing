@@ -83,6 +83,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
           highlightColor: Colors.transparent,
         ),
         child: BottomNavigationBar(
+          elevation: 1,
           backgroundColor: kDarkBlue,
           currentIndex: _selectedPage,
           iconSize: kRegularSize,
