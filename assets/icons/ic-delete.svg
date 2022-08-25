@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.6" height="19.378" viewBox="0 0 17.6 19.378">
+  <g id="ic-delete-message" transform="translate(-2.2 -1.2)">
+    <path id="Path_72" data-name="Path 72" d="M3,6H19" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+    <path id="Path_73" data-name="Path 73" d="M17,5.556V18a1.747,1.747,0,0,1-1.714,1.778H6.714A1.747,1.747,0,0,1,5,18V5.556m2.571,0V3.778A1.747,1.747,0,0,1,9.286,2h3.429a1.747,1.747,0,0,1,1.714,1.778V5.556" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+    <line id="Line_86" data-name="Line 86" y2="6" transform="translate(9.222 9.571)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+    <line id="Line_87" data-name="Line 87" y2="6" transform="translate(12.778 9.571)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+  </g>
+</svg>

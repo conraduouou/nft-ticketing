@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="ic-signout" transform="translate(-330 -70)">
+    <rect id="Rectangle_15523" data-name="Rectangle 15523" width="40" height="40" rx="20" transform="translate(330 70)" fill="#1b1e2a"/>
+    <path id="arrow-out-circle" d="M14.545,15.321l4.44-4.44-4.44-4.44m3.375,4.44H8.329m3.552,8.881A8.881,8.881,0,0,1,11.881,2" transform="translate(339.5 79.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>
