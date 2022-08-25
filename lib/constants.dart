@@ -5,6 +5,7 @@ const kPrimaryColor = Color(0xFF395FF1);
 const kSecondaryColor = Color(0xFF50566A);
 const kDarkBlue = Color(0xFF080C1A);
 const kSlightlyDarkBlue = Color(0xFF1B1E2A);
+const kDialogBarrierColor = Color.fromARGB(80, 144, 150, 172);
 
 // TEXT SIZES
 const kRegularSize = 16.0;

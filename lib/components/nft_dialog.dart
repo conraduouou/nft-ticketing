@@ -8,10 +8,21 @@ class NFTDialog extends StatelessWidget {
   const NFTDialog({
     Key? key,
     this.onPressed,
+    this.headingText,
+    this.subText,
+    this.buttonText,
+    this.subTextColor,
+    this.buttonPadding,
   }) : super(key: key);
 
   /// The operation to be done upon pressing the button in this `Dialog`.
   final VoidCallback? onPressed;
+
+  final String? headingText;
+  final String? subText;
+  final String? buttonText;
+  final Color? subTextColor;
+  final EdgeInsets? buttonPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +41,7 @@ class NFTDialog extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               Text(
-                'Success!',
+                headingText ?? 'Success!',
                 style: kBoldStyle.copyWith(
                   fontSize: kLargeSize - 2,
                   color: Colors.white,
@@ -38,15 +49,16 @@ class NFTDialog extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'You have created your new password.',
+                subText ?? 'You have created your new password.',
                 style: kRegularStyle.copyWith(
-                  color: Colors.white,
+                  color: subTextColor ?? Colors.white,
                 ),
               ),
               const SizedBox(height: 40),
               NFTButton(
-                text: 'Go to sign in',
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+                text: buttonText ?? 'Go to sign in',
+                padding:
+                    buttonPadding ?? const EdgeInsets.fromLTRB(20, 12, 20, 16),
                 onPressed: onPressed ??
                     () {
                       Navigator.of(context).pop();

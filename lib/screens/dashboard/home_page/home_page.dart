@@ -17,35 +17,33 @@ class HomePage extends StatelessWidget {
       slivers: [
         const NFTSliverBar(),
         SliverList(
-          delegate: SliverChildListDelegate.fixed(
-            [
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Image.asset(
-                  'assets/homepage/image-home-heroimage@2x.png',
-                  width: 350,
-                  height: 200,
-                ),
+          delegate: SliverChildListDelegate.fixed([
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Image.asset(
+                'assets/homepage/image-home-heroimage@2x.png',
+                width: 350,
+                height: 200,
               ),
-              const _NFTHomeDiv(),
-              _NFTHomeSectionWrapper(
-                sectionTitle: 'Happening Now',
-                child: const _NFTHomeHappeningNow(),
-                onViewTap: () {
-                  Navigator.pushNamed(context, EventsViewPage.happeningNowId);
-                },
-              ),
-              const _NFTHomeDiv(),
-              _NFTHomeSectionWrapper(
-                sectionTitle: 'Coming Soon',
-                child: const _NFTHomeComingSoon(),
-                onViewTap: () {
-                  Navigator.pushNamed(context, EventsViewPage.comingSoonId);
-                },
-              ),
-            ],
-          ),
+            ),
+            const _NFTHomeDiv(),
+            _NFTHomeSectionWrapper(
+              sectionTitle: 'Happening Now',
+              child: const _NFTHomeHappeningNow(),
+              onViewTap: () {
+                Navigator.pushNamed(context, EventsViewPage.happeningNowId);
+              },
+            ),
+            const _NFTHomeDiv(),
+            _NFTHomeSectionWrapper(
+              sectionTitle: 'Coming Soon',
+              child: const _NFTHomeComingSoon(),
+              onViewTap: () {
+                Navigator.pushNamed(context, EventsViewPage.comingSoonId);
+              },
+            ),
+          ]),
         ),
       ],
     );

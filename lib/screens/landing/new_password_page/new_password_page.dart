@@ -56,7 +56,7 @@ class NewPasswordPage extends StatelessWidget {
                       color: isAllFilled ? kPrimaryColor : kSecondaryColor,
                       onPressed: () {
                         showDialog(
-                          barrierColor: const Color.fromARGB(80, 144, 150, 172),
+                          barrierColor: kDialogBarrierColor,
                           context: context,
                           builder: (_) {
                             return NFTDialog(
