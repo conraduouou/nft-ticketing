@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/nft_event_details.dart';
-import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 
 class NFTMiniEventsSlideSection extends StatelessWidget {
   const NFTMiniEventsSlideSection({
@@ -11,6 +10,8 @@ class NFTMiniEventsSlideSection extends StatelessWidget {
     this.showViewAll = true,
     this.onViewTap,
     this.listHeight,
+    this.hasBottomPadding = false,
+    this.blockOnTap,
   }) : super(key: key);
 
   final String sectionTitle;
@@ -20,6 +21,9 @@ class NFTMiniEventsSlideSection extends StatelessWidget {
   // replace with different class in the future
   final List<NFTEventDetails> listOfEvents;
   final double? listHeight;
+  final bool hasBottomPadding;
+
+  final void Function(int index)? blockOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +54,10 @@ class NFTMiniEventsSlideSection extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         _NFTMiniEventsSlide(
+          hasBottomPadding: hasBottomPadding,
           listOfEvents: listOfEvents,
           height: listHeight,
+          onTap: blockOnTap,
         ),
       ],
     );
@@ -63,11 +69,16 @@ class _NFTMiniEventsSlide extends StatelessWidget {
     Key? key,
     required this.listOfEvents,
     this.height,
+    this.hasBottomPadding = false,
+    this.onTap,
   }) : super(key: key);
 
   // replace with different class in the future
   final List<NFTEventDetails> listOfEvents;
   final double? height;
+  final bool hasBottomPadding;
+
+  final void Function(int index)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +102,12 @@ class _NFTMiniEventsSlide extends StatelessWidget {
                   eventTitle: listOfEvents[i].eventTitle,
                   date: listOfEvents[i].eventDate,
                   assetPath: listOfEvents[i].assetPath,
-                  hasBottomPadding: false,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(EventDetailsPage.id);
-                  },
+                  hasBottomPadding: hasBottomPadding,
+                  onTap: onTap != null
+                      ? () {
+                          onTap!(i);
+                        }
+                      : null,
                 ),
               ],
             ),
@@ -124,13 +137,14 @@ class _NFTEventMiniBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Image.asset(
+    return InkWell(
+      onTap: onTap,
+      splashColor: Colors.transparent,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(
             assetPath ?? '',
             height: 150,
             width: 170,
@@ -146,25 +160,25 @@ class _NFTEventMiniBlock extends StatelessWidget {
               );
             },
           ),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          eventTitle,
-          style: kRegularStyle.copyWith(
-            color: Colors.white,
+          const SizedBox(height: 20),
+          Text(
+            eventTitle,
+            style: kRegularStyle.copyWith(
+              color: Colors.white,
+            ),
           ),
-        ),
-        date != null ? const SizedBox(height: 5) : Container(),
-        date != null
-            ? Text(
-                date!,
-                style: kRegularStyle.copyWith(
-                  color: kSecondaryColor,
-                ),
-              )
-            : Container(),
-        hasBottomPadding ? const SizedBox(height: 40) : Container(),
-      ],
+          date != null ? const SizedBox(height: 5) : Container(),
+          date != null
+              ? Text(
+                  date!,
+                  style: kRegularStyle.copyWith(
+                    color: kSecondaryColor,
+                  ),
+                )
+              : Container(),
+          hasBottomPadding ? const SizedBox(height: 40) : Container(),
+        ],
+      ),
     );
   }
 }

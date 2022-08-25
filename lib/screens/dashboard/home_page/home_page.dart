@@ -4,6 +4,7 @@ import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/nft_event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,6 +33,9 @@ class HomePage extends StatelessWidget {
               sectionTitle: 'Happening Now',
               onViewTap: () =>
                   Navigator.pushNamed(context, EventsViewPage.happeningNowId),
+              blockOnTap: (index) =>
+                  // dynamically set event to view in the future
+                  Navigator.of(context).pushNamed(EventDetailsPage.id),
               listOfEvents: () {
                 final toReturn = <NFTEventDetails>[];
                 final list = <String>[
@@ -53,11 +57,15 @@ class HomePage extends StatelessWidget {
             ),
             const _NFTHomeDiv(),
             NFTMiniEventsSlideSection(
+              hasBottomPadding: true,
               sectionTitle: 'Coming Soon',
               listHeight: 260,
               onViewTap: () {
                 Navigator.pushNamed(context, EventsViewPage.comingSoonId);
               },
+              blockOnTap: (index) =>
+                  // dynamically set event to view in the future
+                  Navigator.of(context).pushNamed(EventDetailsPage.id),
               listOfEvents: () {
                 final toReturn = <NFTEventDetails>[];
                 final list = <String>[

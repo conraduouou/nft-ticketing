@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_back_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
+import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/models/core/nft_event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 
 class EventDetailsPage extends StatelessWidget {
@@ -43,21 +45,19 @@ class EventDetailsPage extends StatelessWidget {
                 selectOnTap: () {},
               ),
               const _NFTEventDetailsDiv(height: 70, hasIndent: false),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Suggestions for you',
-                      style: kSemiBoldStyle.copyWith(
-                        fontSize: kRegularSize,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              NFTMiniEventsSlideSection(
+                hasBottomPadding: true,
+                showViewAll: false,
+                listHeight: 260,
+                sectionTitle: 'Suggestions for you',
+                listOfEvents: [
+                  for (int i = 0; i < 3; i++)
+                    NFTEventDetails(
+                      assetPath: '',
+                      eventTitle: i == 0 ? 'Lost Lands' : 'Something',
+                    )
+                ],
+              ),
             ]),
           ),
         ],
