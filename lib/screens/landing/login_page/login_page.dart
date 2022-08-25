@@ -4,7 +4,7 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/login_page_provider.dart';
-import 'package:nft_ticketing/screens/home/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
 import 'package:provider/provider.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/constants.dart';
-import 'package:nft_ticketing/screens/home/home_page/home_page.dart';
+import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer({

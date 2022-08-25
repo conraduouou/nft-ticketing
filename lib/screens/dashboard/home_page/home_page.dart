@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
-import 'package:nft_ticketing/screens/home/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
