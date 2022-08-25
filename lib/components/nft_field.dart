@@ -7,9 +7,11 @@ class NFTField extends StatefulWidget {
     Key? key,
     this.maxLength,
     this.fontSize,
+    this.height,
     this.width,
     this.radius,
     this.color,
+    this.hintColor,
     this.initialText,
     this.hintText,
     this.enabled = true,
@@ -20,13 +22,16 @@ class NFTField extends StatefulWidget {
     this.textAlign,
     this.onChanged,
     this.onClear,
+    this.prefixIcon,
   }) : super(key: key);
 
   final int? maxLength;
   final double? fontSize;
+  final double? height;
   final double? width;
   final double? radius;
   final Color? color;
+  final Color? hintColor;
   final String? initialText;
   final String? hintText;
   final bool enabled;
@@ -37,6 +42,8 @@ class NFTField extends StatefulWidget {
   final TextAlign? textAlign;
   final void Function(String)? onChanged;
   final VoidCallback? onClear;
+
+  final Widget? prefixIcon;
 
   @override
   State<NFTField> createState() => _NFTFieldState();
@@ -95,6 +102,7 @@ class _NFTFieldState extends State<NFTField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: widget.height,
       width: widget.width,
       child: TextField(
         controller: _controller,
@@ -108,15 +116,22 @@ class _NFTFieldState extends State<NFTField> {
           fontSize: widget.fontSize,
         ),
         decoration: InputDecoration(
+          contentPadding: widget.padding ?? const EdgeInsets.all(15),
           enabled: widget.enabled,
           filled: true,
           fillColor: widget.color ?? kSlightlyDarkBlue,
-          contentPadding: widget.padding ?? const EdgeInsets.all(15),
-          hintStyle: kRegularStyle.copyWith(color: Colors.white),
           hintText: widget.hintText,
+          prefixIcon: widget.prefixIcon,
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(widget.radius ?? 10),
+          ),
+          hintStyle: kRegularStyle.copyWith(
+            color: widget.hintColor ?? Colors.white,
+          ),
+          prefixIconConstraints: const BoxConstraints(
+            maxHeight: 32,
+            maxWidth: 60,
           ),
           suffixIcon: widget.isObscurable
               ? GestureDetector(
