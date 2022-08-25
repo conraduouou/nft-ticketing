@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:nft_ticketing/components/nft_bottom_navbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
 
@@ -23,14 +23,16 @@ class _DashboardContainerState extends State<DashboardContainer> {
   // current active item in the navigation bar
   int activeItem = 0;
 
-  final List<NavbarItem> items = [
-    NavbarItem(label: 'Home', iconPath: 'assets/navbar_icons/ic-home.svg'),
-    NavbarItem(
+  final List<NFTBottomNavbarItem> items = [
+    NFTBottomNavbarItem(
+        label: 'Home', iconPath: 'assets/navbar_icons/ic-home.svg'),
+    NFTBottomNavbarItem(
         label: 'Community', iconPath: 'assets/navbar_icons/ic-community.svg'),
-    NavbarItem(
+    NFTBottomNavbarItem(
         label: 'Messages', iconPath: 'assets/navbar_icons/ic-messages.svg'),
-    NavbarItem(label: 'Wallet', iconPath: 'assets/navbar_icons/ic-wallet.svg'),
-    NavbarItem(
+    NFTBottomNavbarItem(
+        label: 'Wallet', iconPath: 'assets/navbar_icons/ic-wallet.svg'),
+    NFTBottomNavbarItem(
         label: 'Account', iconPath: 'assets/navbar_icons/ic-account.svg'),
   ];
 
@@ -80,195 +82,31 @@ class _DashboardContainerState extends State<DashboardContainer> {
           children: _pages,
         ),
       ),
-      bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: Builder(
-            builder: (context) {
-              final data = MediaQuery.of(context).size;
+      bottomNavigationBar: NFTBottomNavBar(
+        items: items,
+        activeItem: activeItem,
+        onTap: (index) {
+          setState(() {
+            if (_pages[index] is SizedBox) {
+              if (index == 0) {
+                _pages[index] = const HomePage();
+              }
+              // else if (index == 1) {
+              //   _pages[index] = ChatScreen();
+              // } else if (index == 2) {
+              //   _pages[index] = ShopScreen();
+              // } else if (index == 3) {
+              //   _pages[index] = SalesScreen();
+              // } else if (index == 4) {
+              //   _pages[index] = BagScreen();
+              // }
+            }
 
-              return Align(
-                alignment: Alignment.bottomCenter,
-                heightFactor: 1,
-                child: SizedBox(
-                  height: 60,
-                  width: data.width,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: kDarkBlue,
-                      border: Border(
-                        top: BorderSide(
-                          color: kSlightlyDarkBlue,
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        for (int i = 0; i < 5; i++)
-                          _NFTBarItem(
-                            width: i == 3 ? 17 : null,
-                            assetPath: items[i].iconPath,
-                            label: items[i].label,
-                            color:
-                                i == activeItem ? kPrimaryColor : Colors.white,
-                            onTap: () {
-                              setState(() {
-                                if (_pages[i] is SizedBox) {
-                                  if (i == 0) {
-                                    _pages[i] = const HomePage();
-                                  }
-                                  // else if (i == 1) {
-                                  //   _pages[i] = ChatScreen();
-                                  // } else if (i == 2) {
-                                  //   _pages[i] = ShopScreen();
-                                  // } else if (i == 3) {
-                                  //   _pages[i] = SalesScreen();
-                                  // } else if (i == 4) {
-                                  //   _pages[i] = BagScreen();
-                                  // }
-                                }
-
-                                activeItem = i;
-                                _selectedPage = i;
-                              });
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          )
-          /*
-        BottomNavigationBar(
-          elevation: 1,
-          backgroundColor: kDarkBlue,
-          currentIndex: _selectedPage,
-          iconSize: kRegularSize,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: kPrimaryColor,
-          unselectedItemColor: Colors.white,
-          selectedLabelStyle: kRegularStyle.copyWith(
-            fontSize: kRegularSize - 6,
-          ),
-          unselectedLabelStyle: kRegularStyle.copyWith(
-            fontSize: kRegularSize - 6,
-            color: Colors.white,
-          ),
-          items: [
-            for (int i = 0; i < 5; i++)
-              barItem(
-                label: items[i].label,
-                icon: SizedBox(
-                  height: 16,
-                  width: i == 3 ? 17 : null,
-                  child: SvgPicture.asset(
-                    items[i].iconPath,
-                    color: _selectedPage == i ? kPrimaryColor : Colors.white,
-                  ),
-                ),
-              ),
-          ],
-          onTap: (index) {
-          },
-        ),
-        */
-          ),
-    );
-  }
-
-  BottomNavigationBarItem barItem(
-      {required Widget icon, required String label}) {
-    return BottomNavigationBarItem(
-      icon: Padding(
-        padding: const EdgeInsets.only(bottom: 2.0),
-        child: icon,
-      ),
-      label: label,
-      tooltip: '',
-    );
-  }
-}
-
-class _NFTBarItem extends StatelessWidget {
-  const _NFTBarItem({
-    Key? key,
-    // ignore: unused_element
-    this.height = 16,
-    this.width,
-    this.onTap,
-    required this.assetPath,
-    required this.label,
-    required this.color,
-  }) : super(key: key);
-
-  final double height;
-  final double? width;
-  final VoidCallback? onTap;
-  final String assetPath;
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: height,
-                child: SvgPicture.asset(
-                  assetPath,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                label,
-                style: kRegularStyle.copyWith(
-                  color: color,
-                  fontSize: kRegularSize - 6,
-                ),
-              )
-            ],
-          ),
-          Container(
-            height: 60,
-            width: size.width / 5,
-            decoration: color == kPrimaryColor
-                ? const BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: kPrimaryColor,
-                        width: 2,
-                      ),
-                    ),
-                  )
-                : null,
-          )
-        ],
+            activeItem = index;
+            _selectedPage = index;
+          });
+        },
       ),
     );
   }
-}
-
-class NavbarItem {
-  NavbarItem({
-    required this.label,
-    required this.iconPath,
-  });
-
-  final String label;
-  final String iconPath;
 }
