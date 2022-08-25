@@ -85,22 +85,28 @@ class NFTSliverBar extends StatelessWidget {
                           Positioned(
                             right: -4,
                             top: -4,
-                            child: Container(
-                              height: 13,
-                              width: 13,
-                              decoration: const BoxDecoration(
-                                color: kPrimaryColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '9',
-                                  textAlign: TextAlign.center,
-                                  style: kRegularStyle.copyWith(
-                                    fontSize: 9,
+                            child: Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                Container(
+                                  height: 13,
+                                  width: 13,
+                                  decoration: const BoxDecoration(
+                                    color: kPrimaryColor,
+                                    shape: BoxShape.circle,
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  top: -1,
+                                  child: Text(
+                                    '9',
+                                    textAlign: TextAlign.center,
+                                    style: kRegularStyle.copyWith(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ],
