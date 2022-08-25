@@ -127,6 +127,7 @@ class _NFTFieldState extends State<NFTField> {
             borderRadius: BorderRadius.circular(widget.radius ?? 10),
           ),
           hintStyle: kRegularStyle.copyWith(
+            fontSize: widget.fontSize,
             color: widget.hintColor ?? Colors.white,
           ),
           prefixIconConstraints: const BoxConstraints(
