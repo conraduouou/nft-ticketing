@@ -58,7 +58,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kDarkBlue,
       body: WillPopScope(
         onWillPop: () async {
           if (_selectedPage != 0) {
@@ -77,44 +77,60 @@ class _DashboardContainerState extends State<DashboardContainer> {
           children: _pages,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedPage,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: kPrimaryColor,
-        selectedLabelStyle: kRegularStyle,
-        unselectedLabelStyle: kRegularStyle,
-        iconSize: kLargeSize,
-        backgroundColor: Colors.white,
-        items: [
-          for (int i = 0; i < 5; i++)
-            barItem(
-              label: items[i].label,
-              icon: SvgPicture.asset(
-                items[i].iconPath,
-                color: _selectedPage == i ? kPrimaryColor : Colors.white,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: kDarkBlue,
+          currentIndex: _selectedPage,
+          iconSize: kRegularSize,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: kPrimaryColor,
+          unselectedItemColor: Colors.white,
+          selectedLabelStyle: kRegularStyle.copyWith(
+            fontSize: kRegularSize - 6,
+          ),
+          unselectedLabelStyle: kRegularStyle.copyWith(
+            fontSize: kRegularSize - 6,
+            color: Colors.white,
+          ),
+          items: [
+            for (int i = 0; i < 5; i++)
+              barItem(
+                label: items[i].label,
+                icon: SizedBox(
+                  height: 16,
+                  width: i == 3 ? 17 : null,
+                  child: SvgPicture.asset(
+                    items[i].iconPath,
+                    color: _selectedPage == i ? kPrimaryColor : Colors.white,
+                  ),
+                ),
               ),
-            ),
-        ],
-        onTap: (index) {
-          setState(() {
-            if (_pages[index] is SizedBox) {
-              if (index == 0) {
-                _pages[index] = const HomePage();
+          ],
+          onTap: (index) {
+            setState(() {
+              if (_pages[index] is SizedBox) {
+                if (index == 0) {
+                  _pages[index] = const HomePage();
+                }
+                // else if (index == 1) {
+                //   _pages[index] = ChatScreen();
+                // } else if (index == 2) {
+                //   _pages[index] = ShopScreen();
+                // } else if (index == 3) {
+                //   _pages[index] = SalesScreen();
+                // } else if (index == 4) {
+                //   _pages[index] = BagScreen();
+                // }
               }
-              // else if (index == 1) {
-              //   _pages[index] = ChatScreen();
-              // } else if (index == 2) {
-              //   _pages[index] = ShopScreen();
-              // } else if (index == 3) {
-              //   _pages[index] = SalesScreen();
-              // } else if (index == 4) {
-              //   _pages[index] = BagScreen();
-              // }
-            }
 
-            _selectedPage = index;
-          });
-        },
+              _selectedPage = index;
+            });
+          },
+        ),
       ),
     );
   }
