@@ -3,6 +3,7 @@ import 'package:nft_ticketing/components/nft_event_mini_block.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -128,6 +129,9 @@ class _NFTHomeHappeningNow extends StatelessWidget {
                   eventTitle: list[i],
                   assetPath: 'assets/homepage/img-happeningnow-${i + 1}@2x.png',
                   hasBottomPadding: false,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(EventDetailsPage.id);
+                  },
                 ),
               ],
             ),

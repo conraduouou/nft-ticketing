@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
@@ -38,6 +39,14 @@ class RoutesHandler {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => DashboardContainer(toView: toView),
+        );
+
+      case EventDetailsPage.id:
+        // handle viewing of different events here
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const EventDetailsPage(),
         );
     }
 
