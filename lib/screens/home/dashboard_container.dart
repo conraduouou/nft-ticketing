@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/home/home_page/home_page.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer({
@@ -7,7 +9,7 @@ class DashboardContainer extends StatefulWidget {
     this.toView,
   }) : super(key: key);
 
-  static const String id = '/nav';
+  static const String id = '/dashboard';
   final String? toView;
 
   @override
@@ -18,28 +20,38 @@ class _DashboardContainerState extends State<DashboardContainer> {
   late List<Widget> _pages;
   late int _selectedPage;
 
-  final labels = ['home', 'chat', 'shop', 'sales', 'bag'];
+  final List<NavbarItem> items = [
+    NavbarItem(label: 'Home', iconPath: 'assets/navbar_icons/ic-home.svg'),
+    NavbarItem(
+        label: 'Community', iconPath: 'assets/navbar_icons/ic-community.svg'),
+    NavbarItem(
+        label: 'Messages', iconPath: 'assets/navbar_icons/ic-messages.svg'),
+    NavbarItem(label: 'Wallet', iconPath: 'assets/navbar_icons/ic-wallet.svg'),
+    NavbarItem(
+        label: 'Account', iconPath: 'assets/navbar_icons/ic-account.svg'),
+  ];
 
   @override
   void initState() {
     super.initState();
 
-    _selectedPage = widget.toView == null
-        ? 0
-        : widget.toView == ChatScreen.id
-            ? 1
-            : widget.toView == ShopScreen.id
-                ? 2
-                : widget.toView == SalesScreen.id
-                    ? 3
-                    : 4;
+    _selectedPage = 0;
+    // widget.toView == null
+    //     ? 0
+    //     : widget.toView == ChatScreen.id
+    //         ? 1
+    //         : widget.toView == ShopScreen.id
+    //             ? 2
+    //             : widget.toView == SalesScreen.id
+    //                 ? 3
+    //                 : 4;
 
     _pages = [
-      _selectedPage == 0 ? HomeScreen() : const SizedBox(),
-      _selectedPage == 1 ? ChatScreen() : const SizedBox(),
-      _selectedPage == 2 ? ShopScreen() : const SizedBox(),
-      _selectedPage == 3 ? SalesScreen() : const SizedBox(),
-      _selectedPage == 4 ? BagScreen() : const SizedBox(),
+      _selectedPage == 0 ? const HomePage() : const SizedBox(),
+      // _selectedPage == 1 ? ChatScreen() : const SizedBox(),
+      // _selectedPage == 2 ? ShopScreen() : const SizedBox(),
+      // _selectedPage == 3 ? SalesScreen() : const SizedBox(),
+      // _selectedPage == 4 ? BagScreen() : const SizedBox(),
     ];
   }
 
@@ -49,12 +61,14 @@ class _DashboardContainerState extends State<DashboardContainer> {
       backgroundColor: Colors.white,
       body: WillPopScope(
         onWillPop: () async {
-          setState(() {
-            _selectedPage = 0;
-            if (_pages[_selectedPage] is SizedBox) {
-              _pages[_selectedPage] = HomeScreen();
-            }
-          });
+          if (_selectedPage != 0) {
+            setState(() {
+              _selectedPage = 0;
+              if (_pages[_selectedPage] is SizedBox) {
+                _pages[_selectedPage] = const HomePage();
+              }
+            });
+          }
 
           return false;
         },
@@ -67,17 +81,17 @@ class _DashboardContainerState extends State<DashboardContainer> {
         currentIndex: _selectedPage,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: kPrimaryColor,
-        selectedLabelStyle: kXXSmallStyle,
-        unselectedLabelStyle: kXXSmallStyle,
+        selectedLabelStyle: kRegularStyle,
+        unselectedLabelStyle: kRegularStyle,
         iconSize: kLargeSize,
         backgroundColor: Colors.white,
         items: [
           for (int i = 0; i < 5; i++)
             barItem(
-              label: labels[i].titleCase,
+              label: items[i].label,
               icon: SvgPicture.asset(
-                'images/navbar_icons/ic-${labels[i]}.svg',
-                color: _selectedPage == i ? kPrimaryColor : kFieldHintTextColor,
+                items[i].iconPath,
+                color: _selectedPage == i ? kPrimaryColor : Colors.white,
               ),
             ),
         ],
@@ -85,16 +99,17 @@ class _DashboardContainerState extends State<DashboardContainer> {
           setState(() {
             if (_pages[index] is SizedBox) {
               if (index == 0) {
-                _pages[index] = HomeScreen();
-              } else if (index == 1) {
-                _pages[index] = ChatScreen();
-              } else if (index == 2) {
-                _pages[index] = ShopScreen();
-              } else if (index == 3) {
-                _pages[index] = SalesScreen();
-              } else if (index == 4) {
-                _pages[index] = BagScreen();
+                _pages[index] = const HomePage();
               }
+              // else if (index == 1) {
+              //   _pages[index] = ChatScreen();
+              // } else if (index == 2) {
+              //   _pages[index] = ShopScreen();
+              // } else if (index == 3) {
+              //   _pages[index] = SalesScreen();
+              // } else if (index == 4) {
+              //   _pages[index] = BagScreen();
+              // }
             }
 
             _selectedPage = index;
@@ -115,4 +130,14 @@ class _DashboardContainerState extends State<DashboardContainer> {
       tooltip: '',
     );
   }
+}
+
+class NavbarItem {
+  NavbarItem({
+    required this.label,
+    required this.iconPath,
+  });
+
+  final String label;
+  final String iconPath;
 }

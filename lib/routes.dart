@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/screens/home/dashboard_container.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
 import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
@@ -23,6 +24,13 @@ class RoutesHandler {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => EnterCodePage(email: email),
+        );
+      case DashboardContainer.id:
+        final toView = settings.arguments as String?;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => DashboardContainer(toView: toView),
         );
     }
 
