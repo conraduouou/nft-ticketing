@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nft_ticketing/components/nft_transaction_card.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
 
 class WalletPage extends StatelessWidget {
   const WalletPage({Key? key}) : super(key: key);
@@ -180,10 +182,14 @@ class _NFTWalletPageTransactionSection extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              Text(
-                'View all (3)', // replace with dynamic int
-                style: kRegularStyle.copyWith(
-                  color: kPrimaryColor,
+              GestureDetector(
+                onTap: () =>
+                    Navigator.of(context).pushNamed(TransactionHistoryPage.id),
+                child: Text(
+                  'View all (3)', // replace with dynamic int
+                  style: kRegularStyle.copyWith(
+                    color: kPrimaryColor,
+                  ),
                 ),
               )
             ],
@@ -192,78 +198,10 @@ class _NFTWalletPageTransactionSection extends StatelessWidget {
           for (int i = 0; i < 3; i++)
             Column(
               children: [
-                _NFTWalletPageTransactionCard(i: i),
+                NFTTransactionCard(ticketNo: i),
                 i != 2 ? const SizedBox(height: 15) : Container(),
               ],
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class _NFTWalletPageTransactionCard extends StatelessWidget {
-  const _NFTWalletPageTransactionCard({
-    Key? key,
-    required this.i,
-  }) : super(key: key);
-
-  final int i;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 20,
-        horizontal: 15,
-      ),
-      decoration: BoxDecoration(
-        color: kSlightlyDarkBlue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            'assets/icons/ic-transaction-history.svg',
-          ),
-          const SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Your purchase event ticket # ${i + 1}',
-                style: kRegularStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: kRegularSize - 4,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                'May 11, 2022 - 2:00PM',
-                style: kRegularStyle.copyWith(
-                  color: Colors.white.withAlpha(100),
-                  fontSize: kRegularSize - 6,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              Text(
-                '\$30',
-                style: kSemiBoldStyle.copyWith(
-                  fontSize: kRegularSize - 4,
-                  color: Colors.white,
-                ),
-              ),
-              const Icon(
-                Icons.chevron_right,
-                color: Colors.white,
-                size: 20,
-              )
-            ],
-          )
         ],
       ),
     );
