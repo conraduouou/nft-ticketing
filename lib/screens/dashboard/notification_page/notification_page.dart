@@ -2,27 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/models/core/notification_details.dart';
+import 'package:nft_ticketing/providers/notification_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
-
-enum NotificationType {
-  calendar,
-  tag,
-  message,
-}
-
-class NotificationDetails {
-  NotificationDetails({
-    required this.type,
-    required this.preview,
-    required this.time,
-    this.isNew = false,
-  });
-
-  final NotificationType type;
-  final String preview;
-  final String time;
-  final bool isNew;
-}
+import 'package:provider/provider.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -31,61 +14,44 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = <NotificationDetails>[
-      NotificationDetails(
-        type: NotificationType.calendar,
-        preview: 'You have 1 upcoming event',
-        time: '1:10 PM',
-        isNew: true,
-      ),
-      NotificationDetails(
-        type: NotificationType.tag,
-        preview: 'You purchased Innings Festival ticket',
-        time: '10:25 AM',
-      ),
-      NotificationDetails(
-        type: NotificationType.calendar,
-        preview: 'Thank you for attending High Waters!',
-        time: 'Tue',
-      ),
-      NotificationDetails(
-        type: NotificationType.message,
-        preview: 'Welcome to NFT Ticketing',
-        time: 'Mon',
-      ),
-    ];
-
-    return Scaffold(
-      backgroundColor: kDarkBlue,
-      appBar: const NFTAppBar(
-        title: 'Notifications',
-        height: kToolbarHeight + 30,
-        showDivider: true,
-      ),
-      body: ListView.separated(
-        itemCount: 4,
-        separatorBuilder: (context, index) => const Divider(
-          height: 60,
-          color: kSecondaryColor,
-          indent: 20,
-          endIndent: 20,
+    return ChangeNotifierProvider(
+      create: (context) => NotificationPageProvider(),
+      child: Scaffold(
+        backgroundColor: kDarkBlue,
+        appBar: const NFTAppBar(
+          title: 'Notifications',
+          height: kToolbarHeight + 30,
+          showDivider: true,
         ),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                index == 0 ? const SizedBox(height: 30) : Container(),
-                _NFTNotificationItem(
-                  isNew: index == 0,
-                  notificationType: list[index].type,
-                  notificationPreview: list[index].preview,
-                  time: list[index].time,
-                ),
-              ],
-            ),
-          );
-        },
+        body: Consumer<NotificationPageProvider>(
+          builder: (context, provider, _) {
+            return ListView.separated(
+              itemCount: provider.list.length,
+              separatorBuilder: (context, index) => const Divider(
+                height: 60,
+                color: kSecondaryColor,
+                indent: 20,
+                endIndent: 20,
+              ),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      index == 0 ? const SizedBox(height: 30) : Container(),
+                      _NFTNotificationItem(
+                        isNew: index == 0,
+                        notificationType: provider.list[index].type,
+                        notificationPreview: provider.list[index].preview,
+                        time: provider.list[index].time,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
