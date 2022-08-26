@@ -5,6 +5,7 @@ import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/notification_details.dart';
 import 'package:nft_ticketing/providers/notification_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/notification_details_page/notification_details_page.dart';
 import 'package:provider/provider.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -40,7 +41,7 @@ class NotificationPage extends StatelessWidget {
                     children: [
                       index == 0 ? const SizedBox(height: 30) : Container(),
                       _NFTNotificationItem(
-                        isNew: index == 0,
+                        isNew: provider.list[index].isNew,
                         notificationType: provider.list[index].type,
                         notificationPreview: provider.list[index].preview,
                         time: provider.list[index].time,
@@ -75,22 +76,27 @@ class _NFTNotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            _NFTNotificationIcon(notificationType: notificationType),
-            const SizedBox(width: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: width / 1.75),
-              child: _NFTNotificationPreview(preview: notificationPreview),
-            ),
-            const SizedBox(width: 10),
-          ],
-        ),
-        _NFTNotificationTime(time: time, isNew: isNew),
-      ],
+    return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onTap: () => Navigator.of(context).pushNamed(NotificationDetailsPage.id),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              _NFTNotificationIcon(notificationType: notificationType),
+              const SizedBox(width: 20),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: width / 1.75),
+                child: _NFTNotificationPreview(preview: notificationPreview),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+          _NFTNotificationTime(time: time, isNew: isNew),
+        ],
+      ),
     );
   }
 }
