@@ -11,6 +11,7 @@ class NFTButton extends StatelessWidget {
     this.padding,
     this.text,
     this.onPressed,
+    this.fontWeight,
   }) : super(key: key);
 
   final Color? color;
@@ -20,6 +21,7 @@ class NFTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final String? text;
   final VoidCallback? onPressed;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class NFTButton extends StatelessWidget {
           style: kRegularStyle.copyWith(
             color: textColor ?? Colors.white,
             fontSize: fontSize ?? kRegularSize,
+            fontWeight: fontWeight,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_bottom_navbar.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/community_page/community_page.dart';
 import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
 import 'package:nft_ticketing/screens/dashboard/messages_page/messages_page.dart';
@@ -59,7 +60,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
       _selectedPage == 1 ? const CommunityPage() : const SizedBox(),
       _selectedPage == 2 ? const MessagesPage() : const SizedBox(),
       _selectedPage == 3 ? const WalletPage() : const SizedBox(),
-      // _selectedPage == 4 ? BagScreen() : const SizedBox(),
+      _selectedPage == 4 ? const AccountPage() : const SizedBox(),
     ];
   }
 
@@ -100,10 +101,9 @@ class _DashboardContainerState extends State<DashboardContainer> {
                   _pages[index] = const MessagesPage();
                 } else if (index == 3) {
                   _pages[index] = const WalletPage();
+                } else if (index == 4) {
+                  _pages[index] = const AccountPage();
                 }
-                // } else if (index == 4) {
-                //   _pages[index] = BagScreen();
-                // }
               }
 
               activeItem = index;
