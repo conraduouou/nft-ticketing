@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_bottom_navbar.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/community_page/community_page.dart';
 import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
+import 'package:nft_ticketing/screens/dashboard/messages_page/messages_page.dart';
+import 'package:nft_ticketing/screens/dashboard/wallet_page/wallet_page.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer({
@@ -40,22 +43,22 @@ class _DashboardContainerState extends State<DashboardContainer> {
   void initState() {
     super.initState();
 
-    _selectedPage = 0;
-    // widget.toView == null
-    //     ? 0
-    //     : widget.toView == ChatScreen.id
-    //         ? 1
-    //         : widget.toView == ShopScreen.id
-    //             ? 2
-    //             : widget.toView == SalesScreen.id
-    //                 ? 3
+    _selectedPage = widget.toView == null
+        ? 0
+        : widget.toView == CommunityPage.id
+            ? 1
+            : widget.toView == MessagesPage.id
+                ? 2
+                : widget.toView == WalletPage.id
+                    ? 3
+                    : 0;
     //                 : 4;
 
     _pages = [
       _selectedPage == 0 ? const HomePage() : const SizedBox(),
-      // _selectedPage == 1 ? ChatScreen() : const SizedBox(),
-      // _selectedPage == 2 ? ShopScreen() : const SizedBox(),
-      // _selectedPage == 3 ? SalesScreen() : const SizedBox(),
+      _selectedPage == 1 ? const CommunityPage() : const SizedBox(),
+      _selectedPage == 2 ? const MessagesPage() : const SizedBox(),
+      _selectedPage == 3 ? const WalletPage() : const SizedBox(),
       // _selectedPage == 4 ? BagScreen() : const SizedBox(),
     ];
   }
@@ -91,13 +94,13 @@ class _DashboardContainerState extends State<DashboardContainer> {
               if (_pages[index] is SizedBox) {
                 if (index == 0) {
                   _pages[index] = const HomePage();
+                } else if (index == 1) {
+                  _pages[index] = const CommunityPage();
+                } else if (index == 2) {
+                  _pages[index] = const MessagesPage();
+                } else if (index == 3) {
+                  _pages[index] = const WalletPage();
                 }
-                // else if (index == 1) {
-                //   _pages[index] = ChatScreen();
-                // } else if (index == 2) {
-                //   _pages[index] = ShopScreen();
-                // } else if (index == 3) {
-                //   _pages[index] = SalesScreen();
                 // } else if (index == 4) {
                 //   _pages[index] = BagScreen();
                 // }

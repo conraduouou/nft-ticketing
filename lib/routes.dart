@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nft_ticketing/models/core/notification_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_details_page/notification_details_page.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
+import 'package:nft_ticketing/screens/dashboard/wallet_page/wallet_page.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
 import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
