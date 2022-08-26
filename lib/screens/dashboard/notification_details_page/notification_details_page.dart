@@ -38,44 +38,7 @@ class NotificationDetailsPage extends StatelessWidget {
                   const _NFTNotificationDetailsDiv(),
                   const _NFTNotificationDetailsBody(),
                   SizedBox(height: size.height / 4.5),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const NFTButton(text: 'View Ticket'),
-                        const SizedBox(height: 30),
-                        InkWell(
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            context
-                                .read<NotificationPageProvider>()
-                                .deleteNotification(notification.index);
-
-                            Navigator.of(context).pop();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/ic-delete.svg',
-                                color: Colors.white.withAlpha(100),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                'Delete Message',
-                                style: kRegularStyle.copyWith(
-                                  color: Colors.white.withAlpha(100),
-                                  fontSize: kRegularSize,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _NFTNotificationDetailsActions(notification: notification),
                   const SizedBox(height: 40),
                 ]),
               ),
@@ -83,6 +46,57 @@ class NotificationDetailsPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _NFTNotificationDetailsActions extends StatelessWidget {
+  const _NFTNotificationDetailsActions({
+    Key? key,
+    required this.notification,
+  }) : super(key: key);
+
+  final NotificationDetails notification;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const NFTButton(text: 'View Ticket'),
+          const SizedBox(height: 30),
+          InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: () {
+              context
+                  .read<NotificationPageProvider>()
+                  .deleteNotification(notification.index);
+
+              Navigator.of(context).pop();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/ic-delete.svg',
+                  color: Colors.white.withAlpha(100),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  'Delete Message',
+                  style: kRegularStyle.copyWith(
+                    color: Colors.white.withAlpha(100),
+                    fontSize: kRegularSize,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
