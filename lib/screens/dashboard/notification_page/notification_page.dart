@@ -40,12 +40,7 @@ class NotificationPage extends StatelessWidget {
                   child: Column(
                     children: [
                       index == 0 ? const SizedBox(height: 30) : Container(),
-                      _NFTNotificationItem(
-                        isNew: provider.list[index].isNew,
-                        notificationType: provider.list[index].type,
-                        notificationPreview: provider.list[index].preview,
-                        time: provider.list[index].time,
-                      ),
+                      _NFTNotificationItem(details: provider.list[index]),
                     ],
                   ),
                 );
@@ -61,16 +56,10 @@ class NotificationPage extends StatelessWidget {
 class _NFTNotificationItem extends StatelessWidget {
   const _NFTNotificationItem({
     Key? key,
-    required this.notificationType,
-    required this.notificationPreview,
-    required this.time,
-    required this.isNew,
+    required this.details,
   }) : super(key: key);
 
-  final NotificationType notificationType;
-  final String notificationPreview;
-  final String time;
-  final bool isNew;
+  final NotificationDetails details;
 
   @override
   Widget build(BuildContext context) {
@@ -79,22 +68,28 @@ class _NFTNotificationItem extends StatelessWidget {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () => Navigator.of(context).pushNamed(NotificationDetailsPage.id),
+      onTap: () => Navigator.of(context).pushNamed(
+        NotificationDetailsPage.id,
+        arguments: {
+          'notif': details,
+          'provider': context.read<NotificationPageProvider>(),
+        },
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              _NFTNotificationIcon(notificationType: notificationType),
+              _NFTNotificationIcon(notificationType: details.type),
               const SizedBox(width: 20),
               ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: width / 1.75),
-                child: _NFTNotificationPreview(preview: notificationPreview),
+                child: _NFTNotificationPreview(preview: details.preview),
               ),
               const SizedBox(width: 10),
             ],
           ),
-          _NFTNotificationTime(time: time, isNew: isNew),
+          _NFTNotificationTime(time: details.time, isNew: details.isNew),
         ],
       ),
     );

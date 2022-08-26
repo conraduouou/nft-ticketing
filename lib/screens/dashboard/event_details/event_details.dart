@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nft_ticketing/components/nft_back_button.dart';
+import 'package:nft_ticketing/components/nft_banner.dart';
 import 'package:nft_ticketing/components/nft_bottom_sheet.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
@@ -43,7 +43,7 @@ class EventDetailsPage extends StatelessWidget {
               slivers: [
                 SliverList(
                   delegate: SliverChildListDelegate.fixed([
-                    const _NFTEventDetailsHeading(),
+                    const NFTBanner(),
                     const _NFTEventDetailsDescriptionBlock(),
                     const _NFTEventDetailsDiv(),
                     // the Builder is needed here to retrieve the Scaffold context
@@ -285,39 +285,6 @@ class _NFTEventDetailsDescriptionLineText extends StatelessWidget {
                   )
                 : Container()
           ],
-        )
-      ],
-    );
-  }
-}
-
-class _NFTEventDetailsHeading extends StatelessWidget {
-  const _NFTEventDetailsHeading({
-    Key? key,
-    // ignore: unused_element
-    this.assetPath,
-  }) : super(key: key);
-
-  final String? assetPath;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Stack(
-      children: [
-        Image.asset(
-          assetPath ??
-              'assets/event_details/img-banner-1@2x.png', // remove in prod
-          width: size.width,
-        ),
-        const Positioned(
-          top: 30,
-          left: 20,
-          child: NFTBackButton(
-            height: 40,
-            width: 40,
-          ),
         )
       ],
     );

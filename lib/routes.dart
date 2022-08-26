@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/models/core/notification_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
@@ -24,7 +25,6 @@ class RoutesHandler {
     LoginPage.id: (context) => const LoginPage(),
     NewPasswordPage.id: (context) => const NewPasswordPage(),
     NotificationPage.id: (context) => const NotificationPage(),
-    NotificationDetailsPage.id: (context) => const NotificationDetailsPage(),
     SearchPage.id: (context) => const SearchPage(),
   };
 
@@ -50,6 +50,16 @@ class RoutesHandler {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const EventDetailsPage(),
+        );
+      case NotificationDetailsPage.id:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => NotificationDetailsPage(
+            notification: args['notif'],
+            provider: args['provider'],
+          ),
         );
     }
 
