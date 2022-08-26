@@ -81,7 +81,9 @@ class _NFTBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return GestureDetector(
+    return InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: onTap,
       child: Stack(
         alignment: Alignment.center,
