@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
+import 'package:nft_ticketing/components/nft_event_mini_block.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:provider/provider.dart';
+import 'package:recase/recase.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -11,45 +15,120 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kDarkBlue,
-      body: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate.fixed([
-              Stack(
-                clipBehavior: Clip.none,
-                children: const [
-                  _NFTAccountPageBanner(),
-                  _NFTAccountPageAvatar(),
-                ],
+    return ChangeNotifierProvider(
+      create: (context) => AccountPageProvider(),
+      builder: (context, child) {
+        return Scaffold(
+          backgroundColor: kDarkBlue,
+          body: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate.fixed([
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: const [
+                      _NFTAccountPageBanner(),
+                      _NFTAccountPageAvatar(),
+                    ],
+                  ),
+                  const SizedBox(height: 65),
+                  const _NFTAccountPageUser(),
+                  const SizedBox(height: 40),
+                  const _NFTAccountPageUserDetails(),
+                  const _NFTAccountPageDiv(),
+                  const _NFTAccountPageTicketViewButtons(),
+                  const SizedBox(height: 25),
+                  Selector<AccountPageProvider, TicketView>(
+                      selector: (c, p) => p.ticketView,
+                      builder: (_, view, __) {
+                        return Selector<AccountPageProvider, TicketDate>(
+                            selector: (c, p) => p.ticketDate,
+                            builder: (_, date, __) {
+                              return _NFTAccountPageHeading(
+                                ticketType: view == TicketView.myTicket
+                                    ? date.name
+                                    : 'saved',
+                              );
+                            });
+                      }),
+                  const SizedBox(height: 25),
+                  Selector<AccountPageProvider, TicketView>(
+                    selector: (c, p) => p.ticketView,
+                    builder: (_, view, __) {
+                      if (view == TicketView.myTicket) {
+                        return const _NFTAccountPageMyTicketView();
+                      } else {
+                        return const _NFTAccountPageSavedTicketView();
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 40)
+                ]),
               ),
-              const SizedBox(height: 65),
-              const _NFTAccountPageUser(),
-              const SizedBox(height: 40),
-              const _NFTAccountPageUserDetails(),
-              const _NFTAccountPageDiv(),
-              const _NFTAccountPageTicketViewButtons(),
-              const SizedBox(height: 25),
-              const _NFTAccountPageHeading(isUpcoming: true),
-              const SizedBox(height: 25),
-              const _NFTAccountPageDateViewButtons(),
-              const SizedBox(height: 30),
-              for (int i = 0; i < 2; i++)
-                Column(
-                  children: [
-                    _NFTAccountPageTicket(
-                      eventTitle: i == 0 ? 'Innings Festival' : 'High Water',
-                      eventDate: i == 0 ? 'March 19-March 20' : 'April 23 & 24',
-                    ),
-                    i != 1 ? const SizedBox(height: 20) : Container(),
-                  ],
-                ),
-              const SizedBox(height: 40)
-            ]),
+            ],
           ),
+        );
+      },
+    );
+  }
+}
+
+class _NFTAccountPageSavedTicketView extends StatelessWidget {
+  const _NFTAccountPageSavedTicketView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          for (int i = 0; i < 3; i += 2)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                for (int j = i; j < (i + 2 > 3 ? 3 : i + 2); j++)
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: size.width / 2.32),
+                    child: const NFTEventMiniBlock(
+                      assetPath: 'assets/homepage/img-happeningnow-1@2x.png',
+                      eventTitle: 'Innings Festival',
+                    ),
+                  )
+              ],
+            )
         ],
       ),
+    );
+  }
+}
+
+class _NFTAccountPageMyTicketView extends StatelessWidget {
+  const _NFTAccountPageMyTicketView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _NFTAccountPageDateViewButtons(),
+        const SizedBox(height: 30),
+        for (int i = 0; i < 2; i++)
+          Column(
+            children: [
+              _NFTAccountPageTicket(
+                eventTitle: i == 0 ? 'Innings Festival' : 'High Water',
+                eventDate: i == 0 ? 'March 19-March 20' : 'April 23 & 24',
+              ),
+              i != 1 ? const SizedBox(height: 20) : Container(),
+            ],
+          ),
+      ],
     );
   }
 }
@@ -197,10 +276,10 @@ class _NFTAccountPageDateViewButtons extends StatelessWidget {
 class _NFTAccountPageHeading extends StatelessWidget {
   const _NFTAccountPageHeading({
     Key? key,
-    required this.isUpcoming,
+    required this.ticketType,
   }) : super(key: key);
 
-  final bool isUpcoming;
+  final String ticketType;
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +300,7 @@ class _NFTAccountPageHeading extends StatelessWidget {
                 fontSize: kRegularSize + 2,
               ),
             ),
-            TextSpan(text: isUpcoming ? 'upcoming events' : 'saved events')
+            TextSpan(text: '$ticketType events')
           ],
         ),
       ),
@@ -236,11 +315,13 @@ class _NFTAccountPageTicketViewButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<AccountPageProvider>();
+
     return SizedBox(
       height: 35,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: 3,
+        itemCount: TicketView.values.length,
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           return Row(
@@ -248,17 +329,26 @@ class _NFTAccountPageTicketViewButtons extends StatelessWidget {
               index == 0 ? const SizedBox(width: 20) : Container(),
               SizedBox(
                 width: 160,
-                child: NFTButton(
-                  padding: const EdgeInsets.symmetric(vertical: 7),
-                  color: index == 0 ? kPrimaryColor : kSlightlyDarkBlue,
-                  textColor: index == 0 ? null : const Color(0xff50566A),
-                  fontSize: kRegularSize - 1,
-                  fontWeight: index == 0 ? FontWeight.w600 : null,
-                  text: index == 0
-                      ? 'Something'
-                      : index == 1
-                          ? 'My Ticket'
-                          : 'Saved Ticket',
+                child: Selector<AccountPageProvider, TicketView>(
+                  selector: (c, p) => p.ticketView,
+                  builder: (_, view, __) {
+                    return NFTButton(
+                      padding: const EdgeInsets.symmetric(vertical: 7),
+                      fontSize: kRegularSize - 1,
+                      color: index == TicketView.values.indexOf(view)
+                          ? kPrimaryColor
+                          : kSlightlyDarkBlue,
+                      textColor: index == TicketView.values.indexOf(view)
+                          ? null
+                          : const Color(0xff50566A),
+                      fontWeight: index == TicketView.values.indexOf(view)
+                          ? FontWeight.w600
+                          : null,
+                      text: TicketView.values.elementAt(index).name.titleCase,
+                      onPressed: () => provider.ticketView =
+                          TicketView.values.elementAt(index),
+                    );
+                  },
                 ),
               ),
               index == 2 ? const SizedBox(width: 20) : Container(),
