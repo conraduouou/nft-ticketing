@@ -6,6 +6,7 @@ import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_details_page/notification_details_page.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
+import 'package:nft_ticketing/screens/dashboard/order_complete_page/order_complete_page.dart';
 import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
@@ -85,6 +86,25 @@ class RoutesHandler {
             notification: args['notif'],
             provider: args['provider'],
           ),
+        );
+
+      case OrderCompletePage.id:
+        return PageRouteBuilder(
+          settings: settings,
+          transitionDuration: const Duration(milliseconds: 250),
+          reverseTransitionDuration: const Duration(milliseconds: 250),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const OrderCompletePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final tween =
+                Tween(begin: const Offset(0, 1), end: const Offset(0, 0))
+                    .chain(CurveTween(curve: Curves.easeOutCubic));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
         );
 
       case ReviewOrderPage.id:

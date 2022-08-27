@@ -5,6 +5,7 @@ import 'package:nft_ticketing/components/nft_checkout_footer.dart';
 import 'package:nft_ticketing/components/nft_checkout_title.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/order_complete_page/order_complete_page.dart';
 import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 
 class CheckoutPage extends StatelessWidget {
@@ -47,7 +48,11 @@ class CheckoutPage extends StatelessWidget {
               ]),
             ),
           ),
-          const NFTCheckoutFooter(buttonText: 'Place Order'),
+          NFTCheckoutFooter(
+            buttonText: 'Place Order',
+            onPressed: () => Navigator.of(context)
+                .pushNamedAndRemoveUntil(OrderCompletePage.id, (_) => false),
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nft_ticketing/components/nft_add_to_calendar.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
@@ -87,27 +88,7 @@ class TicketView extends StatelessWidget {
               fontSize: kRegularSize + 1,
             ),
             const SizedBox(height: 30),
-            InkWell(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              onTap: () => _showDialog(context),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/ic-calendar.svg',
-                    color: kPrimaryColor,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    'Add to calendar',
-                    style: kRegularStyle.copyWith(
-                      color: kPrimaryColor,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            NFTAddToCalendar(onTap: () => _showDialog(context)),
             const SizedBox(height: 40),
           ],
         ),

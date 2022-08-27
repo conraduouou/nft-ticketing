@@ -87,10 +87,9 @@ class NFTDialog extends StatelessWidget {
                       padding: cancelPadding ??
                           buttonPadding ??
                           const EdgeInsets.fromLTRB(20, 12, 20, 16),
-                      onPressed: onPressed ??
-                          () {
-                            Navigator.of(context).pop();
-                          },
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                     )
                   : Container(),
             ],

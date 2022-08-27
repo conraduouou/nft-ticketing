@@ -52,8 +52,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
                 ? 2
                 : widget.toView == WalletPage.id
                     ? 3
-                    : 0;
-    //                 : 4;
+                    : 4;
 
     _pages = [
       _selectedPage == 0 ? const HomePage() : const SizedBox(),
@@ -62,6 +61,8 @@ class _DashboardContainerState extends State<DashboardContainer> {
       _selectedPage == 3 ? const WalletPage() : const SizedBox(),
       _selectedPage == 4 ? const AccountPage() : const SizedBox(),
     ];
+
+    activeItem = _selectedPage;
   }
 
   @override

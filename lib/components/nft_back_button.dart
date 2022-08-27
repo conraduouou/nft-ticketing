@@ -6,15 +6,19 @@ class NFTBackButton extends StatelessWidget {
     Key? key,
     this.height,
     this.width,
+    this.isClose = false,
+    this.onPressed,
   }) : super(key: key);
 
   final double? height;
   final double? width;
+  final bool isClose;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pop(),
+      onTap: onPressed ?? () => Navigator.of(context).pop(),
       child: Container(
         width: height ?? 20,
         height: width ?? 20,
@@ -22,8 +26,8 @@ class NFTBackButton extends StatelessWidget {
           shape: BoxShape.circle,
           color: Colors.white,
         ),
-        child: const Icon(
-          Icons.arrow_back,
+        child: Icon(
+          !isClose ? Icons.arrow_back : Icons.close,
           color: kDarkBlue,
         ),
       ),
