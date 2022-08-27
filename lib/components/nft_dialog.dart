@@ -13,6 +13,11 @@ class NFTDialog extends StatelessWidget {
     this.buttonText,
     this.subTextColor,
     this.buttonPadding,
+    this.height = 250,
+    this.width = 350,
+    this.showCancel = false,
+    this.cancelPadding,
+    this.headingSize = kLargeSize - 2,
   }) : super(key: key);
 
   /// The operation to be done upon pressing the button in this `Dialog`.
@@ -24,6 +29,12 @@ class NFTDialog extends StatelessWidget {
   final Color? subTextColor;
   final EdgeInsets? buttonPadding;
 
+  final double height;
+  final double width;
+  final double headingSize;
+  final bool showCancel;
+  final EdgeInsets? cancelPadding;
+
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -34,8 +45,8 @@ class NFTDialog extends StatelessWidget {
         backgroundColor: kSlightlyDarkBlue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         child: SizedBox(
-          width: 350,
-          height: 250,
+          width: width,
+          height: height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -43,15 +54,19 @@ class NFTDialog extends StatelessWidget {
               Text(
                 headingText ?? 'Success!',
                 style: kBoldStyle.copyWith(
-                  fontSize: kLargeSize - 2,
+                  fontSize: headingSize,
                   color: Colors.white,
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                subText ?? 'You have created your new password.',
-                style: kRegularStyle.copyWith(
-                  color: subTextColor ?? Colors.white,
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: width - 80),
+                child: Text(
+                  subText ?? 'You have created your new password.',
+                  textAlign: TextAlign.center,
+                  style: kRegularStyle.copyWith(
+                    color: subTextColor ?? Colors.white,
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -64,6 +79,20 @@ class NFTDialog extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
               ),
+              showCancel ? const SizedBox(height: 20) : Container(),
+              showCancel
+                  ? NFTButton(
+                      text: 'Cancel',
+                      color: kSecondaryColor,
+                      padding: cancelPadding ??
+                          buttonPadding ??
+                          const EdgeInsets.fromLTRB(20, 12, 20, 16),
+                      onPressed: onPressed ??
+                          () {
+                            Navigator.of(context).pop();
+                          },
+                    )
+                  : Container(),
             ],
           ),
         ),

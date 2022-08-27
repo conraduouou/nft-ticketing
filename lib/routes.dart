@@ -5,6 +5,7 @@ import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_details_page/notification_details_page.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
@@ -61,6 +62,17 @@ class RoutesHandler {
           builder: (context) => NotificationDetailsPage(
             notification: args['notif'],
             provider: args['provider'],
+          ),
+        );
+
+      case TicketView.id:
+        final args = settings.arguments as Map<String, String>;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => TicketView(
+            eventTitle: args['eventTitle']!,
+            eventDate: args['eventDate']!,
           ),
         );
       case TransactionDetailsPage.id:

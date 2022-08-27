@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
 
 class NFTAccountPageTicket extends StatelessWidget {
   const NFTAccountPageTicket({
@@ -94,11 +95,20 @@ class _NFTAccountPageTicketContent extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        Text(
-          'View ticket',
-          style: kRegularStyle.copyWith(
-            color: kPrimaryColor,
-            fontSize: kRegularSize - 3,
+        GestureDetector(
+          onTap: () => Navigator.of(context).pushNamed(
+            TicketView.id,
+            arguments: {
+              'eventTitle': eventTitle,
+              'eventDate': eventDate,
+            },
+          ),
+          child: Text(
+            'View ticket',
+            style: kRegularStyle.copyWith(
+              color: kPrimaryColor,
+              fontSize: kRegularSize - 3,
+            ),
           ),
         )
       ],
