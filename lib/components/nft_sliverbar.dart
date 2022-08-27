@@ -13,10 +13,13 @@ class NFTSliverBar extends StatelessWidget {
     this.pinned = false,
     this.onChanged,
     this.initialText,
+    this.requestFocus = false,
   }) : super(key: key);
 
   final bool isHome;
   final bool pinned;
+  final bool requestFocus;
+
   final void Function(String s)? onChanged;
   final String? initialText;
 
@@ -47,6 +50,7 @@ class NFTSliverBar extends StatelessWidget {
                     child: Material(
                       color: Colors.transparent,
                       child: NFTField(
+                        requestFocus: requestFocus,
                         initialText: initialText,
                         onChanged: onChanged,
                         fontSize: kRegularSize - 2,

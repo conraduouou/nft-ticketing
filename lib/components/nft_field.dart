@@ -24,6 +24,7 @@ class NFTField extends StatefulWidget {
     this.onClear,
     this.onTap,
     this.prefixIcon,
+    this.requestFocus = false,
   }) : super(key: key);
 
   final int? maxLength;
@@ -44,6 +45,8 @@ class NFTField extends StatefulWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onClear;
   final VoidCallback? onTap;
+
+  final bool requestFocus;
 
   final Widget? prefixIcon;
 
@@ -113,6 +116,7 @@ class _NFTFieldState extends State<NFTField> {
       child: Focus(
         focusNode: node,
         child: TextField(
+          autofocus: widget.requestFocus,
           controller: _controller,
           cursorColor: Colors.white,
           inputFormatters: formatters,

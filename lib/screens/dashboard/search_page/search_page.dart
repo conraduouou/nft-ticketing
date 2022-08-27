@@ -21,6 +21,7 @@ class SearchPage extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               NFTSliverBar(
+                requestFocus: true,
                 initialText: context.read<SearchPageProvider>().searchQuery,
                 isHome: false,
                 pinned: true,

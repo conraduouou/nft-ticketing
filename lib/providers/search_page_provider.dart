@@ -9,6 +9,8 @@ class SearchPageProvider with ChangeNotifier {
   String get searchQuery => _searchQuery;
   bool get inAsync => _inAsync;
 
+  bool _isDisposed = false;
+
   void onSearchChanged(String s) async {
     _debouncer.run(() async {
       toggleInAsync();
@@ -21,6 +23,12 @@ class SearchPageProvider with ChangeNotifier {
 
   void toggleInAsync() {
     _inAsync = !_inAsync;
-    notifyListeners();
+    if (!_isDisposed) notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
