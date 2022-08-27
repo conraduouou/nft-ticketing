@@ -119,23 +119,26 @@ class _NFTWalletPageCodeCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void _copyOnTap(BuildContext context) {
+    Clipboard.setData(const ClipboardData(text: 'Ob2A106P2Lx3AmMsdGF21'));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text('Added to clipboard'),
+        duration: const Duration(milliseconds: 1500),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () {
-        Clipboard.setData(const ClipboardData(text: 'Ob2A106P2Lx3AmMsdGF21'));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Added to clipboard'),
-            duration: const Duration(milliseconds: 1500),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        );
-      },
+      onTap: () => _copyOnTap(context),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
