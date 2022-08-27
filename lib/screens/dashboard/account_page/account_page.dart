@@ -46,7 +46,9 @@ class AccountPage extends StatelessWidget {
                             builder: (_, date, __) {
                               return _NFTAccountPageHeading(
                                 ticketType: view == TicketView.myTicket
-                                    ? date.name
+                                    ? date == TicketDate.upcoming
+                                        ? date.name
+                                        : 'past'
                                     : 'saved',
                               );
                             });
