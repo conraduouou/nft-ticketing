@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_checkout_footer.dart';
+import 'package:nft_ticketing/components/nft_checkout_title.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
-import 'package:nft_ticketing/components/nft_title.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/checkout_page/checkout_page.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 
 class ReviewOrderPage extends StatelessWidget {
@@ -25,30 +25,10 @@ class ReviewOrderPage extends StatelessWidget {
                   SliverList(
                     delegate: SliverChildListDelegate([
                       const SizedBox(height: 40),
-                      const NFTTitle(),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Innings Festival',
-                        textAlign: TextAlign.center,
-                        style: kSemiBoldStyle.copyWith(
-                          color: kPrimaryColor,
-                          fontSize: kRegularSize + 2,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/icons/ic-calendar.svg'),
-                          const SizedBox(width: 10),
-                          Text(
-                            'March 19, 2022 - March 20, 2022',
-                            style: kRegularStyle.copyWith(
-                              color: Colors.white,
-                              fontSize: kRegularSize - 2,
-                            ),
-                          )
-                        ],
+                      const NFTCheckoutTitle(
+                        title: 'Review order',
+                        eventTitle: 'Innings Festival',
+                        eventDate: 'March 19, 2022 - March 20, 2022',
                       ),
                       const Divider(
                         color: kSlightlyDarkBlue,
@@ -62,10 +42,10 @@ class ReviewOrderPage extends StatelessWidget {
               ),
             ),
           ),
-          const NFTCheckoutFooter(
+          NFTCheckoutFooter(
             buttonText: 'Check Out',
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            onPressed: null,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            onPressed: () => Navigator.of(context).pushNamed(CheckoutPage.id),
           ),
         ],
       ),
