@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nft_ticketing/components/nft_appbar.dart';
 import 'package:nft_ticketing/components/nft_checkout_footer.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
+import 'package:nft_ticketing/components/nft_title.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 
@@ -15,7 +15,6 @@ class ReviewOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kDarkBlue,
-      appBar: const NFTAppBar(title: 'Review Order'),
       body: Column(
         children: [
           Expanded(
@@ -25,6 +24,9 @@ class ReviewOrderPage extends StatelessWidget {
                 slivers: [
                   SliverList(
                     delegate: SliverChildListDelegate([
+                      const SizedBox(height: 40),
+                      const NFTTitle(),
+                      const SizedBox(height: 10),
                       Text(
                         'Innings Festival',
                         textAlign: TextAlign.center,
@@ -61,7 +63,9 @@ class ReviewOrderPage extends StatelessWidget {
             ),
           ),
           const NFTCheckoutFooter(
+            buttonText: 'Check Out',
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            onPressed: null,
           ),
         ],
       ),

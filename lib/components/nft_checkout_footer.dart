@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
-import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 
 class NFTCheckoutFooter extends StatelessWidget {
   const NFTCheckoutFooter({
     Key? key,
+    required this.buttonText,
     this.padding,
+    this.onPressed,
   }) : super(key: key);
 
+  final String buttonText;
   final EdgeInsets? padding;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +49,8 @@ class NFTCheckoutFooter extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             NFTButton(
-              text: 'Buy Ticket',
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(ReviewOrderPage.id),
+              text: buttonText,
+              onPressed: onPressed,
             ),
           ],
         ),

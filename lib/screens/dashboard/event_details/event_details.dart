@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_banner.dart';
 import 'package:nft_ticketing/components/nft_bottom_sheet.dart';
-import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_checkout_footer.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
 import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
@@ -77,7 +76,11 @@ class EventDetailsPage extends StatelessWidget {
               ],
             ),
           ),
-          const NFTCheckoutFooter(),
+          NFTCheckoutFooter(
+            buttonText: 'Buy Ticket',
+            onPressed: () =>
+                Navigator.of(context).pushNamed(ReviewOrderPage.id),
+          ),
         ],
       ),
     );
