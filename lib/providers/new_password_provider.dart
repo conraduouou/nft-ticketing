@@ -11,6 +11,7 @@ class NewPasswordProvider with ChangeNotifier {
     Requirement(text: 'Inclusion of at least one special character.'),
   ];
 
+  String _currentPassword = '';
   String _newPassword = '';
   String _confirmPassword = '';
 
@@ -20,9 +21,19 @@ class NewPasswordProvider with ChangeNotifier {
   bool get isAllFilled =>
       _newPassword.isNotEmpty && _confirmPassword.isNotEmpty;
 
+  bool get isAllFilledUpdate =>
+      _currentPassword.isNotEmpty &&
+      _newPassword.isNotEmpty &&
+      _confirmPassword.isNotEmpty;
+
   bool get isAllSatisfied =>
       !requirements.any((e) => !e.isSatisfied) &&
       _newPassword.compareTo(_confirmPassword) == 0;
+
+  void onCurrentChange(String s) {
+    _currentPassword = s;
+    notifyListeners();
+  }
 
   void onNewChange(String s) {
     _newPassword = s;

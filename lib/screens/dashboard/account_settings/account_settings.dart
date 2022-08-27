@@ -117,7 +117,13 @@ class _NFTAccountSettingsInformation extends StatelessWidget {
         InkWell(
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
-          onTap: () => Navigator.of(context).pushNamed(NewPasswordPage.id),
+          onTap: () => Navigator.of(context).pushNamed(
+            NewPasswordPage.id,
+            arguments: {
+              'showLeading': true,
+              'isUpdate': true,
+            },
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

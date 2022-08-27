@@ -11,9 +11,50 @@ import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 
 class NewPasswordPage extends StatelessWidget {
-  const NewPasswordPage({Key? key}) : super(key: key);
+  const NewPasswordPage({
+    Key? key,
+    this.showLeading = false,
+    this.isUpdate = false,
+  }) : super(key: key);
 
   static const id = '${EnterCodePage.id}/create-new-password';
+
+  final bool showLeading;
+  final bool isUpdate;
+
+  _createOnTap(BuildContext context) {
+    showDialog(
+      barrierColor: kDialogBarrierColor,
+      context: context,
+      builder: (_) {
+        return NFTDialog(
+          onPressed: () {
+            // navigate to login page
+            Navigator.of(context, rootNavigator: true).pop();
+            final navigator = Navigator.of(context);
+            navigator.popUntil(
+              ModalRoute.withName(LandingPage.id),
+            );
+            navigator.pushNamed(LoginPage.id);
+          },
+        );
+      },
+    );
+  }
+
+  _updateOnTap(BuildContext context) {
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text('Password updated'),
+        duration: const Duration(milliseconds: 1500),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +65,9 @@ class NewPasswordPage extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: kDarkBlue,
-          appBar: const NFTAppBar(
-            title: 'Create new password',
-            showLeading: false,
+          appBar: NFTAppBar(
+            title: isUpdate ? 'Update your password' : 'Create new password',
+            showLeading: showLeading,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -34,6 +75,14 @@ class NewPasswordPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 20),
+                isUpdate
+                    ? NFTField(
+                        hintText: 'Current password',
+                        isObscurable: true,
+                        onChanged: provider.onCurrentChange,
+                      )
+                    : Container(),
+                isUpdate ? const SizedBox(height: 20) : Container(),
                 NFTField(
                   hintText: 'New password',
                   isObscurable: true,
@@ -52,27 +101,11 @@ class NewPasswordPage extends StatelessWidget {
                   selector: (ctx, p) => p.isAllFilled && p.isAllSatisfied,
                   builder: (ctx, isAllFilled, __) {
                     return NFTButton(
-                      text: 'Create password',
+                      text: isUpdate ? 'Update password' : 'Create password',
                       color: isAllFilled ? kPrimaryColor : kSecondaryColor,
-                      onPressed: () {
-                        showDialog(
-                          barrierColor: kDialogBarrierColor,
-                          context: context,
-                          builder: (_) {
-                            return NFTDialog(
-                              onPressed: () {
-                                // navigate to login page
-                                Navigator.of(ctx, rootNavigator: true).pop();
-                                final navigator = Navigator.of(context);
-                                navigator.popUntil(
-                                  ModalRoute.withName(LandingPage.id),
-                                );
-                                navigator.pushNamed(LoginPage.id);
-                              },
-                            );
-                          },
-                        );
-                      },
+                      onPressed: isUpdate
+                          ? () => _updateOnTap(context)
+                          : () => _createOnTap(context),
                     );
                   },
                 ),

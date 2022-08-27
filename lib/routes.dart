@@ -27,7 +27,6 @@ class RoutesHandler {
     ForgotPasswordPage.id: (context) => const ForgotPasswordPage(),
     LandingPage.id: (context) => const LandingPage(),
     LoginPage.id: (context) => const LoginPage(),
-    NewPasswordPage.id: (context) => const NewPasswordPage(),
     NotificationPage.id: (context) => const NotificationPage(),
     TransactionHistoryPage.id: (context) => const TransactionHistoryPage(),
     SearchPage.id: (context) => const SearchPage(),
@@ -55,6 +54,17 @@ class RoutesHandler {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const EventDetailsPage(),
+        );
+
+      case NewPasswordPage.id:
+        final args = settings.arguments as Map<String, bool>;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => NewPasswordPage(
+            showLeading: args['showLeading'] ?? false,
+            isUpdate: args['isUpdate'] ?? false,
+          ),
         );
       case NotificationDetailsPage.id:
         final args = settings.arguments as Map<String, dynamic>;
