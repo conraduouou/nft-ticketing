@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/dashboard/account_settings/account_settings.dart';
 
 class NFTAccountPageBannerAndAvatar extends StatelessWidget {
   const NFTAccountPageBannerAndAvatar({Key? key}) : super(key: key);
@@ -45,9 +46,14 @@ class _NFTAccountPageBanner extends StatelessWidget {
             bottom: 20,
             height: 20,
             width: 20,
-            child: SvgPicture.asset(
-              'assets/icons/ic-settings.svg',
-              color: Colors.white,
+            child: InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () => Navigator.of(context).pushNamed(AccountSettings.id),
+              child: SvgPicture.asset(
+                'assets/icons/ic-settings.svg',
+                color: Colors.white,
+              ),
             ),
           )
         ],

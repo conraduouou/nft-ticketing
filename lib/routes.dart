@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/screens/dashboard/account_settings/account_settings.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
@@ -17,6 +18,7 @@ import 'package:nft_ticketing/screens/landing/new_password_page/new_password_pag
 
 class RoutesHandler {
   final Map<String, WidgetBuilder> routes = {
+    AccountSettings.id: (context) => const AccountSettings(),
     CreatePage.id: (context) => const CreatePage(),
     EventsViewPage.comingSoonId: (context) =>
         const EventsViewPage(happeningNow: false),

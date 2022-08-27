@@ -5,48 +5,50 @@ import 'package:nft_ticketing/constants.dart';
 class NFTField extends StatefulWidget {
   const NFTField({
     Key? key,
-    this.maxLength,
+    this.color,
     this.fontSize,
     this.height,
-    this.width,
-    this.radius,
-    this.color,
     this.hintColor,
-    this.initialText,
     this.hintText,
-    this.enabled = true,
-    this.isDigitsOnly = false,
-    this.isObscurable = false,
-    this.isClearable = true,
+    this.initialText,
+    this.maxLength,
     this.padding,
+    this.radius,
     this.textAlign,
     this.onChanged,
     this.onClear,
     this.onTap,
     this.prefixIcon,
+    this.width,
+    this.enabled = true,
+    this.isClearable = true,
+    this.isDigitsOnly = false,
+    this.isObscurable = false,
     this.requestFocus = false,
+    this.showSuffix = true,
   }) : super(key: key);
 
-  final int? maxLength;
+  final Color? color;
   final double? fontSize;
   final double? height;
-  final double? width;
-  final double? radius;
-  final Color? color;
   final Color? hintColor;
-  final String? initialText;
   final String? hintText;
-  final bool enabled;
-  final bool isDigitsOnly;
-  final bool isObscurable;
-  final bool isClearable;
+  final String? initialText;
+  final int? maxLength;
   final EdgeInsets? padding;
+  final double? radius;
   final TextAlign? textAlign;
   final void Function(String)? onChanged;
   final VoidCallback? onClear;
   final VoidCallback? onTap;
+  final double? width;
 
+  final bool enabled;
+  final bool isDigitsOnly;
+  final bool isObscurable;
+  final bool isClearable;
   final bool requestFocus;
+  final bool showSuffix;
 
   final Widget? prefixIcon;
 
@@ -152,35 +154,37 @@ class _NFTFieldState extends State<NFTField> {
               maxHeight: 32,
               maxWidth: 60,
             ),
-            suffixIcon: widget.isObscurable
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscured = !isObscured;
-                      });
-                    },
-                    child: Icon(
-                      isObscured
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: Colors.white,
-                    ),
-                  )
-                : !isEmpty && widget.isClearable
+            suffixIcon: widget.showSuffix
+                ? widget.isObscurable
                     ? GestureDetector(
                         onTap: () {
                           setState(() {
-                            _controller.clear();
+                            isObscured = !isObscured;
                           });
-
-                          if (widget.onClear != null) widget.onClear!();
                         },
-                        child: const Icon(
-                          Icons.cancel_outlined,
+                        child: Icon(
+                          isObscured
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
                           color: Colors.white,
                         ),
                       )
-                    : null,
+                    : !isEmpty && widget.isClearable
+                        ? GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _controller.clear();
+                              });
+
+                              if (widget.onClear != null) widget.onClear!();
+                            },
+                            child: const Icon(
+                              Icons.cancel_outlined,
+                              color: Colors.white,
+                            ),
+                          )
+                        : null
+                : null,
           ),
         ),
       ),
