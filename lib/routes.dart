@@ -5,6 +5,7 @@ import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_details_page/notification_details_page.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
+import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
@@ -77,6 +78,12 @@ class RoutesHandler {
           ),
         );
 
+      case ReviewOrderPage.id:
+        // handle event ticket details shown in review order here
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const ReviewOrderPage(),
+        );
       case TicketView.id:
         final args = settings.arguments as Map<String, String>;
 

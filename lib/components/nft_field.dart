@@ -21,6 +21,7 @@ class NFTField extends StatefulWidget {
     this.prefixIcon,
     this.width,
     this.enabled = true,
+    this.isBordered = false,
     this.isClearable = true,
     this.isDigitsOnly = false,
     this.isObscurable = false,
@@ -44,9 +45,10 @@ class NFTField extends StatefulWidget {
   final double? width;
 
   final bool enabled;
+  final bool isBordered;
+  final bool isClearable;
   final bool isDigitsOnly;
   final bool isObscurable;
-  final bool isClearable;
   final bool requestFocus;
   final bool showSuffix;
 
@@ -143,8 +145,29 @@ class _NFTFieldState extends State<NFTField> {
             hintText: widget.hintText,
             prefixIcon: widget.prefixIcon,
             border: OutlineInputBorder(
-              borderSide: BorderSide.none,
+              borderSide: widget.isBordered
+                  ? const BorderSide(color: kGrayishBlue, width: 1)
+                  : BorderSide.none,
               borderRadius: BorderRadius.circular(widget.radius ?? 10),
+            ),
+            enabledBorder: widget.isBordered
+                ? const OutlineInputBorder(
+                    borderSide: BorderSide(color: kGrayishBlue, width: 1),
+                  )
+                : null,
+            focusedBorder: widget.isBordered
+                ? const OutlineInputBorder(
+                    borderSide: BorderSide(color: kGrayishBlue, width: 1),
+                  )
+                : null,
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
+            disabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
+            focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide.none,
             ),
             hintStyle: kRegularStyle.copyWith(
               fontSize: widget.fontSize,
