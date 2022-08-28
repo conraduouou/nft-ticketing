@@ -6,10 +6,20 @@ import 'package:nft_ticketing/providers/search_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:provider/provider.dart';
 
+enum SearchType {
+  messages,
+  home,
+}
+
 class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({
+    Key? key,
+    this.searchType = SearchType.home,
+  }) : super(key: key);
 
   static const id = '${DashboardContainer.id}/search';
+
+  final SearchType searchType;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +48,9 @@ class SearchPage extends StatelessWidget {
 
                       Widget? child;
 
-                      if (provider.inAsync) {
+                      if (provider.searchQuery.isEmpty) {
+                        child = Container();
+                      } else if (provider.inAsync) {
                         // loading state
                         child = Column(
                           key: const ValueKey<int>(0),
@@ -69,8 +81,6 @@ class SearchPage extends StatelessWidget {
                             ),
                           ),
                         );
-                      } else if (provider.searchQuery.isEmpty) {
-                        child = Container();
                       } else {
                         // empty state; replace with empty condition
                         child = Column(

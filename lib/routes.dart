@@ -32,7 +32,6 @@ class RoutesHandler {
     LoginPage.id: (context) => const LoginPage(),
     NotificationPage.id: (context) => const NotificationPage(),
     TransactionHistoryPage.id: (context) => const TransactionHistoryPage(),
-    SearchPage.id: (context) => const SearchPage(),
   };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -129,6 +128,14 @@ class RoutesHandler {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => TransactionDetailsPage(ticketNo: ticketNo),
+        );
+
+      case SearchPage.id:
+        final searchType = settings.arguments as SearchType;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => SearchPage(searchType: searchType),
         );
     }
 

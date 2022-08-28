@@ -18,7 +18,10 @@ class HomePage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         NFTSliverBar(
-          searchOnTap: () => Navigator.of(context).pushNamed(SearchPage.id),
+          searchOnTap: () => Navigator.of(context).pushNamed(
+            SearchPage.id,
+            arguments: SearchType.home,
+          ),
         ),
         SliverList(
           delegate: SliverChildListDelegate.fixed([

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
+import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
 class MessagesPage extends StatelessWidget {
   const MessagesPage({Key? key}) : super(key: key);
@@ -14,7 +15,11 @@ class MessagesPage extends StatelessWidget {
       backgroundColor: kDarkBlue,
       body: CustomScrollView(
         slivers: [
-          const NFTSliverBar(
+          NFTSliverBar(
+            searchOnTap: () => Navigator.of(context).pushNamed(
+              SearchPage.id,
+              arguments: SearchType.messages,
+            ),
             floating: true,
             showCategories: false,
             toolbarHeight: 90,
