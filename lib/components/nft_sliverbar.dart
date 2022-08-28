@@ -4,23 +4,32 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
-import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
 class NFTSliverBar extends StatelessWidget {
   const NFTSliverBar({
     Key? key,
-    this.isHome = true,
     this.pinned = false,
+    this.floating = false,
     this.onChanged,
     this.initialText,
     this.requestFocus = false,
+    this.showCategories = true,
+    this.showNotifications = true,
+    this.toolbarHeight = 150,
+    this.searchOnTap,
   }) : super(key: key);
 
-  final bool isHome;
   final bool pinned;
+  final bool floating;
   final bool requestFocus;
 
+  final double toolbarHeight;
+
+  final bool showCategories;
+  final bool showNotifications;
+
   final void Function(String s)? onChanged;
+  final VoidCallback? searchOnTap;
   final String? initialText;
 
   @override
@@ -30,7 +39,8 @@ class NFTSliverBar extends StatelessWidget {
       backgroundColor: kDarkBlue,
       elevation: 0,
       titleSpacing: 0,
-      toolbarHeight: isHome ? 150 : 90,
+      toolbarHeight: toolbarHeight,
+      floating: floating,
       pinned: pinned,
       shape: const Border(
         bottom: BorderSide(
@@ -68,17 +78,13 @@ class NFTSliverBar extends StatelessWidget {
                         onClear: () {
                           if (onChanged != null) onChanged!('');
                         },
-                        onTap: () {
-                          if (isHome) {
-                            Navigator.of(context).pushNamed(SearchPage.id);
-                          }
-                        },
+                        onTap: searchOnTap,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 16),
-                isHome
+                showNotifications
                     ? const _NFTSliverBarNotification()
                     : GestureDetector(
                         onTap: () => Navigator.of(context).pop(),
@@ -90,8 +96,8 @@ class NFTSliverBar extends StatelessWidget {
               ],
             ),
           ),
-          isHome ? const SizedBox(height: 25) : Container(),
-          isHome ? const _NFTSliverBarCategories() : Container(),
+          showCategories ? const SizedBox(height: 25) : Container(),
+          showCategories ? const _NFTSliverBarCategories() : Container(),
         ],
       ),
     );

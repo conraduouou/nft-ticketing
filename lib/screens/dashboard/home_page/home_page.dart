@@ -6,6 +6,7 @@ import 'package:nft_ticketing/models/core/nft_event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
+import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +17,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const NFTSliverBar(),
+        NFTSliverBar(
+          searchOnTap: () => Navigator.of(context).pushNamed(SearchPage.id),
+        ),
         SliverList(
           delegate: SliverChildListDelegate.fixed([
             const SizedBox(height: 30),
