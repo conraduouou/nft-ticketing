@@ -39,6 +39,7 @@ class SearchPage extends StatelessWidget {
                       if (provider.inAsync) {
                         // loading state
                         child = Column(
+                          key: const ValueKey<int>(0),
                           children: [
                             SizedBox(height: topPadding),
                             const CircularProgressIndicator(
@@ -49,6 +50,7 @@ class SearchPage extends StatelessWidget {
                       } else if (provider.searchQuery
                           .contains(RegExp(r'[ingsfetvalINGSFETVAL]'))) {
                         child = SizedBox(
+                          key: const ValueKey<int>(1),
                           height: size.height,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -70,6 +72,7 @@ class SearchPage extends StatelessWidget {
                       } else {
                         // empty state; replace with empty condition
                         child = Column(
+                          key: const ValueKey<int>(2),
                           children: [
                             SizedBox(height: topPadding - 40),
                             Text(
