@@ -4,6 +4,7 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/notification_page/notification_page.dart';
+import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
 class NFTSliverBar extends StatelessWidget {
   const NFTSliverBar({
@@ -17,6 +18,7 @@ class NFTSliverBar extends StatelessWidget {
     this.showNotifications = true,
     this.toolbarHeight = 150,
     this.searchOnTap,
+    this.heroTag,
   }) : super(key: key);
 
   final bool pinned;
@@ -31,6 +33,7 @@ class NFTSliverBar extends StatelessWidget {
   final void Function(String s)? onChanged;
   final VoidCallback? searchOnTap;
   final String? initialText;
+  final SearchType? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class NFTSliverBar extends StatelessWidget {
               children: [
                 Flexible(
                   child: Hero(
-                    tag: 'search',
+                    tag: heroTag ?? SearchType.home,
                     child: Material(
                       color: Colors.transparent,
                       child: NFTField(

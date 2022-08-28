@@ -16,6 +16,7 @@ class MessagesPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           NFTSliverBar(
+            heroTag: SearchType.messages,
             searchOnTap: () => Navigator.of(context).pushNamed(
               SearchPage.id,
               arguments: SearchType.messages,

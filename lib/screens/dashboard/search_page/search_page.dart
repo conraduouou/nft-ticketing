@@ -31,6 +31,7 @@ class SearchPage extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               NFTSliverBar(
+                heroTag: searchType,
                 toolbarHeight: 90,
                 showCategories: false,
                 showNotifications: false,
