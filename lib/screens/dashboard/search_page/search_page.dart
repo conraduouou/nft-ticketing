@@ -93,10 +93,11 @@ class SearchPage extends StatelessWidget {
                             Text(
                               'No results were found',
                               style: kSemiBoldStyle.copyWith(
-                                fontSize: kLargeSize,
+                                fontSize: kLargeSize - 4,
                                 color: Colors.white,
                               ),
                             ),
+                            const SizedBox(height: 10),
                             Text(
                               'Try searching with different keywords.',
                               style: kRegularStyle.copyWith(
@@ -149,7 +150,7 @@ class _NFTSearchPageListView extends StatelessWidget {
       height: size.height,
       child: ListView.separated(
         itemCount: 1,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         separatorBuilder: (_, __) => searchType == SearchType.home
             ? const SizedBox(height: 30)
             : Container(),
