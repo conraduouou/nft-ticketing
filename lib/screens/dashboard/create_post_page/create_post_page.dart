@@ -19,90 +19,109 @@ class CreatePostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => CreatePostProvider(),
-      child: Scaffold(
-        backgroundColor: kDarkBlue,
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            Column(
-              children: [
-                const _NFTCreatePostPagePseudoBar(),
-                Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      const SliverPadding(
-                        padding: EdgeInsets.only(left: 20, top: 30, bottom: 40),
-                        sliver: SliverToBoxAdapter(
-                          child: _NFTCreatePostPageConfig(),
+      builder: (context, child) {
+        final provider = context.read<CreatePostProvider>();
+
+        return Scaffold(
+          backgroundColor: kDarkBlue,
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              Column(
+                children: [
+                  const _NFTCreatePostPagePseudoBar(),
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        const SliverPadding(
+                          padding: EdgeInsets.fromLTRB(20, 30, 0, 40),
+                          sliver: SliverToBoxAdapter(
+                            child: _NFTCreatePostPageConfig(),
+                          ),
                         ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            maxLines: null,
-                            style: kRegularStyle.copyWith(
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'What do you want to talk about?',
-                              hintStyle: kRegularStyle.copyWith(
-                                color: kGrayishBlue,
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: TextField(
+                              maxLines: null,
+                              onChanged: provider.onTextChanged,
+                              style: kRegularStyle.copyWith(
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'What do you want to talk about?',
+                                hintStyle: kRegularStyle.copyWith(
+                                  color: kGrayishBlue,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Selector<CreatePostProvider, File?>(
-                        selector: (_, p) => p.image,
-                        builder: (ctx, image, __) {
-                          final provider = ctx.read<CreatePostProvider>();
+                        Selector<CreatePostProvider, File?>(
+                          selector: (_, p) => p.image,
+                          builder: (ctx, image, __) {
+                            if (image == null) {
+                              return const SliverPadding(
+                                padding: EdgeInsets.zero,
+                              );
+                            }
 
-                          if (image == null) {
-                            return const SliverPadding(
-                              padding: EdgeInsets.zero,
-                            );
-                          }
-
-                          return SliverPadding(
-                            padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-                            sliver: SliverToBoxAdapter(
-                              child: Stack(
-                                children: [
-                                  Image.file(image),
-                                  Positioned(
-                                    top: 15,
-                                    right: 15,
-                                    child: InkWell(
-                                      highlightColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: provider.removePhoto,
-                                      child: const Icon(
-                                        Icons.close,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                            return _NFTCreatePostPageImage(image: image);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                KeyboardVisibilityBuilder(
-                  builder: (_, isVisible) {
-                    if (!isVisible) {
-                      return const _NFTCreatePostPageBottomSheet();
-                    }
+                  KeyboardVisibilityBuilder(
+                    builder: (_, isVisible) {
+                      if (!isVisible) {
+                        return const _NFTCreatePostPageBottomSheet();
+                      }
 
-                    return const _NFTCreatePostPageActions();
-                  },
+                      return const _NFTCreatePostPageActions();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _NFTCreatePostPageImage extends StatelessWidget {
+  const _NFTCreatePostPageImage({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+
+  final File image;
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.read<CreatePostProvider>();
+
+    return SliverPadding(
+      padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+      sliver: SliverToBoxAdapter(
+        child: Stack(
+          children: [
+            Image.file(image),
+            Positioned(
+              top: 15,
+              right: 15,
+              child: InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: provider.removePhoto,
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.white,
                 ),
-              ],
+              ),
             ),
           ],
         ),
@@ -349,16 +368,22 @@ class _NFTCreatePostPagePseudoBar extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
-            right: 20,
-            bottom: 30,
-            child: NFTButton(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              text: 'Post',
-              color: kSlightlyDarkBlue,
-              textColor: kGrayishBlue,
-              fontSize: kRegularSize - 2,
-            ),
+          Selector<CreatePostProvider, String>(
+            selector: (_, p) => p.text,
+            builder: (_, text, __) {
+              return Positioned(
+                right: 20,
+                bottom: 30,
+                child: NFTButton(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  text: 'Post',
+                  color: text.isEmpty ? kSlightlyDarkBlue : kPrimaryColor,
+                  textColor: text.isEmpty ? kGrayishBlue : Colors.white,
+                  fontSize: kRegularSize - 2,
+                ),
+              );
+            },
           ),
         ],
       ),

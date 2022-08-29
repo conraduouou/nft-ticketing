@@ -7,9 +7,11 @@ import 'package:image_picker/image_picker.dart';
 class CreatePostProvider with ChangeNotifier {
   File? _image;
   File? _video;
+  String _text = '';
 
   File? get image => _image;
   File? get video => _video;
+  String get text => _text;
 
   void getPhotoFromGallery() async {
     try {
@@ -27,6 +29,11 @@ class CreatePostProvider with ChangeNotifier {
 
   void removePhoto() {
     _image = null;
+    notifyListeners();
+  }
+
+  void onTextChanged(String s) {
+    _text = s;
     notifyListeners();
   }
 }
