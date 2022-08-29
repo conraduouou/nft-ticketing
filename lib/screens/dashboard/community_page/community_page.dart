@@ -68,10 +68,12 @@ class _NFTCommunityPageCreatePost extends StatelessWidget {
         )),
         child: Row(
           children: [
+            // replace with Image.network in the future
             Image.asset(
               'assets/community/img-avatar-2@2x.png',
               width: 40,
               height: 40,
+              errorBuilder: (context, error, stackTrace) => _errorBuilder(),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -97,6 +99,15 @@ class _NFTCommunityPageCreatePost extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Container _errorBuilder() {
+    return Container(
+      height: 40,
+      width: 40,
+      decoration:
+          const BoxDecoration(color: kSlightlyDarkBlue, shape: BoxShape.circle),
     );
   }
 }
