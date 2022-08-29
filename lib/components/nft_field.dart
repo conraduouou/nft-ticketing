@@ -19,6 +19,7 @@ class NFTField extends StatefulWidget {
     this.onClear,
     this.onTap,
     this.prefixIcon,
+    this.suffixIcon,
     this.width,
     this.enabled = true,
     this.isBordered = false,
@@ -53,6 +54,7 @@ class NFTField extends StatefulWidget {
   final bool showSuffix;
 
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   @override
   State<NFTField> createState() => _NFTFieldState();
@@ -178,35 +180,36 @@ class _NFTFieldState extends State<NFTField> {
               maxWidth: 60,
             ),
             suffixIcon: widget.showSuffix
-                ? widget.isObscurable
-                    ? GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isObscured = !isObscured;
-                          });
-                        },
-                        child: Icon(
-                          isObscured
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: Colors.white,
-                        ),
-                      )
-                    : !isEmpty && widget.isClearable
+                ? widget.suffixIcon ??
+                    (widget.isObscurable
                         ? GestureDetector(
                             onTap: () {
                               setState(() {
-                                _controller.clear();
+                                isObscured = !isObscured;
                               });
-
-                              if (widget.onClear != null) widget.onClear!();
                             },
-                            child: const Icon(
-                              Icons.cancel_outlined,
+                            child: Icon(
+                              isObscured
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                               color: Colors.white,
                             ),
                           )
-                        : null
+                        : !isEmpty && widget.isClearable
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _controller.clear();
+                                  });
+
+                                  if (widget.onClear != null) widget.onClear!();
+                                },
+                                child: const Icon(
+                                  Icons.cancel_outlined,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : null)
                 : null,
           ),
         ),

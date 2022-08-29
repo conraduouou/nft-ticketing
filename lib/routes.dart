@@ -12,6 +12,7 @@ import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
+import 'package:nft_ticketing/screens/dashboard/user_chat/user_chat_page.dart';
 import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
 import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
@@ -112,6 +113,13 @@ class RoutesHandler {
           settings: settings,
           builder: (context) => const ReviewOrderPage(),
         );
+      case SearchPage.id:
+        final searchType = settings.arguments as SearchType;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => SearchPage(searchType: searchType),
+        );
       case TicketView.id:
         final args = settings.arguments as Map<String, String>;
 
@@ -129,13 +137,12 @@ class RoutesHandler {
           settings: settings,
           builder: (context) => TransactionDetailsPage(ticketNo: ticketNo),
         );
-
-      case SearchPage.id:
-        final searchType = settings.arguments as SearchType;
+      case UserChatPage.id:
+        final username = settings.arguments as String;
 
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => SearchPage(searchType: searchType),
+          builder: (context) => UserChatPage(username: username),
         );
     }
 
