@@ -175,8 +175,11 @@ class _NFTAccountPageOthersView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 170,
-                  height: 200,
+                  // width: 170,
+                  // height: 200,
+                  constraints: const BoxConstraints(
+                    maxHeight: 220,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: kSlightlyDarkBlue,
