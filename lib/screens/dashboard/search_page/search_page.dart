@@ -7,8 +7,9 @@ import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:provider/provider.dart';
 
 enum SearchType {
-  messages,
   home,
+  community,
+  messages,
 }
 
 class SearchPage extends StatelessWidget {
