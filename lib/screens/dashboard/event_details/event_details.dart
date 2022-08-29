@@ -217,7 +217,7 @@ class _NFTEventDetailsDescriptionLineText extends StatelessWidget {
       children: [
         Text(
           mainText,
-          style: kRegularStyle.copyWith(
+          style: kSemiBoldStyle.copyWith(
             color: Colors.white,
             fontSize: kRegularSize - 2,
           ),
