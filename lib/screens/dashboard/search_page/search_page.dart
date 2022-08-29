@@ -23,22 +23,27 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RegExp exp1 = RegExp(r'[ingsfetvalINGSFETVAL]');
+    RegExp exp2 = RegExp(r'[jamesrolnd]');
+
     return ChangeNotifierProvider(
       create: (context) => SearchPageProvider(),
       builder: (context, child) {
+        final provider = context.read<SearchPageProvider>();
+
         return Scaffold(
           backgroundColor: kDarkBlue,
           body: CustomScrollView(
             slivers: [
               NFTSliverBar(
                 heroTag: searchType,
-                toolbarHeight: 90,
+                pinned: true,
                 showCategories: false,
                 showNotifications: false,
                 requestFocus: true,
-                initialText: context.read<SearchPageProvider>().searchQuery,
-                pinned: true,
-                onChanged: context.read<SearchPageProvider>().onSearchChanged,
+                toolbarHeight: 90,
+                initialText: provider.searchQuery,
+                onChanged: provider.onSearchChanged,
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
@@ -46,6 +51,12 @@ class SearchPage extends StatelessWidget {
                     builder: (_, provider, __) {
                       final size = MediaQuery.of(context).size;
                       final topPadding = size.height / 4;
+
+                      final isHome = provider.searchQuery.contains(exp1) &&
+                          searchType == SearchType.home;
+
+                      final isMessages = provider.searchQuery.contains(exp2) &&
+                          searchType == SearchType.messages;
 
                       Widget? child;
 
@@ -62,25 +73,15 @@ class SearchPage extends StatelessWidget {
                             ),
                           ],
                         );
-                      } else if (provider.searchQuery
-                          .contains(RegExp(r'[ingsfetvalINGSFETVAL]'))) {
-                        child = SizedBox(
+                      } else if (isHome) {
+                        child = _NFTSearchPageListView(
                           key: const ValueKey<int>(1),
-                          height: size.height,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: ListView.separated(
-                              itemCount: 1,
-                              separatorBuilder: (_, __) =>
-                                  const SizedBox(height: 30),
-                              itemBuilder: (_, i) {
-                                return NFTEventBlock(
-                                  eventTitle: 'Innings Festival',
-                                  topPadding: i == 0 ? 10 : null,
-                                );
-                              },
-                            ),
-                          ),
+                          searchType: searchType,
+                        );
+                      } else if (isMessages) {
+                        child = _NFTSearchPageListView(
+                          key: const ValueKey<int>(1),
+                          searchType: searchType,
                         );
                       } else {
                         // empty state; replace with empty condition
@@ -126,6 +127,98 @@ class SearchPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _NFTSearchPageListView extends StatelessWidget {
+  const _NFTSearchPageListView({
+    Key? key,
+    required this.searchType,
+  }) : super(key: key);
+
+  final SearchType searchType;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return SizedBox(
+      key: key,
+      height: size.height,
+      child: ListView.separated(
+        itemCount: 1,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        separatorBuilder: (_, __) => searchType == SearchType.home
+            ? const SizedBox(height: 30)
+            : Container(),
+        itemBuilder: (_, i) {
+          if (searchType == SearchType.home) {
+            return NFTEventBlock(
+              eventTitle: 'Innings Festival',
+              topPadding: i == 0 ? 10 : null,
+            );
+          } else if (searchType == SearchType.messages) {
+            return const NFTChatBlock(
+              imgAssetPath: 'assets/messages/img-messages-avatar-2@2x.png',
+              username: 'James Roland',
+            );
+          }
+
+          return Container();
+        },
+      ),
+    );
+  }
+}
+
+class NFTChatBlock extends StatelessWidget {
+  const NFTChatBlock({
+    Key? key,
+    required this.imgAssetPath,
+    required this.username,
+  }) : super(key: key);
+
+  final String imgAssetPath;
+  final String username;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(
+        top: 20,
+        bottom: 20,
+      ),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: kSlightlyDarkBlue,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                imgAssetPath,
+                width: 40,
+                height: 40,
+              ),
+              const SizedBox(width: 15),
+              Text(
+                username,
+                style: kRegularStyle.copyWith(
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
