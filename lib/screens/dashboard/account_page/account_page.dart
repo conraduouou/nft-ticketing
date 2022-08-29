@@ -112,50 +112,121 @@ class AccountPage extends StatelessWidget {
                   ),
                   const NFTAccountPageDiv(),
                   userDetails == null
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const _NFTAccountPageTicketViewButtons(),
-                            const SizedBox(height: 25),
-                            Selector<AccountPageProvider, TicketView>(
-                              selector: (c, p) => p.ticketView,
-                              builder: (_, view, __) {
-                                return Selector<AccountPageProvider,
-                                    TicketDate>(
-                                  selector: (c, p) => p.ticketDate,
-                                  builder: (_, date, __) {
-                                    return _NFTAccountPageHeading(
-                                      ticketType: view == TicketView.myTicket
-                                          ? date == TicketDate.upcoming
-                                              ? date.name
-                                              : 'past'
-                                          : 'saved',
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 25),
-                            Selector<AccountPageProvider, TicketView>(
-                              selector: (c, p) => p.ticketView,
-                              builder: (_, view, __) {
-                                if (view == TicketView.myTicket) {
-                                  return const _NFTAccountPageMyTicketView();
-                                } else {
-                                  return const _NFTAccountPageSavedTicketView();
-                                }
-                              },
-                            ),
-                          ],
-                        )
+                      ? const _NFTAccountPageSelfView()
                       : Container(),
-                  const SizedBox(height: 40)
+                  userDetails == null ? const SizedBox(height: 40) : Container()
                 ]),
               ),
+              userDetails != null
+                  ? SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, bottom: 20),
+                        child: Text(
+                          'NFTs',
+                          style: kRegularStyle.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    )
+                  : const SliverPadding(padding: EdgeInsets.zero),
+              userDetails != null
+                  ? const _NFTAccountPageOthersView()
+                  : const SliverPadding(padding: EdgeInsets.zero),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class _NFTAccountPageOthersView extends StatelessWidget {
+  const _NFTAccountPageOthersView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      sliver: SliverGrid(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.65,
+          crossAxisSpacing: 10,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          childCount: 3,
+          (context, index) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 170,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: kSlightlyDarkBlue,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Block #8659',
+                  style: kRegularStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: kRegularSize - 2,
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _NFTAccountPageSelfView extends StatelessWidget {
+  const _NFTAccountPageSelfView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _NFTAccountPageTicketViewButtons(),
+        const SizedBox(height: 25),
+        Selector<AccountPageProvider, TicketView>(
+          selector: (c, p) => p.ticketView,
+          builder: (_, view, __) {
+            return Selector<AccountPageProvider, TicketDate>(
+              selector: (c, p) => p.ticketDate,
+              builder: (_, date, __) {
+                return _NFTAccountPageHeading(
+                  ticketType: view == TicketView.myTicket
+                      ? date == TicketDate.upcoming
+                          ? date.name
+                          : 'past'
+                      : 'saved',
+                );
+              },
+            );
+          },
+        ),
+        const SizedBox(height: 25),
+        Selector<AccountPageProvider, TicketView>(
+          selector: (c, p) => p.ticketView,
+          builder: (_, view, __) {
+            if (view == TicketView.myTicket) {
+              return const _NFTAccountPageMyTicketView();
+            } else {
+              return const _NFTAccountPageSavedTicketView();
+            }
+          },
+        ),
+      ],
     );
   }
 }
