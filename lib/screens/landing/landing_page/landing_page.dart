@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/landing/create_account_page/create_account_page.dart';
@@ -12,12 +13,21 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: kDarkBlue,
       body: Stack(
-        children: const [
-          _Logo(),
-          _LandingButtons(),
+        children: [
+          Positioned(
+            top: -216 + (size.height / size.width) * 90,
+            child: Image.asset(
+              'assets/landing_animation_no_loop.gif',
+              width: size.width,
+            ),
+          ),
+          const _Logo(),
+          const _LandingButtons(),
         ],
       ),
     );
@@ -34,7 +44,7 @@ class _Logo extends StatefulWidget {
 }
 
 class _LogoState extends State<_Logo> {
-  static const duration = Duration(milliseconds: 1000);
+  static const duration = Duration(milliseconds: 1300);
   double scale = 0;
 
   @override
@@ -53,7 +63,7 @@ class _LogoState extends State<_Logo> {
     final size = MediaQuery.of(context).size;
 
     return Positioned(
-      bottom: size.height / 2.25,
+      bottom: size.height / 3,
       child: AnimatedScale(
         curve: Curves.easeOutBack,
         duration: duration,
@@ -61,13 +71,14 @@ class _LogoState extends State<_Logo> {
         child: SizedBox(
           width: size.width,
           child: Center(
-            child: Text(
-              'NFT Tiktyn',
-              style: kSemiBoldStyle.copyWith(
-                fontSize: kLargeSize,
-                color: Colors.white,
-              ),
-            ),
+            child: SvgPicture.asset('assets/logo.svg'),
+            // Text(
+            //   'NFT Tiktyn',
+            //   style: kSemiBoldStyle.copyWith(
+            //     fontSize: kLargeSize,
+            //     color: Colors.white,
+            //   ),
+            // ),
           ),
         ),
       ),
