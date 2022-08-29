@@ -126,6 +126,9 @@ class _NFTBottomSheetCard extends StatelessWidget {
 
     return Container(
       height: size.height / 7.25,
+      constraints: const BoxConstraints(
+        maxHeight: 90,
+      ),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: kSlightlyDarkBlue,
@@ -133,9 +136,11 @@ class _NFTBottomSheetCard extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 mainText,
