@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/models/core/user.dart';
+import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
@@ -129,6 +131,7 @@ class _NFTCommunityPagePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 10),
         _NFTCommunityPagePostUserHeading(
@@ -198,30 +201,52 @@ class _NFTCommunityPagePostUserHeading extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          Image.asset(
-            imagePath,
-            height: 40,
-            width: 40,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(
-                  color: kSlightlyDarkBlue,
-                  shape: BoxShape.circle,
+          Flexible(
+            child: InkWell(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onTap: () => Navigator.of(context).pushNamed(
+                AccountPage.id,
+                arguments: User(
+                  name: 'Katie Faye',
+                  email: 'katiefaye_100@gmail.com',
+                  imgPath: 'assets/community/img-avatar-1@3x.png',
+                  posts: 11,
+                  following: 200,
+                  followers: 1300,
                 ),
-              );
-            },
-          ),
-          const SizedBox(width: 15),
-          Text(
-            username,
-            style: kRegularStyle.copyWith(
-              color: Colors.white,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    imagePath,
+                    height: 40,
+                    width: 40,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          color: kSlightlyDarkBlue,
+                          shape: BoxShape.circle,
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 15),
+                  Text(
+                    username,
+                    style: kRegularStyle.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Spacer(),
+                  const _NFTCommunityPageFollowWidget(),
+                ],
+              ),
             ),
           ),
-          const Spacer(),
-          const _NFTCommunityPageFollowWidget(),
         ],
       ),
     );

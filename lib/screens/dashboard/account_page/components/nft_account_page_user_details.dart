@@ -1,37 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_vertical_div.dart';
 
 class NFTAccountPageUserDetails extends StatelessWidget {
   const NFTAccountPageUserDetails({
     Key? key,
+    required this.posts,
+    required this.following,
+    required this.followers,
   }) : super(key: key);
+
+  final num posts;
+  final num following;
+  final num followers;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: const [
+      children: [
         Expanded(
           flex: 3,
           child: _NFTAccountPageUserDetailsBlock(
-            mainText: '15',
+            mainText: NumberFormat.compact().format(posts),
             subText: 'Posts',
           ),
         ),
-        NFTAccountPageVerticalDiv(),
+        const NFTAccountPageVerticalDiv(),
         Expanded(
           flex: 3,
           child: _NFTAccountPageUserDetailsBlock(
-            mainText: '13',
+            mainText: NumberFormat.compact().format(following),
             subText: 'Following',
           ),
         ),
-        NFTAccountPageVerticalDiv(),
+        const NFTAccountPageVerticalDiv(),
         Expanded(
           flex: 3,
           child: _NFTAccountPageUserDetailsBlock(
-            mainText: '20',
+            mainText: NumberFormat.compact().format(followers),
             subText: 'Followers',
           ),
         ),

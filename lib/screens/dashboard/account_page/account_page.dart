@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_event_mini_block.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/models/core/user.dart';
 import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_banner_and_avatar.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_div.dart';
@@ -13,9 +14,14 @@ import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 
 class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({
+    Key? key,
+    this.userDetails,
+  }) : super(key: key);
 
   static const id = '${DashboardContainer.id}/account';
+
+  final User? userDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -28,42 +34,121 @@ class AccountPage extends StatelessWidget {
             slivers: [
               SliverList(
                 delegate: SliverChildListDelegate.fixed([
-                  const NFTAccountPageBannerAndAvatar(),
+                  NFTAccountPageBannerAndAvatar(
+                    assetPath: userDetails == null
+                        ? 'assets/community/img-avatar-2@3x.png'
+                        : userDetails!.imgPath,
+                    showSettings: userDetails == null,
+                    showBackButton: userDetails != null,
+                  ),
                   const SizedBox(height: 65),
-                  const NFTAccountPageUser(),
+                  NFTAccountPageUser(
+                    isSelf: userDetails == null,
+                    name: userDetails == null
+                        ? 'Juan dela Cruz'
+                        : userDetails!.name,
+                    email: userDetails == null
+                        ? 'juandelacruz@gmail.com'
+                        : userDetails!.email,
+                  ),
+                  userDetails != null
+                      ? const SizedBox(height: 25)
+                      : Container(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: NFTButton(
+                            padding: const EdgeInsets.symmetric(vertical: 13),
+                            widget: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: const Icon(
+                                    Icons.add_sharp,
+                                    color: kPrimaryColor,
+                                    size: 18,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  'Follow',
+                                  style: kRegularStyle.copyWith(
+                                    color: Colors.white,
+                                    fontSize: kRegularSize - 2,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        const Expanded(
+                          child: NFTButton(
+                            text: 'Message',
+                            padding: EdgeInsets.symmetric(vertical: 13),
+                            fontSize: kRegularSize - 2,
+                            color: kSecondaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 40),
-                  const NFTAccountPageUserDetails(),
+                  NFTAccountPageUserDetails(
+                    posts: userDetails == null ? 11 : userDetails!.posts,
+                    following:
+                        userDetails == null ? 200 : userDetails!.following,
+                    followers:
+                        userDetails == null ? 400 : userDetails!.followers,
+                  ),
                   const NFTAccountPageDiv(),
-                  const _NFTAccountPageTicketViewButtons(),
-                  const SizedBox(height: 25),
-                  Selector<AccountPageProvider, TicketView>(
-                    selector: (c, p) => p.ticketView,
-                    builder: (_, view, __) {
-                      return Selector<AccountPageProvider, TicketDate>(
-                        selector: (c, p) => p.ticketDate,
-                        builder: (_, date, __) {
-                          return _NFTAccountPageHeading(
-                            ticketType: view == TicketView.myTicket
-                                ? date == TicketDate.upcoming
-                                    ? date.name
-                                    : 'past'
-                                : 'saved',
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 25),
-                  Selector<AccountPageProvider, TicketView>(
-                    selector: (c, p) => p.ticketView,
-                    builder: (_, view, __) {
-                      if (view == TicketView.myTicket) {
-                        return const _NFTAccountPageMyTicketView();
-                      } else {
-                        return const _NFTAccountPageSavedTicketView();
-                      }
-                    },
-                  ),
+                  userDetails == null
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const _NFTAccountPageTicketViewButtons(),
+                            const SizedBox(height: 25),
+                            Selector<AccountPageProvider, TicketView>(
+                              selector: (c, p) => p.ticketView,
+                              builder: (_, view, __) {
+                                return Selector<AccountPageProvider,
+                                    TicketDate>(
+                                  selector: (c, p) => p.ticketDate,
+                                  builder: (_, date, __) {
+                                    return _NFTAccountPageHeading(
+                                      ticketType: view == TicketView.myTicket
+                                          ? date == TicketDate.upcoming
+                                              ? date.name
+                                              : 'past'
+                                          : 'saved',
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 25),
+                            Selector<AccountPageProvider, TicketView>(
+                              selector: (c, p) => p.ticketView,
+                              builder: (_, view, __) {
+                                if (view == TicketView.myTicket) {
+                                  return const _NFTAccountPageMyTicketView();
+                                } else {
+                                  return const _NFTAccountPageSavedTicketView();
+                                }
+                              },
+                            ),
+                          ],
+                        )
+                      : Container(),
                   const SizedBox(height: 40)
                 ]),
               ),

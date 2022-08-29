@@ -10,6 +10,7 @@ class NFTButton extends StatelessWidget {
     this.fontSize,
     this.padding,
     this.text,
+    this.widget,
     this.onPressed,
     this.fontWeight,
   }) : super(key: key);
@@ -20,6 +21,7 @@ class NFTButton extends StatelessWidget {
   final double? fontSize;
   final EdgeInsets? padding;
   final String? text;
+  final Widget? widget;
   final VoidCallback? onPressed;
   final FontWeight? fontWeight;
 
@@ -39,15 +41,17 @@ class NFTButton extends StatelessWidget {
           color: color ?? kPrimaryColor,
           borderRadius: BorderRadius.circular(borderRadius ?? 40),
         ),
-        child: Text(
-          text ?? '',
-          textAlign: TextAlign.center,
-          style: kRegularStyle.copyWith(
-            color: textColor ?? Colors.white,
-            fontSize: fontSize ?? kRegularSize,
-            fontWeight: fontWeight,
-          ),
-        ),
+        child: text != null
+            ? Text(
+                text ?? '',
+                textAlign: TextAlign.center,
+                style: kRegularStyle.copyWith(
+                  color: textColor ?? Colors.white,
+                  fontSize: fontSize ?? kRegularSize,
+                  fontWeight: fontWeight,
+                ),
+              )
+            : widget,
       ),
     );
   }

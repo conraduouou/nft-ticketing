@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nft_ticketing/models/core/user.dart';
+import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/account_settings/account_settings.dart';
 import 'package:nft_ticketing/screens/dashboard/checkout_page/checkout_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
@@ -37,6 +39,14 @@ class RoutesHandler {
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AccountPage.id:
+        final user = settings.arguments as User?;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => AccountPage(userDetails: user),
+        );
+
       case CheckoutPage.id:
         // handle checkout screen arguments here
 
