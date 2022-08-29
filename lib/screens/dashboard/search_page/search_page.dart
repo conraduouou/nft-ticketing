@@ -150,7 +150,8 @@ class _NFTSearchPageListView extends StatelessWidget {
       height: size.height,
       child: ListView.separated(
         itemCount: 1,
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        padding: EdgeInsets.fromLTRB(
+            20, searchType == SearchType.home ? 20 : 0, 20, 0),
         separatorBuilder: (_, __) => searchType == SearchType.home
             ? const SizedBox(height: 30)
             : Container(),
