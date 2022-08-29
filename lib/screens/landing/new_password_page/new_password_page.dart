@@ -23,11 +23,14 @@ class NewPasswordPage extends StatelessWidget {
   final bool isUpdate;
 
   _createOnTap(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     showDialog(
       barrierColor: kDialogBarrierColor,
       context: context,
       builder: (_) {
         return NFTDialog(
+          height: size.height / 3.75,
           onPressed: () {
             // navigate to login page
             Navigator.of(context, rootNavigator: true).pop();

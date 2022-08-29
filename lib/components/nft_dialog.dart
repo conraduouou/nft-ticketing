@@ -60,7 +60,7 @@ class NFTDialog extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: width - 80),
+                constraints: BoxConstraints(maxWidth: width - 60),
                 child: Text(
                   subText ?? 'You have created your new password.',
                   textAlign: TextAlign.center,
