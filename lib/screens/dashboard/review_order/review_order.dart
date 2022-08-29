@@ -102,6 +102,7 @@ class _NFTReviewOrderQuantitySetting extends StatelessWidget {
           height: 50,
           showSuffix: false,
           isDigitsOnly: true,
+          textAlign: TextAlign.center,
         )
       ],
     );

@@ -20,6 +20,7 @@ class NFTCheckoutTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        const SizedBox(height: 30),
         _NFTTitle(title: title),
         const SizedBox(height: 10),
         Text(
