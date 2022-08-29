@@ -13,11 +13,10 @@ class NFTDialog extends StatelessWidget {
     this.buttonText,
     this.subTextColor,
     this.buttonPadding,
-    this.height = 250,
-    this.width = 350,
     this.showCancel = false,
     this.cancelPadding,
     this.headingSize = kLargeSize - 2,
+    this.width = 350,
   }) : super(key: key);
 
   /// The operation to be done upon pressing the button in this `Dialog`.
@@ -29,11 +28,11 @@ class NFTDialog extends StatelessWidget {
   final Color? subTextColor;
   final EdgeInsets? buttonPadding;
 
-  final double height;
-  final double width;
   final double headingSize;
   final bool showCancel;
   final EdgeInsets? cancelPadding;
+
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +45,9 @@ class NFTDialog extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         child: SizedBox(
           width: width,
-          height: height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 40),
               Text(
@@ -60,7 +59,7 @@ class NFTDialog extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: width - 60),
+                constraints: BoxConstraints(maxWidth: width - 40),
                 child: Text(
                   subText ?? 'You have created your new password.',
                   textAlign: TextAlign.center,
@@ -92,6 +91,7 @@ class NFTDialog extends StatelessWidget {
                       },
                     )
                   : Container(),
+              const SizedBox(height: 50),
             ],
           ),
         ),

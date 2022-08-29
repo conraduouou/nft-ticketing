@@ -21,7 +21,7 @@ class OrderCompletePage extends StatelessWidget {
       context: context,
       barrierColor: kDialogBarrierColor,
       builder: (context) => NFTDialog(
-        height: 400,
+        // height: 400,
         showCancel: true,
         headingText: 'Add to calendar?',
         headingSize: kLargeSize - 8,
