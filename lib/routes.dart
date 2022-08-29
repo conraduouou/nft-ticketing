@@ -3,6 +3,7 @@ import 'package:nft_ticketing/models/core/user.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/account_settings/account_settings.dart';
 import 'package:nft_ticketing/screens/dashboard/checkout_page/checkout_page.dart';
+import 'package:nft_ticketing/screens/dashboard/create_post_page/create_post_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/event_details/event_details.dart';
 import 'package:nft_ticketing/screens/dashboard/events_view/events_view.dart';
@@ -15,7 +16,7 @@ import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
 import 'package:nft_ticketing/screens/dashboard/user_chat/user_chat_page.dart';
-import 'package:nft_ticketing/screens/landing/create_page/create_page.dart';
+import 'package:nft_ticketing/screens/landing/create_account_page/create_account_page.dart';
 import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
 import 'package:nft_ticketing/screens/landing/landing_page/landing_page.dart';
@@ -25,7 +26,8 @@ import 'package:nft_ticketing/screens/landing/new_password_page/new_password_pag
 class RoutesHandler {
   final Map<String, WidgetBuilder> routes = {
     AccountSettings.id: (context) => const AccountSettings(),
-    CreatePage.id: (context) => const CreatePage(),
+    CreateAccountPage.id: (context) => const CreateAccountPage(),
+    CreatePostPage.id: (context) => const CreatePostPage(),
     EventsViewPage.comingSoonId: (context) =>
         const EventsViewPage(happeningNow: false),
     EventsViewPage.happeningNowId: (context) =>
@@ -54,7 +56,6 @@ class RoutesHandler {
           settings: settings,
           builder: (context) => const CheckoutPage(),
         );
-
       case DashboardContainer.id:
         final toView = settings.arguments as String?;
 

@@ -13,6 +13,7 @@ class NFTButton extends StatelessWidget {
     this.widget,
     this.onPressed,
     this.fontWeight,
+    this.border,
   }) : super(key: key);
 
   final Color? color;
@@ -24,6 +25,7 @@ class NFTButton extends StatelessWidget {
   final Widget? widget;
   final VoidCallback? onPressed;
   final FontWeight? fontWeight;
+  final Border? border;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class NFTButton extends StatelessWidget {
             ),
         decoration: BoxDecoration(
           color: color ?? kPrimaryColor,
+          border: border,
           borderRadius: BorderRadius.circular(borderRadius ?? 40),
         ),
         child: text != null

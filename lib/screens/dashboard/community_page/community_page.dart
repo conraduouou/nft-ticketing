@@ -5,6 +5,7 @@ import 'package:nft_ticketing/components/nft_sliverbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/user.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
+import 'package:nft_ticketing/screens/dashboard/create_post_page/create_post_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
 
@@ -82,7 +83,7 @@ class _NFTCommunityPageCreatePost extends StatelessWidget {
               child: InkWell(
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
-                // onTap: () = >,
+                onTap: () => Navigator.of(context).pushNamed(CreatePostPage.id),
                 child: Container(
                   height: 50,
                   padding: const EdgeInsets.only(left: 20),

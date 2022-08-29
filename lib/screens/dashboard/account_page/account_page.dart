@@ -54,54 +54,9 @@ class AccountPage extends StatelessWidget {
                   userDetails != null
                       ? const SizedBox(height: 25)
                       : Container(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: NFTButton(
-                            padding: const EdgeInsets.symmetric(vertical: 13),
-                            widget: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: const Icon(
-                                    Icons.add_sharp,
-                                    color: kPrimaryColor,
-                                    size: 18,
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  'Follow',
-                                  style: kRegularStyle.copyWith(
-                                    color: Colors.white,
-                                    fontSize: kRegularSize - 2,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Expanded(
-                          child: NFTButton(
-                            text: 'Message',
-                            padding: EdgeInsets.symmetric(vertical: 13),
-                            fontSize: kRegularSize - 2,
-                            color: kSecondaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  userDetails != null
+                      ? const _NFTAccountPageFollowMessageButtons()
+                      : Container(),
                   const SizedBox(height: 40),
                   NFTAccountPageUserDetails(
                     posts: userDetails == null ? 11 : userDetails!.posts,
@@ -135,6 +90,64 @@ class AccountPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _NFTAccountPageFollowMessageButtons extends StatelessWidget {
+  const _NFTAccountPageFollowMessageButtons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: NFTButton(
+              padding: const EdgeInsets.symmetric(vertical: 13),
+              widget: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Icon(
+                      Icons.add_sharp,
+                      color: kPrimaryColor,
+                      size: 18,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    'Follow',
+                    style: kRegularStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: kRegularSize - 2,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Expanded(
+            child: NFTButton(
+              text: 'Message',
+              padding: EdgeInsets.symmetric(vertical: 13),
+              fontSize: kRegularSize - 2,
+              color: kSecondaryColor,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

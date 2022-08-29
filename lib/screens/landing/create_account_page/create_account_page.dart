@@ -8,8 +8,8 @@ import 'package:nft_ticketing/providers/create_page_provider.dart';
 import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 
-class CreatePage extends StatelessWidget {
-  const CreatePage({Key? key}) : super(key: key);
+class CreateAccountPage extends StatelessWidget {
+  const CreateAccountPage({Key? key}) : super(key: key);
 
   static const id = '/create-account';
 
