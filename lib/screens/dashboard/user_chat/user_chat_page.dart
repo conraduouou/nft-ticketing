@@ -108,6 +108,8 @@ class UserChatPage extends StatelessWidget {
           Expanded(
             child: GroupedListView<Message, DateTime>(
               elements: messages,
+              order: GroupedListOrder.DESC,
+              reverse: true,
               groupHeaderBuilder: (message) =>
                   _groupHeaderBuilder(messages, message),
               groupBy: (message) => DateTime(
