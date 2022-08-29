@@ -132,12 +132,15 @@ class _NFTFieldState extends State<NFTField> {
             color: Colors.white,
             fontSize: widget.fontSize,
           ),
-          onTap: () {
-            // if (widget.onTap != null) {
-            //   widget.node.unfocus();
-            //   widget.onTap!();
-            // }
-          },
+          onTap: widget.onTap,
+          // () {
+          //   if (widget.onTap != null) {
+          //     final focus = FocusManager.instance.primaryFocus;
+
+          //     if (focus != null) focus.unfocus();
+          //     widget.onTap!();
+          //   }
+          // },
           decoration: InputDecoration(
             contentPadding: widget.padding ?? const EdgeInsets.all(15),
             enabled: widget.enabled,

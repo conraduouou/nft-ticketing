@@ -126,6 +126,7 @@ class RoutesHandler {
         );
       case SearchPage.id:
         final searchType = settings.arguments as SearchType;
+        print('OVER HERE');
 
         return MaterialPageRoute(
           settings: settings,
