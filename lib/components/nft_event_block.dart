@@ -19,6 +19,8 @@ class NFTEventBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,8 +42,12 @@ class NFTEventBlock extends StatelessWidget {
         ),
         */
         Container(
-          height: 200,
-          width: 350,
+          // height: 200,
+          // width: 350,
+          constraints: BoxConstraints(
+            maxWidth: size.width - 40,
+            maxHeight: 220,
+          ),
           decoration: BoxDecoration(
             color: kSlightlyDarkBlue,
             borderRadius: BorderRadius.circular(8),
