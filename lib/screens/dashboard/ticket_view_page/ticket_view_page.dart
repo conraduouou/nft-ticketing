@@ -5,19 +5,23 @@ import 'package:nft_ticketing/components/nft_appbar.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 
-class TicketView extends StatelessWidget {
-  const TicketView({
+class TicketViewPage extends StatelessWidget {
+  const TicketViewPage({
     Key? key,
     required this.eventTitle,
     required this.eventDate,
+    this.dateView = TicketDate.upcoming,
   }) : super(key: key);
 
   static const id = '${AccountPage.id}/view-ticket';
 
   final String eventTitle;
   final String eventDate;
+
+  final TicketDate dateView;
 
   Future<dynamic> _showDialog(BuildContext context) {
     return showDialog(
@@ -81,14 +85,20 @@ class TicketView extends StatelessWidget {
               eventTitle: eventTitle,
             ),
             const SizedBox(height: 30),
-            NFTButton(
-              onPressed: () => _downloadOnPressed(context),
-              text: 'Download Ticket',
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              fontSize: kRegularSize + 1,
-            ),
-            const SizedBox(height: 30),
-            NFTAddToCalendar(onTap: () => _showDialog(context)),
+            dateView == TicketDate.upcoming
+                ? NFTButton(
+                    onPressed: () => _downloadOnPressed(context),
+                    text: 'Download Ticket',
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    fontSize: kRegularSize + 1,
+                  )
+                : Container(),
+            dateView == TicketDate.upcoming
+                ? const SizedBox(height: 30)
+                : Container(),
+            dateView == TicketDate.upcoming
+                ? NFTAddToCalendar(onTap: () => _showDialog(context))
+                : Container(),
             const SizedBox(height: 40),
           ],
         ),

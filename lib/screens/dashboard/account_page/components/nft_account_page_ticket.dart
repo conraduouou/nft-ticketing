@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/constants.dart';
-import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
+import 'package:nft_ticketing/providers/account_page_provider.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_page.dart';
 
 class NFTAccountPageTicket extends StatelessWidget {
   const NFTAccountPageTicket({
     Key? key,
     required this.eventTitle,
     required this.eventDate,
+    this.dateView = TicketDate.upcoming,
   }) : super(key: key);
 
   final String eventTitle;
   final String eventDate;
+
+  final TicketDate dateView;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,20 @@ class NFTAccountPageTicket extends StatelessWidget {
                   child: _NFTAccountPageTicketContent(
                     eventTitle: eventTitle,
                     eventDate: eventDate,
+                    dateView: dateView,
                   ),
                 ),
-                Image.asset(
-                  'assets/homepage/img-happeningnow-1@2x-cropped.png',
-                  width: 135,
+                Container(
+                  foregroundDecoration: dateView == TicketDate.pastTicket
+                      ? const BoxDecoration(
+                          color: Colors.grey,
+                          backgroundBlendMode: BlendMode.saturation,
+                        )
+                      : null,
+                  child: Image.asset(
+                    'assets/homepage/img-happeningnow-1@2x-cropped.png',
+                    width: 135,
+                  ),
                 )
               ],
             ),
@@ -64,10 +77,13 @@ class _NFTAccountPageTicketContent extends StatelessWidget {
     Key? key,
     required this.eventTitle,
     required this.eventDate,
+    this.dateView = TicketDate.upcoming,
   }) : super(key: key);
 
   final String eventTitle;
   final String eventDate;
+
+  final TicketDate dateView;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +96,9 @@ class _NFTAccountPageTicketContent extends StatelessWidget {
             Text(
               eventTitle,
               style: kSemiBoldStyle.copyWith(
-                color: Colors.white,
+                color: dateView == TicketDate.upcoming
+                    ? Colors.white
+                    : Colors.white.withAlpha(100),
                 fontSize: kRegularSize - 1,
               ),
             ),
@@ -88,7 +106,9 @@ class _NFTAccountPageTicketContent extends StatelessWidget {
             Text(
               eventDate,
               style: kRegularStyle.copyWith(
-                color: Colors.white,
+                color: dateView == TicketDate.upcoming
+                    ? Colors.white
+                    : Colors.white.withAlpha(100),
                 fontSize: kRegularSize - 3,
               ),
             ),
@@ -97,10 +117,11 @@ class _NFTAccountPageTicketContent extends StatelessWidget {
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () => Navigator.of(context).pushNamed(
-            TicketView.id,
+            TicketViewPage.id,
             arguments: {
               'eventTitle': eventTitle,
               'eventDate': eventDate,
+              'dateView': dateView,
             },
           ),
           child: Text(

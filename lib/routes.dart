@@ -12,7 +12,7 @@ import 'package:nft_ticketing/screens/dashboard/notification_page/notification_p
 import 'package:nft_ticketing/screens/dashboard/order_complete_page/order_complete_page.dart';
 import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
-import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_page.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
 import 'package:nft_ticketing/screens/dashboard/user_chat/user_chat_page.dart';
@@ -131,14 +131,15 @@ class RoutesHandler {
           settings: settings,
           builder: (context) => SearchPage(searchType: searchType),
         );
-      case TicketView.id:
-        final args = settings.arguments as Map<String, String>;
+      case TicketViewPage.id:
+        final args = settings.arguments as Map<String, dynamic>;
 
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => TicketView(
+          builder: (context) => TicketViewPage(
             eventTitle: args['eventTitle']!,
             eventDate: args['eventDate']!,
+            dateView: args['dateView'],
           ),
         );
       case TransactionDetailsPage.id:

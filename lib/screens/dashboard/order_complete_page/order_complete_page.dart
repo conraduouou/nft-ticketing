@@ -9,7 +9,7 @@ import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/checkout_page/checkout_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
-import 'package:nft_ticketing/screens/dashboard/ticket_view/ticket_view.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_page.dart';
 
 class OrderCompletePage extends StatelessWidget {
   const OrderCompletePage({Key? key}) : super(key: key);
@@ -88,7 +88,8 @@ class OrderCompletePage extends StatelessWidget {
                     arguments: AccountPage.id,
                   );
 
-                  Navigator.of(context).pushNamed(TicketView.id, arguments: {
+                  Navigator.of(context)
+                      .pushNamed(TicketViewPage.id, arguments: {
                     'eventTitle': 'Innings Festival',
                     'eventDate': 'March 19 & 20, 2022',
                   });

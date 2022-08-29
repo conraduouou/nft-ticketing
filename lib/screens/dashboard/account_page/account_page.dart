@@ -344,15 +344,20 @@ class _NFTAccountPageMyTicketView extends StatelessWidget {
         const _NFTAccountPageDateViewButtons(),
         const SizedBox(height: 30),
         for (int i = 0; i < 2; i++)
-          Column(
-            children: [
-              NFTAccountPageTicket(
-                eventTitle: i == 0 ? 'Innings Festival' : 'High Water',
-                eventDate: i == 0 ? 'March 19-March 20' : 'April 23 & 24',
-              ),
-              i != 1 ? const SizedBox(height: 20) : Container(),
-            ],
-          ),
+          Selector<AccountPageProvider, TicketDate>(
+              selector: (_, p) => p.ticketDate,
+              builder: (_, date, __) {
+                return Column(
+                  children: [
+                    NFTAccountPageTicket(
+                      eventTitle: i == 0 ? 'Innings Festival' : 'High Water',
+                      eventDate: i == 0 ? 'March 19-March 20' : 'April 23 & 24',
+                      dateView: date,
+                    ),
+                    i != 1 ? const SizedBox(height: 20) : Container(),
+                  ],
+                );
+              }),
       ],
     );
   }
@@ -365,24 +370,40 @@ class _NFTAccountPageDateViewButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<AccountPageProvider>();
+
     return Container(
       padding: const EdgeInsets.only(left: 20),
       height: 35,
       child: Row(
         children: [
-          for (int i = 0; i < 2; i++)
+          for (int i = 0; i < TicketDate.values.length; i++)
             Row(
               children: [
-                SizedBox(
-                  width: 120,
-                  child: NFTButton(
-                    text: i == 0 ? 'Upcoming' : 'Past Tickets',
-                    fontWeight: i == 0 ? FontWeight.w600 : null,
-                    color: i == 0 ? kPrimaryColor : kSlightlyDarkBlue,
-                    textColor: i == 0 ? null : const Color(0xff50566A),
-                    fontSize: kRegularSize - 1,
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                  ),
+                Selector<AccountPageProvider, TicketDate>(
+                  selector: (_, p) => p.ticketDate,
+                  builder: (_, date, __) {
+                    return SizedBox(
+                      width: 120,
+                      child: NFTButton(
+                        fontSize: kRegularSize - 1,
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        text: TicketDate.values[i].name.titleCase,
+                        fontWeight: TicketDate.values[i] == date
+                            ? FontWeight.w600
+                            : null,
+                        color: TicketDate.values[i] == date
+                            ? kPrimaryColor
+                            : kSlightlyDarkBlue,
+                        textColor: TicketDate.values[i] == date
+                            ? null
+                            : const Color(0xff50566A),
+                        onPressed: () {
+                          provider.ticketDate = TicketDate.values[i];
+                        },
+                      ),
+                    );
+                  },
                 ),
                 i == 0 ? const SizedBox(width: 10) : Container(),
               ],
