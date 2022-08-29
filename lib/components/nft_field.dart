@@ -28,6 +28,7 @@ class NFTField extends StatefulWidget {
     this.isObscurable = false,
     this.requestFocus = false,
     this.showSuffix = true,
+    this.focusNode,
   }) : super(key: key);
 
   final Color? color;
@@ -56,6 +57,8 @@ class NFTField extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
+  final FocusNode? focusNode;
+
   @override
   State<NFTField> createState() => _NFTFieldState();
 }
@@ -66,16 +69,12 @@ class _NFTFieldState extends State<NFTField> {
   late bool isEmpty;
   late final formatters = <TextInputFormatter>[];
 
-  late FocusNode node;
-
   @override
   void initState() {
     _controller = TextEditingController(text: widget.initialText);
     isObscured = widget.isObscurable ? true : false;
     isEmpty = (!widget.isObscurable && widget.isClearable) &&
         (widget.initialText == null || widget.initialText!.isEmpty);
-
-    node = FocusNode();
 
     _controller.addListener(() {
       setState(() {
@@ -120,7 +119,7 @@ class _NFTFieldState extends State<NFTField> {
       height: widget.height,
       width: widget.width,
       child: Focus(
-        focusNode: node,
+        focusNode: widget.focusNode,
         child: TextField(
           autofocus: widget.requestFocus,
           controller: _controller,
@@ -134,10 +133,10 @@ class _NFTFieldState extends State<NFTField> {
             fontSize: widget.fontSize,
           ),
           onTap: () {
-            if (widget.onTap != null) {
-              node.unfocus();
-              widget.onTap!();
-            }
+            // if (widget.onTap != null) {
+            //   widget.node.unfocus();
+            //   widget.onTap!();
+            // }
           },
           decoration: InputDecoration(
             contentPadding: widget.padding ?? const EdgeInsets.all(15),

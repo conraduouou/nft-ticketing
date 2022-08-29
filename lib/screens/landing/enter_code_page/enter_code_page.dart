@@ -100,34 +100,40 @@ class _CodeFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int i = 0; i < 4; i++)
-          Row(
-            children: [
-              NFTField(
-                width: 60,
-                textAlign: TextAlign.center,
-                isDigitsOnly: true,
-                maxLength: 1,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                fontSize: kLargeSize - 6,
-                isClearable: false,
-                onChanged: (s) {
-                  if (i != 3) {
-                    if (s.length == 1) {
-                      FocusScope.of(context).nextFocus();
-                    }
-                  }
+    FocusNode instance = FocusNode();
 
-                  provider.onCodeChange(i, s);
-                },
-              ),
-              i < 3 ? const SizedBox(width: 20) : Container()
-            ],
-          ),
-      ],
+    return FocusTraversalGroup(
+      policy: WidgetOrderTraversalPolicy(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (int i = 0; i < 4; i++)
+            Row(
+              children: [
+                NFTField(
+                  focusNode: instance,
+                  width: 60,
+                  textAlign: TextAlign.center,
+                  isDigitsOnly: true,
+                  maxLength: 1,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  fontSize: kLargeSize - 6,
+                  isClearable: false,
+                  onChanged: (s) {
+                    if (i != 3) {
+                      if (s.length == 1) {
+                        FocusScope.of(context).nextFocus();
+                      }
+                    }
+
+                    provider.onCodeChange(i, s);
+                  },
+                ),
+                i < 3 ? const SizedBox(width: 20) : Container()
+              ],
+            ),
+        ],
+      ),
     );
   }
 }

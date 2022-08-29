@@ -79,13 +79,13 @@ class RoutesHandler {
         );
 
       case NewPasswordPage.id:
-        final args = settings.arguments as Map<String, bool>;
+        final args = settings.arguments as Map<String, bool>?;
 
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => NewPasswordPage(
-            showLeading: args['showLeading'] ?? false,
-            isUpdate: args['isUpdate'] ?? false,
+            showLeading: args?['showLeading'] ?? false,
+            isUpdate: args?['isUpdate'] ?? false,
           ),
         );
       case NotificationDetailsPage.id:
