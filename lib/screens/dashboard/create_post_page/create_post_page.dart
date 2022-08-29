@@ -24,6 +24,7 @@ class CreatePostPage extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: kDarkBlue,
+          resizeToAvoidBottomInset: false,
           body: Stack(
             fit: StackFit.expand,
             children: [
@@ -137,8 +138,10 @@ class _NFTCreatePostPageActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
     return Padding(
-      padding: const EdgeInsets.only(left: 20, bottom: 20),
+      padding: EdgeInsets.only(left: 20, bottom: bottomInset + 20),
       child: Row(
         children: [
           SvgPicture.asset('assets/icons/ic-take-a-picture.svg'),
