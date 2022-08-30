@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
             NFTMiniEventsSlideSection(
               hasBottomPadding: true,
               sectionTitle: 'Coming Soon',
-              listHeight: size.width / 1.5,
+              listHeight: size.width / 1.4,
               onViewTap: () {
                 Navigator.pushNamed(context, EventsViewPage.comingSoonId);
               },
