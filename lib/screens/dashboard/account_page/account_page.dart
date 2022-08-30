@@ -167,27 +167,23 @@ class _NFTAccountPageOthersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      sliver: SliverGrid(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 20,
-          childAspectRatio: 0.65,
-          crossAxisSpacing: 10,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          childCount: 3,
-          (context, index) {
-            return Column(
+      sliver: SliverGrid.count(
+        crossAxisCount: 2,
+        childAspectRatio: size.width / 850 * 1.45,
+        crossAxisSpacing: 10,
+        children: [
+          for (int i = 0; i < 3; i++)
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   // width: 170,
                   // height: 200,
-                  constraints: const BoxConstraints(
-                    maxHeight: 220,
-                  ),
+                  constraints: BoxConstraints(maxHeight: size.width / 2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: kSlightlyDarkBlue,
@@ -202,9 +198,8 @@ class _NFTAccountPageOthersView extends StatelessWidget {
                   ),
                 )
               ],
-            );
-          },
-        ),
+            )
+        ],
       ),
     );
   }
@@ -434,12 +429,11 @@ class _NFTAccountPageSavedTicketView extends StatelessWidget {
       sliver: SliverGrid.count(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
-        childAspectRatio: size.width /
-            size.height *
-            1.75, // max(size.width / size.height, 0.82),
+        childAspectRatio: size.width / 850 * 1.75,
         children: [
           for (int i = 0; i < 3; i++)
-            const NFTEventMiniBlock(
+            NFTEventMiniBlock(
+              constraints: BoxConstraints(maxWidth: size.width / 2 - 20),
               assetPath: 'assets/homepage/img-happeningnow-1@2x.png',
               eventTitle: 'Innings Festival',
               hasBottomPadding: false,
