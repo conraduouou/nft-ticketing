@@ -53,8 +53,6 @@ class NFTAccountPageTicket extends StatelessWidget {
                         child: Image.asset(
                           imgPath ?? '',
                           width: 135,
-                          // color: Colors.grey,
-                          // colorBlendMode: BlendMode.saturation,
                         ),
                       ),
                       Align(
