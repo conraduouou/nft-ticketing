@@ -27,21 +27,18 @@ class NFTAccountInformation extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         const NFTField(
-          enabled: false,
-          showSuffix: false,
           initialText: 'Juan Dela Cruz',
+          hintText: 'Name',
         ),
         const SizedBox(height: 20),
         const NFTField(
-          enabled: false,
-          showSuffix: false,
           initialText: 'juandelacruz@gmail.com',
+          hintText: 'Email',
         ),
         const SizedBox(height: 20),
         const NFTField(
-          enabled: false,
-          showSuffix: false,
           initialText: '09285244123',
+          hintText: 'Mobile number',
         ),
         showPasswordField ? const SizedBox(height: 20) : Container(),
         showPasswordField
@@ -50,6 +47,7 @@ class NFTAccountInformation extends StatelessWidget {
                 showSuffix: false,
                 isObscurable: true,
                 initialText: 'something',
+                hintText: 'Password',
               )
             : Container(),
         const SizedBox(height: 15),

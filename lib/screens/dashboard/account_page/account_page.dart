@@ -176,17 +176,22 @@ class _NFTAccountPageOthersView extends StatelessWidget {
         childAspectRatio: size.width / max(850, size.height) * 1.45,
         crossAxisSpacing: 10,
         children: [
-          for (int i = 0; i < 3; i++)
+          for (int i = 0; i < 4; i++)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  // width: 170,
-                  // height: 200,
+                ConstrainedBox(
                   constraints: BoxConstraints(maxHeight: size.width / 2),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: kSlightlyDarkBlue,
+                  child: Image.asset(
+                    'assets/other_user/img-users-nft-${i + 1}@2x.png', // replace with dynamic argument in the future
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: kSlightlyDarkBlue,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -434,8 +439,14 @@ class _NFTAccountPageSavedTicketView extends StatelessWidget {
           for (int i = 0; i < 3; i++)
             NFTEventMiniBlock(
               constraints: BoxConstraints(maxWidth: size.width / 2 - 20),
-              assetPath: 'assets/homepage/img-happeningnow-1@2x.png',
-              eventTitle: 'Innings Festival',
+              assetPath:
+                  'assets/homepage/img-${i != 2 ? 'happeningnow' : 'comingsoon'}'
+                  '-${i != 2 ? i + 1 : 1}@2x.png',
+              eventTitle: i == 0
+                  ? 'Innings Festival'
+                  : i == 1
+                      ? 'Lost Lands'
+                      : 'High Water',
               hasBottomPadding: false,
             ),
         ],

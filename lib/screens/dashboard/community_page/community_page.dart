@@ -35,13 +35,14 @@ class CommunityPage extends StatelessWidget {
             delegate: SliverChildListDelegate([
               const SizedBox(height: 20),
               for (int i = 0; i < 3; i++)
-                const _NFTCommunityPagePost(
+                _NFTCommunityPagePost(
                   userImgPath: 'assets/community/img-avatar-1@2x.png',
                   username: 'Katie Faye',
                   postText:
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
                       'Donec et urna lectus. Integer quis massa mi.',
-                  imgPath: '',
+                  imgPath:
+                      'assets/community/img-community-${i != 2 ? i + 1 : i}@2x.png',
                   likes: 4200,
                 ),
             ]),
@@ -131,6 +132,8 @@ class _NFTCommunityPagePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -153,14 +156,18 @@ class _NFTCommunityPagePost extends StatelessWidget {
               )
             : Container(),
         postText != null ? const SizedBox(height: 30) : Container(),
-        Image.asset(
-          '', // replace asset path in prod
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              height: 200,
-              color: kSlightlyDarkBlue,
-            );
-          },
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: size.width),
+          child: Image.asset(
+            imgPath ?? '',
+            width: size.width,
+            fit: BoxFit.fitWidth,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: kSlightlyDarkBlue,
+              );
+            },
+          ),
         ),
         likes != 0 ? const SizedBox(height: 20) : Container(),
         likes != 0 ? _NFTCommunityPagePostLikes(likes: likes) : Container(),

@@ -66,8 +66,14 @@ class EventDetailsPage extends StatelessWidget {
                       listOfEvents: [
                         for (int i = 0; i < 3; i++)
                           NFTEventDetails(
-                            assetPath: '',
-                            eventTitle: i == 0 ? 'Lost Lands' : 'Something',
+                            assetPath: i != 2
+                                ? 'assets/homepage/img-happeningnow-${i + 2}@2x.png'
+                                : 'assets/homepage/img-comingsoon-1@2x-cropped.png',
+                            eventTitle: i == 0
+                                ? 'Lost Lands'
+                                : i == 1
+                                    ? 'T-Rex'
+                                    : 'High Waters',
                           )
                       ],
                     ),

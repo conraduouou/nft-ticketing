@@ -9,10 +9,12 @@ class NFTAccountPageTicket extends StatelessWidget {
     required this.eventTitle,
     required this.eventDate,
     this.dateView = TicketDate.upcoming,
+    this.imgPath,
   }) : super(key: key);
 
   final String eventTitle;
   final String eventDate;
+  final String? imgPath;
 
   final TicketDate dateView;
 
@@ -38,16 +40,31 @@ class NFTAccountPageTicket extends StatelessWidget {
                     dateView: dateView,
                   ),
                 ),
-                Container(
-                  foregroundDecoration: dateView == TicketDate.pastTicket
-                      ? const BoxDecoration(
-                          color: Colors.grey,
-                          backgroundBlendMode: BlendMode.saturation,
-                        )
-                      : null,
-                  child: Image.asset(
-                    'assets/homepage/img-happeningnow-1@2x-cropped.png',
-                    width: 135,
+                IntrinsicHeight(
+                  child: Stack(
+                    children: [
+                      Container(
+                        foregroundDecoration: dateView == TicketDate.pastTicket
+                            ? const BoxDecoration(
+                                color: Colors.grey,
+                                backgroundBlendMode: BlendMode.saturation,
+                              )
+                            : null,
+                        child: Image.asset(
+                          'assets/homepage/img-happeningnow-1@2x.png',
+                          width: 135,
+                          // color: Colors.grey,
+                          // colorBlendMode: BlendMode.saturation,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: 15,
+                          color: kDarkBlue,
+                        ),
+                      ),
+                    ],
                   ),
                 )
               ],

@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                 final list = <String>[
                   'Innings Festival',
                   'Lost Lands',
-                  'Something',
+                  'T-Rex',
                 ];
 
                 for (int i = 0; i < 3; i++) {
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                 final list = <String>[
                   'High Water',
                   'Sunset',
-                  'Something',
+                  'T-Rex',
                 ];
 
                 final dates = <String>[
@@ -91,7 +91,9 @@ class HomePage extends StatelessWidget {
 
                 for (int i = 0; i < 3; i++) {
                   toReturn.add(NFTEventDetails(
-                    assetPath: 'assets/homepage/img-comingsoon-${i + 1}@2x.png',
+                    assetPath:
+                        'assets/homepage/img-${i != 2 ? 'comingsoon' : 'happeningnow'}'
+                        '-${i + 1}@2x.png',
                     eventTitle: list[i],
                     eventDate: dates[i],
                   ));

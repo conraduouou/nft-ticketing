@@ -158,6 +158,7 @@ class _NFTSearchPageListView extends StatelessWidget {
         itemBuilder: (_, i) {
           if (searchType == SearchType.home) {
             return NFTEventBlock(
+              assetPath: 'assets/homepage/img-banner-happeningnow-2@2x.png',
               eventTitle: 'Innings Festival',
               topPadding: i == 0 ? 10 : null,
             );

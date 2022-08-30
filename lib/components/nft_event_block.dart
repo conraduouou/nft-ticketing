@@ -25,34 +25,34 @@ class NFTEventBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         topPadding != null ? SizedBox(height: topPadding!) : Container(),
-        /*  Uncomment in prod
-        Image.asset(
-          assetPath ?? '',
-          height: 200,
-          width: 350,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) =>  Container(
-            height: 200,
-            width: 350,
-            decoration: BoxDecoration(
-              color: kSlightlyDarkBlue,
-              borderRadius: BorderRadius.circular(8),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: 220,
+            maxWidth: size.width - 40,
+          ),
+          child: Image.asset(
+            assetPath ?? '',
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Container(
+              decoration: BoxDecoration(
+                color: kSlightlyDarkBlue,
+                borderRadius: BorderRadius.circular(15),
+              ),
             ),
           ),
         ),
-        */
-        Container(
-          // height: 200,
-          // width: 350,
-          constraints: BoxConstraints(
-            maxWidth: size.width - 40,
-            maxHeight: 220,
-          ),
-          decoration: BoxDecoration(
-            color: kSlightlyDarkBlue,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
+        // Container(
+        //   // height: 200,
+        //   // width: 350,
+        //   constraints: BoxConstraints(
+        //     maxWidth: size.width - 40,
+        //     maxHeight: 220,
+        //   ),
+        //   decoration: BoxDecoration(
+        //     color: kSlightlyDarkBlue,
+        //     borderRadius: BorderRadius.circular(8),
+        //   ),
+        // ),
         const SizedBox(height: 20),
         Text(
           eventTitle,
