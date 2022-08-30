@@ -13,6 +13,8 @@ class LandingPage extends StatelessWidget {
 
   static const String id = '/';
 
+  static const curve = Cubic(0.1785, 0.85, 0.21, 1.123);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +47,9 @@ class _LandingGif extends StatelessWidget {
         // middle top right piece
         _LandingGifPiece(
           angle: -(pi / 1.489),
-          startTop: -(size.width / 2.34),
+          startTop: -(size.width / 2),
           top: -(size.width / 5.67),
-          startRight: -(size.width / 18.97),
+          startRight: -(size.width / 9.2),
           right: size.width / 4.89,
           reverseGradient: true,
           height: height,
@@ -56,9 +58,9 @@ class _LandingGif extends StatelessWidget {
         // bottom left piece
         _LandingGifPiece(
           angle: pi / 3,
-          startTop: size.width / 1.92,
+          startTop: size.width / 1.3,
           top: size.width / 2,
-          startLeft: -(size.width / 18),
+          startLeft: -(size.width / 2),
           left: size.width / 15,
           height: height,
           width: width,
@@ -66,8 +68,9 @@ class _LandingGif extends StatelessWidget {
         // bottom right piece
         _LandingGifPiece(
           angle: -(pi / 1.45),
+          startTop: -(size.width / 21),
           top: size.width / 7.12,
-          startRight: -(size.width / 4.89),
+          startRight: -(size.width / 2),
           right: size.width / 150,
           height: height,
           width: width,
@@ -75,8 +78,8 @@ class _LandingGif extends StatelessWidget {
         // middle left piece
         _LandingGifPiece(
           angle: pi / 1.2,
-          startTop: -(size.width / 5),
-          startLeft: -(size.width / 30),
+          startTop: -(size.width / 2),
+          startLeft: -(size.width / 0.97),
           top: -(size.width / 18),
           left: size.width / 60,
           height: height,
@@ -205,7 +208,7 @@ class _LandingGifPieceState extends State<_LandingGifPiece>
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 900),
-      curve: Curves.easeOutBack,
+      curve: LandingPage.curve,
       top: _top,
       bottom: _bottom,
       left: _left,
@@ -262,7 +265,7 @@ class _LogoState extends State<_Logo> {
     return Positioned(
       bottom: size.height / 2.8,
       child: AnimatedScale(
-        curve: Curves.easeOutBack,
+        curve: LandingPage.curve,
         duration: duration,
         scale: scale,
         child: SizedBox(
@@ -312,7 +315,7 @@ class _LandingButtonsState extends State<_LandingButtons> {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       bottom: bottom,
-      curve: Curves.easeOutBack,
+      curve: LandingPage.curve,
       duration: duration,
       width: MediaQuery.of(context).size.width,
       child: AnimatedOpacity(
