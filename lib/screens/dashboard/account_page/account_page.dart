@@ -354,6 +354,8 @@ class _NFTAccountPageMyTicketView extends StatelessWidget {
                   return Column(
                     children: [
                       NFTAccountPageTicket(
+                        imgPath:
+                            'assets/homepage/img-happeningnow-${i + 1}@2x.png',
                         eventTitle: i == 0 ? 'Innings Festival' : 'High Water',
                         eventDate:
                             i == 0 ? 'March 19-March 20' : 'April 23 & 24',

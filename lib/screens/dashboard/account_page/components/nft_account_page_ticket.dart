@@ -51,7 +51,7 @@ class NFTAccountPageTicket extends StatelessWidget {
                               )
                             : null,
                         child: Image.asset(
-                          'assets/homepage/img-happeningnow-1@2x.png',
+                          imgPath ?? '',
                           width: 135,
                           // color: Colors.grey,
                           // colorBlendMode: BlendMode.saturation,
@@ -60,7 +60,7 @@ class NFTAccountPageTicket extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
-                          width: 15,
+                          width: 10,
                           color: kDarkBlue,
                         ),
                       ),
