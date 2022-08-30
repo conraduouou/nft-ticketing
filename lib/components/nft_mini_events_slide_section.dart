@@ -86,7 +86,7 @@ class _NFTMiniEventsSlide extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: height ?? 195,
+      height: height ?? size.width / 2.01,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: listOfEvents.length,

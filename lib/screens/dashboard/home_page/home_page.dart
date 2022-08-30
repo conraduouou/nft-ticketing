@@ -15,6 +15,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return CustomScrollView(
       slivers: [
         NFTSliverBar(
@@ -31,8 +33,8 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Image.asset(
                 'assets/homepage/image-home-heroimage@2x.png',
-                width: 350,
-                height: 200,
+                width: size.width - 40,
+                // height: 200,
               ),
             ),
             const _NFTHomeDiv(),
@@ -66,7 +68,7 @@ class HomePage extends StatelessWidget {
             NFTMiniEventsSlideSection(
               hasBottomPadding: true,
               sectionTitle: 'Coming Soon',
-              listHeight: 260,
+              listHeight: size.width / 1.5,
               onViewTap: () {
                 Navigator.pushNamed(context, EventsViewPage.comingSoonId);
               },

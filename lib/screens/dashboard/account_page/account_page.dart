@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_event_mini_block.dart';
@@ -91,9 +93,7 @@ class AccountPage extends StatelessWidget {
                       },
                     )
                   : const _NFTAccountPageOthersView(),
-              userDetails == null
-                  ? const SliverPadding(padding: EdgeInsets.only(bottom: 40))
-                  : const SliverPadding(padding: EdgeInsets.zero),
+              const SliverPadding(padding: EdgeInsets.only(bottom: 40)),
             ],
           ),
         );
@@ -173,7 +173,7 @@ class _NFTAccountPageOthersView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       sliver: SliverGrid.count(
         crossAxisCount: 2,
-        childAspectRatio: size.width / 850 * 1.45,
+        childAspectRatio: size.width / max(850, size.height) * 1.45,
         crossAxisSpacing: 10,
         children: [
           for (int i = 0; i < 3; i++)
@@ -429,7 +429,7 @@ class _NFTAccountPageSavedTicketView extends StatelessWidget {
       sliver: SliverGrid.count(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
-        childAspectRatio: size.width / 850 * 1.75,
+        childAspectRatio: size.width / max(850, size.height) * 1.75,
         children: [
           for (int i = 0; i < 3; i++)
             NFTEventMiniBlock(
