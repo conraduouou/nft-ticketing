@@ -9,7 +9,6 @@ import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 import 'package:nft_ticketing/screens/dashboard/checkout_page/checkout_page.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
-import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
 import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_page.dart';
 
 class OrderCompletePage extends StatelessWidget {
@@ -68,7 +67,7 @@ class OrderCompletePage extends StatelessWidget {
               onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
                 DashboardContainer.id,
                 (_) => false,
-                arguments: HomePage.id,
+                // arguments: HomePage.id,
               ),
             ),
           ),

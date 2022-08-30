@@ -44,7 +44,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
   void initState() {
     super.initState();
 
-    _selectedPage = widget.toView == null
+    _selectedPage = widget.toView == null || widget.toView == HomePage.id
         ? 0
         : widget.toView == CommunityPage.id
             ? 1

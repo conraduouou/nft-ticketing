@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_event_mini_block.dart';
