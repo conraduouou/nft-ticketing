@@ -141,9 +141,14 @@ class _NFTCheckoutPagePaymentBlock extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Flexible(
+                Expanded(
                   child: SvgPicture.asset(
                     'assets/checkout/img-moreoptions.svg',
+                    fit: BoxFit.fitWidth,
+                    clipBehavior: Clip.none,
+
+                    // height: 100, // as high as possible
+                    // width: 200, // as high as possible
                   ),
                 ),
               ],
