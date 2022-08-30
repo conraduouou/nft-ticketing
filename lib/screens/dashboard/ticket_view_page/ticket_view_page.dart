@@ -80,17 +80,22 @@ class TicketViewPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 10),
-            _NFTTicketViewDetails(
-              eventDate: eventDate,
-              eventTitle: eventTitle,
+            Center(
+              child: _NFTTicketViewDetails(
+                eventDate: eventDate,
+                eventTitle: eventTitle,
+              ),
             ),
             const SizedBox(height: 30),
             dateView == TicketDate.upcoming
-                ? NFTButton(
-                    onPressed: () => _downloadOnPressed(context),
-                    text: 'Download Ticket',
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    fontSize: kRegularSize + 1,
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: NFTButton(
+                      onPressed: () => _downloadOnPressed(context),
+                      text: 'Download Ticket',
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      fontSize: kRegularSize + 1,
+                    ),
                   )
                 : Container(),
             dateView == TicketDate.upcoming
@@ -131,7 +136,7 @@ class _NFTTicketViewDetails extends StatelessWidget {
         ),
         Positioned(
           bottom: 43,
-          left: 35,
+          left: 20,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
