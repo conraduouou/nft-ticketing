@@ -5,6 +5,7 @@ class NFTEventMiniBlock extends StatelessWidget {
   const NFTEventMiniBlock({
     Key? key,
     required this.eventTitle,
+    this.constraints,
     this.date,
     this.assetPath,
     this.hasBottomPadding = true,
@@ -15,6 +16,7 @@ class NFTEventMiniBlock extends StatelessWidget {
   final String? assetPath;
   final String? date;
   final bool hasBottomPadding;
+  final BoxConstraints? constraints;
 
   final VoidCallback? onTap;
 
@@ -24,25 +26,25 @@ class NFTEventMiniBlock extends StatelessWidget {
       onTap: onTap,
       splashColor: Colors.transparent,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            assetPath ?? '',
-            // height: 150,
-            // width: 170,
-            errorBuilder: (context, error, stackTrace) {
-              return Center(
-                child: Container(
-                  // height: 150,
-                  // width: 170,
+          ConstrainedBox(
+            constraints: constraints ?? const BoxConstraints(),
+            child: Image.asset(
+              assetPath ?? '',
+              // height: 150,
+              // width: 170,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: double.infinity,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: kSlightlyDarkBlue,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           const SizedBox(height: 20),
           Text(

@@ -83,6 +83,8 @@ class _NFTMiniEventsSlide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return SizedBox(
       height: height ?? 195,
       child: ListView.separated(
@@ -95,18 +97,16 @@ class _NFTMiniEventsSlide extends StatelessWidget {
               left: i == 0 ? 20 : 0,
               right: i == listOfEvents.length - 1 ? 20 : 0,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                NFTEventMiniBlock(
-                  eventTitle: listOfEvents[i].eventTitle,
-                  date: listOfEvents[i].eventDate,
-                  assetPath: listOfEvents[i].assetPath,
-                  hasBottomPadding: hasBottomPadding,
-                  onTap: onTap != null ? () => onTap!(i) : null,
-                ),
-              ],
+            child: NFTEventMiniBlock(
+              constraints: BoxConstraints(
+                maxWidth: size.width / 2.78,
+                maxHeight: size.width / 3.15,
+              ),
+              eventTitle: listOfEvents[i].eventTitle,
+              date: listOfEvents[i].eventDate,
+              assetPath: listOfEvents[i].assetPath,
+              hasBottomPadding: hasBottomPadding,
+              onTap: onTap != null ? () => onTap!(i) : null,
             ),
           );
         },
