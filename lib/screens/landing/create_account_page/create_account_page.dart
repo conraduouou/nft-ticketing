@@ -5,6 +5,7 @@ import 'package:nft_ticketing/components/nft_checkbox.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/create_account_page_provider.dart';
+import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 
@@ -25,48 +26,54 @@ class CreateAccountPage extends StatelessWidget {
           appBar: const NFTAppBar(title: 'Create an account'),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 20),
-                NFTField(
-                  hintText: 'Full name',
-                  onChanged: provider.onNameChange,
-                  onClear: () {
-                    provider.onNameChange('');
-                  },
-                ),
-                const SizedBox(height: 20),
-                NFTField(
-                  hintText: 'Email Address',
-                  onChanged: provider.onEmailChange,
-                  onClear: () {
-                    provider.onEmailChange('');
-                  },
-                ),
-                const SizedBox(height: 20),
-                NFTField(
-                  hintText: 'Mobile Number',
-                  onChanged: provider.onMobileChange,
-                  onClear: () {
-                    provider.onMobileChange('');
-                  },
-                ),
-                const SizedBox(height: 30),
-                const _TermsAndConditions(),
-                const SizedBox(height: 50),
-                Selector<CreatePageProvider, bool>(
-                  selector: (ctx, p) => p.isAllFilled,
-                  builder: (_, isAllFilled, __) {
-                    return NFTButton(
-                      text: 'Create account',
-                      color: isAllFilled ? kPrimaryColor : kSecondaryColor,
-                    );
-                  },
-                ),
-                const SizedBox(height: 30),
-                const _AlreadyHaveAccount(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  NFTField(
+                    hintText: 'Full name',
+                    onChanged: provider.onNameChange,
+                    onClear: () {
+                      provider.onNameChange('');
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  NFTField(
+                    hintText: 'Email Address',
+                    onChanged: provider.onEmailChange,
+                    onClear: () {
+                      provider.onEmailChange('');
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  NFTField(
+                    hintText: 'Mobile Number',
+                    onChanged: provider.onMobileChange,
+                    onClear: () {
+                      provider.onMobileChange('');
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  const _TermsAndConditions(),
+                  const SizedBox(height: 50),
+                  Selector<CreatePageProvider, bool>(
+                    selector: (ctx, p) => p.isAllFilled,
+                    builder: (_, isAllFilled, __) {
+                      return NFTButton(
+                        text: 'Create account',
+                        color: isAllFilled ? kPrimaryColor : kSecondaryColor,
+                        onPressed: () => Navigator.of(context).pushNamed(
+                          EnterCodePage.id,
+                          arguments: provider.mobile,
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  const _AlreadyHaveAccount(),
+                ],
+              ),
             ),
           ),
         );
