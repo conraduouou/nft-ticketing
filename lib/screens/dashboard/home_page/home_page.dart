@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_mini_events_slide_section.dart';
 import 'package:nft_ticketing/components/nft_sliverbar.dart';
@@ -29,14 +31,7 @@ class HomePage extends StatelessWidget {
         SliverList(
           delegate: SliverChildListDelegate.fixed([
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Image.asset(
-                'assets/homepage/image-home-heroimage@2x.png',
-                width: size.width - 40,
-                // height: 200,
-              ),
-            ),
+            const _NFTHomePageSlideshow(),
             const _NFTHomeDiv(),
             NFTMiniEventsSlideSection(
               sectionTitle: 'Happening Now',
@@ -105,6 +100,113 @@ class HomePage extends StatelessWidget {
           ]),
         ),
       ],
+    );
+  }
+}
+
+class _NFTHomePageSlideshow extends StatefulWidget {
+  const _NFTHomePageSlideshow({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_NFTHomePageSlideshow> createState() => _NFTHomePageSlideshowState();
+}
+
+class _NFTHomePageSlideshowState extends State<_NFTHomePageSlideshow>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  int _assetIndex = 0;
+
+  final List<String> _assetPaths = [
+    'assets/homepage/image-home-heroimage@2x.png',
+    'assets/homepage/img-banner-comingsoon-1@2x.png',
+    'assets/homepage/img-banner-comingsoon-3@3x.png',
+  ];
+
+  void switchIndexCallback(AnimationStatus status) async {
+    if (status == AnimationStatus.completed) {
+      await Future.delayed(const Duration(seconds: 3));
+      await _controller.reverse();
+
+      setState(() {
+        _assetIndex = ++_assetIndex % _assetPaths.length;
+        _controller.forward();
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+
+    _controller.addStatusListener(switchIndexCallback);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _controller.forward();
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.removeStatusListener(switchIndexCallback);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        height: size.width / 1.9,
+        child: Stack(
+          children: [
+            FadeTransition(
+              opacity: _animation,
+              child: Image.asset(
+                _assetPaths[_assetIndex],
+                key: UniqueKey(),
+                width: size.width - 40,
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    for (int i = 0; i < _assetPaths.length; i++)
+                      Container(
+                        height: 8,
+                        width: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                          color:
+                              _assetIndex == i ? kPrimaryColor : Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                      )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
