@@ -25,6 +25,7 @@ class NFTEventMiniBlock extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

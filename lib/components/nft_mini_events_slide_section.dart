@@ -99,8 +99,10 @@ class _NFTMiniEventsSlide extends StatelessWidget {
             ),
             child: NFTEventMiniBlock(
               constraints: BoxConstraints(
-                maxWidth: size.width / 2.78,
-                maxHeight: size.width / 3.15,
+                minWidth: size.width / 2.78,
+                maxWidth: size.width / 2.3,
+                minHeight: size.width / 3.15,
+                maxHeight: size.width / 2.62,
               ),
               eventTitle: listOfEvents[i].eventTitle,
               date: listOfEvents[i].eventDate,
