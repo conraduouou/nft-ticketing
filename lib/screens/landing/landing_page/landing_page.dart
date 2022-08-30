@@ -85,7 +85,7 @@ class _LandingGif extends StatelessWidget {
         // top most piece
         _LandingGifPiece(
           angle: -(pi / 1.5),
-          startTop: -(size.width / 1.92),
+          startTop: -(size.width / 1.45),
           top: -(size.width / 1.97),
           startRight: size.width / 90,
           right: size.width / 2.8,
@@ -143,7 +143,7 @@ class _LandingGifPieceState extends State<_LandingGifPiece>
   // late final Animation _animation;
 
   final _gradientColors = [
-    kPrimaryColor,
+    const Color.fromARGB(255, 38, 72, 207),
     const Color.fromARGB(255, 39, 66, 175),
     const Color.fromARGB(255, 16, 31, 91),
     kDarkBlue,
