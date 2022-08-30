@@ -29,16 +29,17 @@ class NFTEventMiniBlock extends StatelessWidget {
         children: [
           Image.asset(
             assetPath ?? '',
-            height: 150,
-            width: 170,
+            // height: 150,
+            // width: 170,
             errorBuilder: (context, error, stackTrace) {
               return Center(
                 child: Container(
-                  height: 150,
-                  width: 170,
+                  // height: 150,
+                  // width: 170,
                   decoration: BoxDecoration(
-                      color: kSlightlyDarkBlue,
-                      borderRadius: BorderRadius.circular(10)),
+                    color: kSlightlyDarkBlue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               );
             },
