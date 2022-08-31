@@ -70,47 +70,49 @@ class NewPasswordPage extends StatelessWidget {
             title: isUpdate ? 'Update your password' : 'Create new password',
             showLeading: showLeading,
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 20),
-                isUpdate
-                    ? NFTField(
-                        hintText: 'Current password',
-                        isObscurable: true,
-                        onChanged: provider.onCurrentChange,
-                      )
-                    : Container(),
-                isUpdate ? const SizedBox(height: 20) : Container(),
-                NFTField(
-                  hintText: 'New password',
-                  isObscurable: true,
-                  onChanged: provider.onNewChange,
-                ),
-                const SizedBox(height: 20),
-                NFTField(
-                  hintText: 'Confirm password',
-                  isObscurable: true,
-                  onChanged: provider.onConfirmChange,
-                ),
-                const SizedBox(height: 30),
-                const _ReqLines(),
-                const SizedBox(height: 50),
-                Selector<NewPasswordProvider, bool>(
-                  selector: (ctx, p) => p.isAllFilled && p.isAllSatisfied,
-                  builder: (ctx, isAllFilled, __) {
-                    return NFTButton(
-                      text: isUpdate ? 'Update password' : 'Create password',
-                      color: isAllFilled ? kPrimaryColor : kSecondaryColor,
-                      onPressed: isUpdate
-                          ? () => _updateOnTap(context)
-                          : () => _createOnTap(context),
-                    );
-                  },
-                ),
-              ],
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  isUpdate
+                      ? NFTField(
+                          hintText: 'Current password',
+                          isObscurable: true,
+                          onChanged: provider.onCurrentChange,
+                        )
+                      : Container(),
+                  isUpdate ? const SizedBox(height: 20) : Container(),
+                  NFTField(
+                    hintText: 'New password',
+                    isObscurable: true,
+                    onChanged: provider.onNewChange,
+                  ),
+                  const SizedBox(height: 20),
+                  NFTField(
+                    hintText: 'Confirm password',
+                    isObscurable: true,
+                    onChanged: provider.onConfirmChange,
+                  ),
+                  const SizedBox(height: 30),
+                  const _ReqLines(),
+                  const SizedBox(height: 50),
+                  Selector<NewPasswordProvider, bool>(
+                    selector: (ctx, p) => p.isAllFilled && p.isAllSatisfied,
+                    builder: (ctx, isAllFilled, __) {
+                      return NFTButton(
+                        text: isUpdate ? 'Update password' : 'Create password',
+                        color: isAllFilled ? kPrimaryColor : kSecondaryColor,
+                        onPressed: isUpdate
+                            ? () => _updateOnTap(context)
+                            : () => _createOnTap(context),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );
