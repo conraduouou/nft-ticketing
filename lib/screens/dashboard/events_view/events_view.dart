@@ -17,6 +17,18 @@ class EventsViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final happeningNowStrings = <String>[
+      'Innings Festival',
+      'Lost Lands',
+      'High Water',
+    ];
+
+    final comingSoonStrings = <String>[
+      'High Water',
+      'Sunset',
+      'iHeart Radio Music Festival'
+    ];
+
     return Scaffold(
       backgroundColor: kDarkBlue,
       appBar: NFTAppBar(
@@ -32,7 +44,13 @@ class EventsViewPage extends StatelessWidget {
           separatorBuilder: (_, __) => const SizedBox(height: 30),
           itemBuilder: (ctx, i) {
             return NFTEventBlock(
-              eventTitle: 'Innings Festival',
+              assetPath: happeningNow
+                  ? i != 2
+                      ? 'assets/homepage/img-banner-happeningnow-${i + 2}@2x.png'
+                      : 'assets/homepage/img-banner-comingsoon-1@2x.png'
+                  : 'assets/homepage/img-banner-comingsoon-${i + 1}@2x.png',
+              eventTitle:
+                  happeningNow ? happeningNowStrings[i] : comingSoonStrings[i],
               date: happeningNow ? null : 'April 23, 2022',
               topPadding: i == 0 ? 30 : null,
               isLast: i == 2,
