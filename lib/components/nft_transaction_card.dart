@@ -15,8 +15,8 @@ class NFTTransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      highlightColor: Colors.white,
-      splashColor: Colors.white,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () => Navigator.of(context).pushNamed(
         TransactionDetailsPage.id,
         arguments: ticketNo,
