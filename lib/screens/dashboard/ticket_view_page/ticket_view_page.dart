@@ -98,12 +98,12 @@ class TicketViewPage extends StatelessWidget {
                     ),
                   )
                 : Container(),
-            dateView == TicketDate.upcoming
-                ? const SizedBox(height: 30)
-                : Container(),
-            dateView == TicketDate.upcoming
-                ? NFTAddToCalendar(onTap: () => _showDialog(context))
-                : Container(),
+            // dateView == TicketDate.upcoming
+            //     ? const SizedBox(height: 30)
+            //     : Container(),
+            // dateView == TicketDate.upcoming
+            //     ? NFTAddToCalendar(onTap: () => _showDialog(context))
+            //     : Container(),
             const SizedBox(height: 40),
           ],
         ),

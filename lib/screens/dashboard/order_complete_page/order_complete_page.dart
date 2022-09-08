@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nft_ticketing/components/nft_add_to_calendar.dart';
 import 'package:nft_ticketing/components/nft_back_button.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_dialog.dart';
@@ -141,11 +140,11 @@ class _NFTOrderCompletePageMessage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 25),
-          NFTAddToCalendar(
-            fontSize: kRegularSize - 2,
-            onTap: addOnTap,
-          ),
-          const SizedBox(height: 80),
+          // NFTAddToCalendar(
+          //   fontSize: kRegularSize - 2,
+          //   onTap: addOnTap,
+          // ),
+          const SizedBox(height: 120),
         ],
       ),
     );
