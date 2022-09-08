@@ -16,6 +16,7 @@ import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_pag
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
 import 'package:nft_ticketing/screens/dashboard/user_chat/user_chat_page.dart';
+import 'package:nft_ticketing/screens/landing/connect_wallet_page/connect_wallet_page.dart';
 import 'package:nft_ticketing/screens/landing/create_account_page/create_account_page.dart';
 import 'package:nft_ticketing/screens/landing/enter_code_page/enter_code_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
@@ -28,6 +29,7 @@ class RoutesHandler {
     AccountSettings.id: (context) => const AccountSettings(),
     CreateAccountPage.id: (context) => const CreateAccountPage(),
     CreatePostPage.id: (context) => const CreatePostPage(),
+    ConnectWalletPage.id: (context) => const ConnectWalletPage(),
     EventsViewPage.comingSoonId: (context) =>
         const EventsViewPage(happeningNow: false),
     EventsViewPage.happeningNowId: (context) =>
