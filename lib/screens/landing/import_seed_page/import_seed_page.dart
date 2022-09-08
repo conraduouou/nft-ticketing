@@ -4,6 +4,7 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/new_password_provider.dart';
+import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/landing/connect_wallet_page/connect_wallet_page.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,12 @@ class ImportSeedPage extends StatelessWidget {
                     onChanged: provider.onConfirmChange,
                   ),
                   const SizedBox(height: 50),
-                  const NFTButton(text: 'Import wallet')
+                  NFTButton(
+                    text: 'Import wallet',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            DashboardContainer.id, (_) => false),
+                  )
                 ],
               ),
             ),
