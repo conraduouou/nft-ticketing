@@ -7,10 +7,8 @@ import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/models/core/user.dart';
 import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_banner_and_avatar.dart';
-import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_div.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_ticket.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_user.dart';
-import 'package:nft_ticketing/screens/dashboard/account_page/components/nft_account_page_user_details.dart';
 import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
@@ -60,6 +58,7 @@ class AccountPage extends StatelessWidget {
                       ? const _NFTAccountPageFollowMessageButtons()
                       : Container(),
                   const SizedBox(height: 40),
+                  /*
                   NFTAccountPageUserDetails(
                     posts: userDetails == null ? 11 : userDetails!.posts,
                     following:
@@ -67,7 +66,7 @@ class AccountPage extends StatelessWidget {
                     followers:
                         userDetails == null ? 400 : userDetails!.followers,
                   ),
-                  const NFTAccountPageDiv(),
+                  */
                 ]),
               ),
               userDetails == null
@@ -88,7 +87,9 @@ class AccountPage extends StatelessWidget {
                         if (view == TicketView.myTicket) {
                           return const _NFTAccountPageMyTicketView();
                         } else {
-                          return const _NFTAccountPageSavedTicketView();
+                          return _NFTAccountPageGridBodyView(
+                            isNFTs: view == TicketView.myNFTs,
+                          );
                         }
                       },
                     )
@@ -232,9 +233,11 @@ class _NFTAccountPageSelfViewHeading extends StatelessWidget {
                   return _NFTAccountPageHeading(
                     ticketType: view == TicketView.myTicket
                         ? date == TicketDate.upcoming
-                            ? date.name
-                            : 'past'
-                        : 'saved',
+                            ? '${date.name} events'
+                            : 'past events'
+                        : view == TicketView.myNFTs
+                            ? 'NFTs'
+                            : 'saved events',
                   );
                 },
               );
@@ -283,7 +286,9 @@ class _NFTAccountPageTicketViewButtons extends StatelessWidget {
                       fontWeight: index == TicketView.values.indexOf(view)
                           ? FontWeight.w600
                           : null,
-                      text: TicketView.values.elementAt(index).name.titleCase,
+                      text: index == 0
+                          ? 'My NFTs'
+                          : TicketView.values.elementAt(index).name.titleCase,
                       onPressed: () => provider.ticketView =
                           TicketView.values.elementAt(index),
                     );
@@ -326,7 +331,7 @@ class _NFTAccountPageHeading extends StatelessWidget {
                 fontSize: kRegularSize + 2,
               ),
             ),
-            TextSpan(text: '$ticketType events')
+            TextSpan(text: ticketType)
           ],
         ),
       ),
@@ -422,10 +427,13 @@ class _NFTAccountPageDateViewButtons extends StatelessWidget {
   }
 }
 
-class _NFTAccountPageSavedTicketView extends StatelessWidget {
-  const _NFTAccountPageSavedTicketView({
+class _NFTAccountPageGridBodyView extends StatelessWidget {
+  const _NFTAccountPageGridBodyView({
     Key? key,
+    this.isNFTs = false,
   }) : super(key: key);
+
+  final bool isNFTs;
 
   @override
   Widget build(BuildContext context) {
@@ -442,13 +450,15 @@ class _NFTAccountPageSavedTicketView extends StatelessWidget {
             NFTEventMiniBlock(
               constraints: BoxConstraints(maxWidth: size.width / 2 - 20),
               assetPath:
-                  'assets/homepage/img-${i != 2 ? 'happeningnow' : 'comingsoon'}'
-                  '-${i != 2 ? i + 1 : 1}@2x.png',
+                  'assets/homepage/img-${i != 2 || isNFTs ? 'happeningnow' : 'comingsoon'}'
+                  '-${i != 2 || isNFTs ? i + 1 : 1}@2x.png',
               eventTitle: i == 0
                   ? 'Innings Festival'
                   : i == 1
                       ? 'Lost Lands'
-                      : 'High Water',
+                      : isNFTs
+                          ? 'Slotie NFT #004'
+                          : 'High Water',
               hasBottomPadding: false,
             ),
         ],

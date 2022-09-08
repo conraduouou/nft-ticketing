@@ -18,6 +18,6 @@ class AccountPageProvider with ChangeNotifier {
   }
 }
 
-enum TicketView { myTicket, savedTicket }
+enum TicketView { myNFTs, myTicket, savedTicket }
 
 enum TicketDate { upcoming, pastTicket }
