@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_account_information.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
+import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 
@@ -38,7 +39,34 @@ class AccountSettings extends StatelessWidget {
               ),
               const _NFTAccountSettingsDiv(),
               const NFTAccountInformation(),
-              const SizedBox(height: 40)
+              const _NFTAccountSettingsDiv(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Klaytn Wallet Information',
+                    style: kSemiBoldStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: kRegularSize + 2,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Container(
+                    height: 50,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: kSlightlyDarkBlue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const NFTField(
+                    initialText: 'juandelacruz@gmail.com',
+                    hintText: 'Email',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 60)
             ],
           ),
         ),

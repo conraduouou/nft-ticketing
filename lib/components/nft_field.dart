@@ -170,8 +170,9 @@ class _NFTFieldState extends State<NFTField> {
             errorBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
             ),
-            disabledBorder: const OutlineInputBorder(
+            disabledBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10),
             ),
             focusedErrorBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
