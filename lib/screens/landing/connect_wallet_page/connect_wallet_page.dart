@@ -89,13 +89,10 @@ class _NFTConnectWalletPageHeading extends StatelessWidget {
           color: Colors.white,
         ),
         const SizedBox(width: 20),
-        Container(
+        Image.asset(
           height: 80,
           width: 80,
-          decoration: const BoxDecoration(
-            color: kSecondaryColor,
-            shape: BoxShape.circle,
-          ),
+          'assets/klaytn-logo@3x.png',
         )
       ],
     );
