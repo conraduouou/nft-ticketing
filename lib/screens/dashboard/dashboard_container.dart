@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nft_ticketing/components/nft_bottom_navbar.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
-import 'package:nft_ticketing/screens/dashboard/community_page/community_page.dart';
 import 'package:nft_ticketing/screens/dashboard/home_page/home_page.dart';
 import 'package:nft_ticketing/screens/dashboard/messages_page/messages_page.dart';
-import 'package:nft_ticketing/screens/dashboard/wallet_page/wallet_page.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer({
@@ -30,12 +28,12 @@ class _DashboardContainerState extends State<DashboardContainer> {
   final List<NFTBottomNavbarItem> items = [
     NFTBottomNavbarItem(
         label: 'Home', iconPath: 'assets/navbar_icons/ic-home.svg'),
-    NFTBottomNavbarItem(
-        label: 'Community', iconPath: 'assets/navbar_icons/ic-community.svg'),
+    // NFTBottomNavbarItem(
+    //     label: 'Community', iconPath: 'assets/navbar_icons/ic-community.svg'),
     NFTBottomNavbarItem(
         label: 'Messages', iconPath: 'assets/navbar_icons/ic-messages.svg'),
-    NFTBottomNavbarItem(
-        label: 'Wallet', iconPath: 'assets/navbar_icons/ic-wallet.svg'),
+    // NFTBottomNavbarItem(
+    //     label: 'Wallet', iconPath: 'assets/navbar_icons/ic-wallet.svg'),
     NFTBottomNavbarItem(
         label: 'Account', iconPath: 'assets/navbar_icons/ic-account.svg'),
   ];
@@ -44,6 +42,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
   void initState() {
     super.initState();
 
+    /*
     _selectedPage = widget.toView == null || widget.toView == HomePage.id
         ? 0
         : widget.toView == CommunityPage.id
@@ -60,6 +59,19 @@ class _DashboardContainerState extends State<DashboardContainer> {
       _selectedPage == 2 ? const MessagesPage() : const SizedBox(),
       _selectedPage == 3 ? const WalletPage() : const SizedBox(),
       _selectedPage == 4 ? const AccountPage() : const SizedBox(),
+    ];
+    */
+
+    _selectedPage = widget.toView == null || widget.toView == HomePage.id
+        ? 0
+        : widget.toView == MessagesPage.id
+            ? 1
+            : 2;
+
+    _pages = [
+      _selectedPage == 0 ? const HomePage() : const SizedBox(),
+      _selectedPage == 1 ? const MessagesPage() : const SizedBox(),
+      _selectedPage == 2 ? const AccountPage() : const SizedBox(),
     ];
 
     activeItem = _selectedPage;
@@ -97,14 +109,15 @@ class _DashboardContainerState extends State<DashboardContainer> {
                 if (index == 0) {
                   _pages[index] = const HomePage();
                 } else if (index == 1) {
-                  _pages[index] = const CommunityPage();
-                } else if (index == 2) {
                   _pages[index] = const MessagesPage();
-                } else if (index == 3) {
-                  _pages[index] = const WalletPage();
-                } else if (index == 4) {
+                } else if (index == 2) {
                   _pages[index] = const AccountPage();
                 }
+                // } else if (index == 3) {
+                //   _pages[index] = const WalletPage();
+                // } else if (index == 4) {
+                //   _pages[index] = const AccountPage();
+                // }
               }
 
               activeItem = index;

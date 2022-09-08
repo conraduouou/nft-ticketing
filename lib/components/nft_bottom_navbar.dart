@@ -40,7 +40,7 @@ class NFTBottomNavBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < items.length; i++)
                 _NFTBarItem(
                   width: i == 3 ? 17 : null,
                   assetPath: items[i].iconPath,
@@ -110,7 +110,7 @@ class _NFTBarItem extends StatelessWidget {
           ),
           Container(
             height: 60,
-            width: size.width / 5,
+            width: size.width / 3, // change divisor by number of items
             decoration: color == kPrimaryColor
                 ? const BoxDecoration(
                     border: Border(
