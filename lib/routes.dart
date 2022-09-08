@@ -12,6 +12,7 @@ import 'package:nft_ticketing/screens/dashboard/notification_page/notification_p
 import 'package:nft_ticketing/screens/dashboard/order_complete_page/order_complete_page.dart';
 import 'package:nft_ticketing/screens/dashboard/review_order/review_order.dart';
 import 'package:nft_ticketing/screens/dashboard/search_page/search_page.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view_page/qr_code_page.dart';
 import 'package:nft_ticketing/screens/dashboard/ticket_view_page/ticket_view_page.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_details/transaction_details.dart';
 import 'package:nft_ticketing/screens/dashboard/transaction_history/transaction_history.dart';
@@ -120,6 +121,14 @@ class RoutesHandler {
               child: child,
             );
           },
+        );
+
+      case QRCodePage.id:
+        final title = settings.arguments as String;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => QRCodePage(eventTitle: title),
         );
 
       case ReviewOrderPage.id:

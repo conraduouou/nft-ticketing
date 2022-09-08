@@ -4,6 +4,7 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/account_page_provider.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
+import 'package:nft_ticketing/screens/dashboard/ticket_view_page/qr_code_page.dart';
 
 class TicketViewPage extends StatelessWidget {
   const TicketViewPage({
@@ -59,7 +60,10 @@ class TicketViewPage extends StatelessWidget {
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: NFTButton(
-                      onPressed: () => _downloadOnPressed(context),
+                      onPressed: () => Navigator.of(context).pushNamed(
+                        QRCodePage.id,
+                        arguments: eventTitle,
+                      ),
                       text: 'Generate QR',
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       fontSize: kRegularSize + 1,
