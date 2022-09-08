@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_account_information.dart';
 import 'package:nft_ticketing/components/nft_checkout_footer.dart';
 import 'package:nft_ticketing/components/nft_checkout_title.dart';
@@ -83,6 +82,7 @@ class _NFTCheckoutPageEmailBlock extends StatelessWidget {
   }
 }
 
+/*
 class _NFTCheckoutPagePaymentBlock extends StatelessWidget {
   const _NFTCheckoutPagePaymentBlock({
     Key? key,
@@ -159,6 +159,7 @@ class _NFTCheckoutPagePaymentBlock extends StatelessWidget {
     );
   }
 }
+*/
 
 class _NFTCheckoutPageDiv extends StatelessWidget {
   const _NFTCheckoutPageDiv({

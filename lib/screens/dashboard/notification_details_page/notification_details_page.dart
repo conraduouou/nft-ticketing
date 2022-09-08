@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_banner.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
