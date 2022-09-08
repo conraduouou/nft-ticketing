@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
 import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/constants.dart';
+import 'package:nft_ticketing/screens/landing/import_seed_page/import_seed_page.dart';
 import 'package:nft_ticketing/screens/landing/login_page/login_page.dart';
 
 class ConnectWalletPage extends StatelessWidget {
@@ -38,7 +37,8 @@ class ConnectWalletPage extends StatelessWidget {
               textColor: kDarkBlue,
               text: 'Import using recovery phrase',
               padding: const EdgeInsets.symmetric(vertical: 20),
-              onPressed: () => Navigator.of(context).pushNamed(routeName),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(ImportSeedPage.id),
             ),
             const SizedBox(height: 25),
             const NFTButton(

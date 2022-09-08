@@ -12,6 +12,7 @@ class NFTField extends StatefulWidget {
     this.hintText,
     this.initialText,
     this.maxLength,
+    this.maxLines,
     this.padding,
     this.radius,
     this.textAlign,
@@ -38,6 +39,7 @@ class NFTField extends StatefulWidget {
   final String? hintText;
   final String? initialText;
   final int? maxLength;
+  final int? maxLines;
   final EdgeInsets? padding;
   final double? radius;
   final TextAlign? textAlign;
@@ -127,6 +129,7 @@ class _NFTFieldState extends State<NFTField> {
           inputFormatters: formatters,
           obscureText: isObscured,
           onChanged: widget.onChanged,
+          maxLines: isObscured ? 1 : widget.maxLines ?? 1,
           textAlign: widget.textAlign ?? TextAlign.start,
           style: kRegularStyle.copyWith(
             color: Colors.white,

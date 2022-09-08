@@ -4,7 +4,6 @@ import 'package:nft_ticketing/components/nft_button.dart';
 import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/providers/login_page_provider.dart';
-import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 import 'package:nft_ticketing/screens/landing/connect_wallet_page/connect_wallet_page.dart';
 import 'package:nft_ticketing/screens/landing/forgot_password_page/forgot_password_page.dart';
 import 'package:provider/provider.dart';
@@ -48,10 +47,8 @@ class LoginPage extends StatelessWidget {
                       text: 'Sign in',
                       color: isAllFilled ? kPrimaryColor : kSecondaryColor,
                       onPressed: isAllFilled
-                          ? () => Navigator.of(context).pushNamedAndRemoveUntil(
-                                ConnectWalletPage.id,
-                                (_) => false,
-                              )
+                          ? () => Navigator.of(context)
+                              .pushNamed(ConnectWalletPage.id)
                           : null,
                     );
                   },
