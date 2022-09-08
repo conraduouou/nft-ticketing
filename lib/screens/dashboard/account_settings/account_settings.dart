@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_account_information.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
-import 'package:nft_ticketing/components/nft_field.dart';
 import 'package:nft_ticketing/constants.dart';
 import 'package:nft_ticketing/screens/dashboard/account_page/account_page.dart';
 
@@ -40,32 +39,7 @@ class AccountSettings extends StatelessWidget {
               const _NFTAccountSettingsDiv(),
               const NFTAccountInformation(),
               const _NFTAccountSettingsDiv(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Klaytn Wallet Information',
-                    style: kSemiBoldStyle.copyWith(
-                      color: Colors.white,
-                      fontSize: kRegularSize + 2,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    height: 50,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: kSlightlyDarkBlue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const NFTField(
-                    initialText: 'juandelacruz@gmail.com',
-                    hintText: 'Email',
-                  ),
-                ],
-              ),
+              const _NFTAccountSettingsKlaytnSection(),
               const SizedBox(height: 60)
             ],
           ),
@@ -94,6 +68,88 @@ class _NFTAccountSettingsAvatar extends StatelessWidget {
         'assets/icons/ic-take-a-picture.svg',
         color: Colors.white,
       ),
+    );
+  }
+}
+
+class _NFTAccountSettingsKlaytnSection extends StatelessWidget {
+  const _NFTAccountSettingsKlaytnSection({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Klaytn Wallet Information',
+          style: kSemiBoldStyle.copyWith(
+            color: Colors.white,
+            fontSize: kRegularSize + 2,
+          ),
+        ),
+        const SizedBox(height: 30),
+        Container(
+          height: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: kSlightlyDarkBlue,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: size.width - 110,
+                ),
+                child: Text(
+                  '0b2A1O6P2Lx3AmMsdGF21TBrd24551a4',
+                  overflow: TextOverflow.ellipsis,
+                  style: kRegularStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: kRegularSize - 2,
+                  ),
+                ),
+              ),
+              SvgPicture.asset('assets/icons/ic-copy.svg'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 50,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                decoration: BoxDecoration(
+                  color: kSlightlyDarkBlue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  '135 KLAY',
+                  style: kRegularStyle.copyWith(
+                    color: Colors.white,
+                    fontSize: kRegularSize - 2,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Text(
+              'Remove Wallet',
+              style: kRegularStyle.copyWith(
+                color: kPrimaryColor,
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
