@@ -64,9 +64,10 @@ class _NFTNotificationDetailsActions extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const NFTButton(text: 'View Ticket'),
-          const SizedBox(height: 30),
+        children: const [
+          NFTButton(text: 'View Ticket'),
+          // SizedBox(height: 30),
+          /**
           InkWell(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -95,6 +96,7 @@ class _NFTNotificationDetailsActions extends StatelessWidget {
               ],
             ),
           ),
+           */
         ],
       ),
     );
