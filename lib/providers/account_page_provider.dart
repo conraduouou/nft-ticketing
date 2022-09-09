@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AccountPageProvider with ChangeNotifier {
-  TicketView _ticketView = TicketView.myTicket;
+  TicketView _ticketView = TicketView.myNFTs;
   TicketDate _ticketDate = TicketDate.upcoming;
 
   TicketView get ticketView => _ticketView;
