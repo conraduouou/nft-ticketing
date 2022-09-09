@@ -7,7 +7,7 @@ class LoginPageProvider with ChangeNotifier {
   String get email => _email;
   String get password => _password;
 
-  bool get isAllFilled => _email.isNotEmpty && _password.isNotEmpty;
+  bool get isAllFilled => _email.contains('@') && _password.isNotEmpty;
 
   void onEmailChange(String s) {
     _email = s;
