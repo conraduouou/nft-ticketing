@@ -439,6 +439,29 @@ class _NFTAccountPageGridBodyView extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final assetPaths = List.generate(
+      3,
+      (i) => isNFTs
+          ? 'assets/nfts/img-nft-${i + 1}.png'
+          : 'assets/homepage/img-${i != 2 ? 'happeningnow' : 'comingsoon'}'
+              '-${i != 2 ? i + 1 : 1}@2x.png',
+    );
+
+    final titles = List.generate(
+      3,
+      (i) => isNFTs
+          ? i == 0
+              ? 'Slotie NFT #004'
+              : i == 1
+                  ? 'Metroverse #013'
+                  : 'Troverse #001'
+          : i == 0
+              ? 'Innings Festival'
+              : i == 1
+                  ? 'Lost Lands'
+                  : 'High Water',
+    );
+
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       sliver: SliverGrid.count(
@@ -448,17 +471,10 @@ class _NFTAccountPageGridBodyView extends StatelessWidget {
         children: [
           for (int i = 0; i < 3; i++)
             NFTEventMiniBlock(
-              constraints: BoxConstraints(maxWidth: size.width / 2 - 20),
-              assetPath:
-                  'assets/homepage/img-${i != 2 || isNFTs ? 'happeningnow' : 'comingsoon'}'
-                  '-${i != 2 || isNFTs ? i + 1 : 1}@2x.png',
-              eventTitle: i == 0
-                  ? 'Innings Festival'
-                  : i == 1
-                      ? 'Lost Lands'
-                      : isNFTs
-                          ? 'Slotie NFT #004'
-                          : 'High Water',
+              constraints:
+                  BoxConstraints(maxWidth: size.width / 2 - 20, maxHeight: 150),
+              assetPath: assetPaths[i],
+              eventTitle: titles[i],
               hasBottomPadding: false,
             ),
         ],
