@@ -33,6 +33,7 @@ class ImportSeedPage extends StatelessWidget {
                   const _NFTImportSeedPageCustomField(),
                   const SizedBox(height: 20),
                   NFTField(
+                    initialText: provider.newPassword,
                     hintText: 'New password',
                     isObscurable: true,
                     onChanged: provider.onNewChange,
