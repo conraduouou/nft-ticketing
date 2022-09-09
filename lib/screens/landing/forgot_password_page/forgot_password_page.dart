@@ -56,7 +56,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 Selector<ForgotPageProvider, bool>(
-                  selector: (ctx, p) => p.email.isNotEmpty,
+                  selector: (ctx, p) => p.email.contains('@'),
                   builder: (ctx, isNotEmpty, __) {
                     return NFTButton(
                       text: 'Send code',
