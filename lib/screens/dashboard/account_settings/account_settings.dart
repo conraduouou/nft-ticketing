@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nft_ticketing/components/nft_account_information.dart';
 import 'package:nft_ticketing/components/nft_appbar.dart';
@@ -77,6 +78,20 @@ class _NFTAccountSettingsKlaytnSection extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void _copyOnTap(BuildContext context) {
+    Clipboard.setData(const ClipboardData(text: 'Ob2A106P2Lx3AmMsdGF21'));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: const Text('Added to clipboard'),
+        duration: const Duration(milliseconds: 1500),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -92,31 +107,36 @@ class _NFTAccountSettingsKlaytnSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        Container(
-          height: 50,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: kSlightlyDarkBlue,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: size.width - 110,
-                ),
-                child: Text(
-                  '0b2A1O6P2Lx3AmMsdGF21TBrd24551a4',
-                  overflow: TextOverflow.ellipsis,
-                  style: kRegularStyle.copyWith(
-                    color: Colors.white,
-                    fontSize: kRegularSize - 2,
+        InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          onTap: () => _copyOnTap(context),
+          child: Container(
+            height: 50,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: kSlightlyDarkBlue,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: size.width - 110,
+                  ),
+                  child: Text(
+                    '0b2A1O6P2Lx3AmMsdGF21TBrd24551a4',
+                    overflow: TextOverflow.ellipsis,
+                    style: kRegularStyle.copyWith(
+                      color: Colors.white,
+                      fontSize: kRegularSize - 2,
+                    ),
                   ),
                 ),
-              ),
-              SvgPicture.asset('assets/icons/ic-copy.svg'),
-            ],
+                SvgPicture.asset('assets/icons/ic-copy.svg'),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 20),
@@ -145,6 +165,7 @@ class _NFTAccountSettingsKlaytnSection extends StatelessWidget {
               'Remove Wallet',
               style: kRegularStyle.copyWith(
                 color: kPrimaryColor,
+                fontSize: kRegularSize - 2,
               ),
             )
           ],
