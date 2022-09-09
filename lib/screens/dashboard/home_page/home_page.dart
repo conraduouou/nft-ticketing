@@ -61,9 +61,9 @@ class HomePage extends StatelessWidget {
             ),
             const _NFTHomeDiv(),
             NFTMiniEventsSlideSection(
-              hasBottomPadding: true,
+              // hasBottomPadding: true,
               sectionTitle: 'Coming Soon',
-              listHeight: size.width / 1.4,
+              listHeight: size.width / 1.7,
               onViewTap: () {
                 Navigator.pushNamed(context, EventsViewPage.comingSoonId);
               },
@@ -97,6 +97,35 @@ class HomePage extends StatelessWidget {
                 return toReturn;
               }(),
             ),
+            const _NFTHomeDiv(),
+            NFTMiniEventsSlideSection(
+              sectionTitle: 'Recommended for you',
+              onViewTap: () {
+                Navigator.pushNamed(context, EventsViewPage.recommendedId);
+              },
+              blockOnTap: (index) =>
+                  // dynamically set event to view in the future
+                  Navigator.of(context).pushNamed(EventDetailsPage.id),
+              listOfEvents: () {
+                final toReturn = <NFTEventDetails>[];
+                final list = <String>[
+                  'Innings Festival',
+                  'Lost Lands',
+                  'T-Rex',
+                ];
+
+                for (int i = 0; i < 3; i++) {
+                  toReturn.add(NFTEventDetails(
+                    assetPath:
+                        'assets/homepage/img-happeningnow-${i + 1}@2x.png',
+                    eventTitle: list[i],
+                  ));
+                }
+
+                return toReturn;
+              }(),
+            ),
+            const SizedBox(height: 60)
           ]),
         ),
       ],
@@ -117,6 +146,7 @@ class _NFTHomePageSlideshowState extends State<_NFTHomePageSlideshow>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _isDisposed = false;
 
   int _assetIndex = 0;
 
@@ -129,12 +159,14 @@ class _NFTHomePageSlideshowState extends State<_NFTHomePageSlideshow>
   void switchIndexCallback(AnimationStatus status) async {
     if (status == AnimationStatus.completed) {
       await Future.delayed(const Duration(seconds: 3));
-      await _controller.reverse();
+      if (!_isDisposed) await _controller.reverse();
 
-      setState(() {
-        _assetIndex = ++_assetIndex % _assetPaths.length;
-        _controller.forward();
-      });
+      if (!_isDisposed) {
+        setState(() {
+          _assetIndex = ++_assetIndex % _assetPaths.length;
+          _controller.forward();
+        });
+      }
     }
   }
 
@@ -160,6 +192,8 @@ class _NFTHomePageSlideshowState extends State<_NFTHomePageSlideshow>
   void dispose() {
     _controller.removeStatusListener(switchIndexCallback);
     _controller.dispose();
+    _isDisposed = true;
+
     super.dispose();
   }
 

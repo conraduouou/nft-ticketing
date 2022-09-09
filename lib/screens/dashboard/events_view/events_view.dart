@@ -7,13 +7,14 @@ import 'package:nft_ticketing/screens/dashboard/dashboard_container.dart';
 class EventsViewPage extends StatelessWidget {
   const EventsViewPage({
     Key? key,
-    this.happeningNow = true,
+    this.title = 'Happening Now',
   }) : super(key: key);
 
-  final bool happeningNow;
+  final String title;
 
   static const String happeningNowId = '${DashboardContainer.id}/happening-now';
   static const String comingSoonId = '${DashboardContainer.id}/coming-soon';
+  static const String recommendedId = '${DashboardContainer.id}/recommended';
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,12 @@ class EventsViewPage extends StatelessWidget {
       'iHeart Radio Music Festival'
     ];
 
+    final happeningNow = title.toLowerCase().contains('happening');
+
     return Scaffold(
       backgroundColor: kDarkBlue,
       appBar: NFTAppBar(
-        title: happeningNow ? 'Happening Now' : 'Coming Soon',
+        title: title,
         showDivider: true,
         fontSize: kRegularSize + 2,
         height: 100,

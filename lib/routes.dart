@@ -32,10 +32,11 @@ class RoutesHandler {
     CreateAccountPage.id: (context) => const CreateAccountPage(),
     CreatePostPage.id: (context) => const CreatePostPage(),
     ConnectWalletPage.id: (context) => const ConnectWalletPage(),
+    EventsViewPage.happeningNowId: (context) => const EventsViewPage(),
     EventsViewPage.comingSoonId: (context) =>
-        const EventsViewPage(happeningNow: false),
-    EventsViewPage.happeningNowId: (context) =>
-        const EventsViewPage(happeningNow: true),
+        const EventsViewPage(title: 'Coming Soon'),
+    EventsViewPage.recommendedId: (context) =>
+        const EventsViewPage(title: 'Recommended for you'),
     ForgotPasswordPage.id: (context) => const ForgotPasswordPage(),
     ImportSeedPage.id: (context) => const ImportSeedPage(),
     LandingPage.id: (context) => const LandingPage(),
